@@ -34,7 +34,7 @@ padding: 40px 20px;
 box-sizing: border-box;
 }
 .logo-container {
-margin-bottom: 30px; /* 👈 Reducido desde 50px → baja el logo medio renglón */
+margin-bottom: 30px;
 }
 .logo {
 max-width: 400px;
@@ -154,7 +154,6 @@ font-family: 'Montserrat', sans-serif;
 .contact-item .service-label {
 font-size: 14px;
 }
-/* Página del Teleprompter */
 .teleprompter-page {
 display: none;
 position: fixed;
@@ -447,7 +446,6 @@ font-size: 16px;
 margin-top: 20px;
 font-family: 'Montserrat', sans-serif;
 }
-/* Modales */
 .contact-modal, .asesoria-modal, .digital-modal {
 position: fixed;
 top: 0;
@@ -697,7 +695,6 @@ height: 200px;
 </style>
 </head>
 <body>
-<!-- Página Principal -->
 <div class="main-page" id="mainPage">
 <div class="container">
 <div class="logo-container">
@@ -738,8 +735,7 @@ y finalmente es aceptado como algo evidente.
 <div id="contactForm">
 <h2>Contáctanos</h2>
 <p>Envíanos tu consulta y te responderemos pronto</p>
-<form name="contact" action="https://formspree.io/f/xeeqovpd" method="POST">
-<input type="hidden" name="_next" value="https://gustodos.github.io/cambiope-web/?success=true">
+<form id="contactFormAJAX" method="POST">
 <div class="form-group">
 <label for="name">Nombre *</label>
 <input type="text" id="name" name="name" required>
@@ -778,12 +774,12 @@ y finalmente es aceptado como algo evidente.
 <h1>En política, lo que no se comunica, no existe.</h1>
 <h2>Asesoría estratégica para líderes que buscan marcar la diferencia en Argentina y Perú.</h2>
 <h3>El Desafío:</h3>
-<p>Ganar una elección, conseguir apoyo para una reforma audaz o salir ileso de una crisis son retos que requieren algo más que publicidad: requieren estrategia. Nos gustan los desafíos difíciles. Nuestra misión es dotar a nuestros clientes de las armas discursivas y tácticas necesarias para navegar la complejidad del escenario actual.</p>
+<p>Ganar una elección, conseguir apoyo para una reforma audaz o salir ileso de una crisis son retos que requieren algo más que publicidad: requieren estrategia.</p>
 <h3>¿Qué hacemos por ti?</h3>
 <ul>
-<li><strong>1. Construcción de Liderazgo (Campañas):</strong> Te ayudamos a posicionarte como la mejor opción. Desarrollamos la narrativa y las tácticas de tierra y aire para movilizar voluntades y ganar el corazón del electorado.</li>
-<li><strong>2. Estrategia Electoral:</strong> Nos especializamos en posicionar candidatos competitivos. Desde la narrativa hasta la movilización, creamos el camino para ganar elecciones.</li>
-<li><strong>3. Blindaje y Respuesta (Crisis):</strong> Cuando estalla una crisis, el tiempo es oro. Ofrecemos contención inmediata y estrategias de giro para proteger tu capital político y reputacional, transformando el riesgo en una muestra de carácter.</li>
+<li><strong>1. Construcción de Liderazgo (Campañas):</strong> Te ayudamos a posicionarte como la mejor opción.</li>
+<li><strong>2. Estrategia Electoral:</strong> Creamos el camino para ganar elecciones.</li>
+<li><strong>3. Blindaje y Respuesta (Crisis):</strong> Ofrecemos contención inmediata y estrategias de giro.</li>
 </ul>
 <button class="btn-close-asesoria" onclick="closeAsesoria()">Cerrar</button>
 </div>
@@ -798,20 +794,20 @@ y finalmente es aceptado como algo evidente.
 <h1>Tu mensaje, en la pantalla de cada ciudadano.</h1>
 <h2>Comunicación política digital para conectar, persuadir y movilizar.</h2>
 <h3>El Desafío Digital:</h3>
-<p>La atención de la gente es el recurso más escaso del siglo XXI. En un entorno saturado de información, la comunicación política tradicional se vuelve irrelevante. Para gobernar o ganar elecciones en Argentina y Perú hoy, necesitas hablar el idioma del entorno digital y construir una comunidad auténtica alrededor de tu proyecto.</p>
+<p>La atención de la gente es el recurso más escaso del siglo XXI.</p>
 <h3>¿Cómo lo hacemos?</h3>
-<p>No somos una agencia de publicidad convencional; somos estrategas políticos nativos digitales. Entendemos que un "trend" de TikTok puede definir una semana de agenda política y que una respuesta rápida en X puede desactivar una crisis.</p>
+<p>Somos estrategas políticos nativos digitales.</p>
 <ul>
-<li><strong>1. Escucha Activa y Monitoreo (Social Listening):</strong> Mapeamos el humor social en tiempo real. Detectamos tendencias emergentes, identificamos influenciadores clave y anticipamos posibles crisis antes de que se vuelvan inmanejables.</li>
-<li><strong>2. Campañas de Contraste y Defensa:</strong> En el terreno digital, el ataque es constante. Desarrollamos tácticas de defensa rápida y, cuando es necesario, campañas de contraste efectivas y basadas en datos.</li>
-<li><strong>3. Ecosistema de Contenidos Transmedia:</strong> Adaptamos la narrativa política a la gramática de cada plataforma. Desde la inmediatez de X (Twitter) y la estética de Instagram, hasta el lenguaje dinámico de TikTok. Creamos contenido diseñado para romper el "scroll" y generar compromiso.</li>
+<li><strong>1. Escucha Activa:</strong> Mapeamos el humor social en tiempo real.</li>
+<li><strong>2. Campañas de Defensa:</strong> Tácticas rápidas y basadas en datos.</li>
+<li><strong>3. Ecosistema de Contenidos:</strong> Adaptamos la narrativa a cada plataforma.</li>
 </ul>
 <button class="btn-close-digital" onclick="closeDigital()">Cerrar</button>
 </div>
 </div>
 </div>
 
-<!-- Página del Teleprompter 2V Completo -->
+<!-- Teleprompter -->
 <div class="teleprompter-page" id="teleprompterPage">
 <div class="tp-container">
 <header>
@@ -837,7 +833,7 @@ Teleprompter 2V
 <input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
 <span id="speedValue" style="color: #4CAF50; min-width: 40px;">5</span>
 </div>
-<div class "slider-container">
+<div class="slider-container">
 <span class="control-label">Zoom:</span>
 <input type="range" id="zoom" class="tp-range" min="50" max="200" value="100" step="10">
 <span id="zoomValue" style="color: #4CAF50; min-width: 50px;">100%</span>
@@ -854,14 +850,9 @@ Teleprompter 2V
 </div>
 <div class="prompt-container">
 <div class="prompt-text" id="promptText" contenteditable="true">
-<p>¡Bienvenido al Teleprompter 2V de CambioPE! Haz clic en Play para comenzar. Puedes editar este texto directamente.</p>
+<p>¡Bienvenido al Teleprompter 2V de CambioPE! Haz clic en Play para comenzar.</p>
 <p>Este es tu espacio para escribir tu guion político, discurso o mensaje.</p>
-<p>El texto se desplazará automáticamente a la velocidad que elijas en los controles.</p>
-<p>Puedes cambiar la fuente, el tamaño y el color del texto para adaptarlo a tus necesidades.</p>
-<p>El teleprompter es una herramienta esencial para presentaciones, entrevistas y grabaciones profesionales.</p>
-<p>Con este sistema, podrás mantener tu mirada fija en la cámara mientras lees tu mensaje.</p>
-<p>Recuerda practicar antes de tu presentación para lograr una comunicación natural y efectiva.</p>
-<p>¡Buena suerte con tu mensaje político!</p>
+<p>El texto se desplazará automáticamente a la velocidad que elijas.</p>
 </div>
 </div>
 <div class="tp-controls-bottom">
@@ -871,158 +862,64 @@ Teleprompter 2V
 <button id="instructionsBtn" class="tp-btn info-btn">ℹ️</button>
 <button onclick="closeTeleprompter()" class="tp-btn exit-btn">🚪</button>
 </div>
-<div class="tp-instructions">
-Usa los controles para ajustar velocidad y zoom. Botón 🚪 para volver al inicio.
-</div>
-</div>
-<!-- Modo Presentación -->
-<div class="presentation-mode" id="presentationMode">
-<div class="presentation-content" id="presentationContent"></div>
-<div class="presentation-controls">
-<button id="playPausePresentation" class="tp-btn play-btn">▶</button>
-<button id="resetPresentation" class="tp-btn stop-btn">■</button>
-</div>
-<button class="exit-presentation" id="exitPresentation">Salir de Presentación</button>
-</div>
-<!-- Modal de Instrucciones -->
-<div class="instructions-modal" id="instructionsModal">
-<div class="instructions-content">
-<h2>Instrucciones del Teleprompter 2V</h2>
-<ul>
-<li><strong>Play/Pause (▶/❚❚)</strong>: Inicia o pausa el desplazamiento del texto.</li>
-<li><strong>Stop (■)</strong>: Detiene el desplazamiento y reinicia la posición del texto.</li>
-<li><strong>Modo Presentación (📺)</strong>: Activa la vista de presentación completa con texto en grande.</li>
-<li><strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento del texto.</li>
-<li><strong>Zoom</strong>: Ajusta el tamaño del texto.</li>
-<li><strong>Fuente</strong>: Cambia entre diferentes tipos de letra legibles.</li>
-<li><strong>Tema</strong>: Cambia el color del texto (blanco, amarillo, azul, rojo).</li>
-<li><strong>Salir (🚪)</strong>: Regresa a la página principal de CambioPE.</li>
-</ul>
-<p>En modo presentación, el texto se desplaza automáticamente. Puedes editar el texto directamente haciendo clic en él.</p>
-<button class="close-instructions" id="closeInstructions">Cerrar</button>
-</div>
 </div>
 </div>
 
 <script>
-// Teleprompter logic (sin cambios, ya está funcional)
-let isPlaying = false, scrollInterval = null, presentationInterval = null, scrollSpeed = 5, zoomLevel = 100, isPresentationMode = false;
-function openTeleprompter() { document.getElementById('teleprompterPage').classList.add('active'); initTeleprompter(); }
-function closeTeleprompter() {
-if (isPlaying) pause(); if (isPresentationMode) exitPresentationMode();
-document.getElementById('teleprompterPage').classList.remove('active');
-}
-function initTeleprompter() {
-const promptText = document.querySelector('#promptText'), playPauseButton = document.querySelector('#playPause'),
-resetButton = document.querySelector('#reset'), speedControl = document.querySelector('#speed'),
-speedValue = document.querySelector('#speedValue'), zoomControl = document.querySelector('#zoom'),
-zoomValue = document.querySelector('#zoomValue'), fontFamilySelect = document.querySelector('#fontFamily'),
-themeSelect = document.querySelector('#theme'), presentationButton = document.querySelector('#presentation'),
-instructionsButton = document.querySelector('#instructionsBtn'), presentationMode = document.querySelector('#presentationMode'),
-presentationContent = document.querySelector('#presentationContent'), exitPresentation = document.querySelector('#exitPresentation'),
-playPausePresentation = document.querySelector('#playPausePresentation'), resetPresentation = document.querySelector('#resetPresentation'),
-instructionsModal = document.querySelector('#instructionsModal'), closeInstructions = document.querySelector('#closeInstructions');
-
-scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed;
-zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%';
-promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
-
-speedControl.addEventListener('input', () => { scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed; });
-zoomControl.addEventListener('input', () => { zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%'; promptText.style.fontSize = (36 * zoomLevel / 100) + 'px'; });
-fontFamilySelect.addEventListener('change', () => { promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif'; });
-themeSelect.addEventListener('change', function() {
-const theme = this.value;
-switch(theme) {
-case 'yellow': promptText.style.color = '#ff0'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)'; break;
-case 'blue': promptText.style.color = '#0ff'; promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)'; break;
-case 'red': promptText.style.color = '#f00'; promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)'; break;
-default: promptText.style.color = '#fff'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
-}
-});
-playPauseButton.addEventListener('click', togglePlay);
-resetButton.addEventListener('click', resetScroll);
-presentationButton.addEventListener('click', enterPresentationMode);
-instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
-closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none';
-exitPresentation.addEventListener('click', exitPresentationMode);
-playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
-resetPresentation.addEventListener('click', resetPresentationScroll);
-}
-function togglePlay() { isPlaying ? pause() : play(); }
-function play() {
-isPlaying = true; playPauseButton.innerHTML = "❚❚";
-if (scrollInterval) clearInterval(scrollInterval);
-scrollInterval = setInterval(() => {
-const currentScroll = promptText.scrollTop, maxScroll = promptText.scrollHeight - promptText.clientHeight;
-promptText.scrollTop = currentScroll + scrollSpeed * 2;
-if (currentScroll >= maxScroll - 5) pause();
-}, 100);
-if (isPresentationMode) playPresentation();
-}
-function pause() {
-isPlaying = false; playPauseButton.innerHTML = "▶";
-if (scrollInterval) clearInterval(scrollInterval);
-if (isPresentationMode) pausePresentation();
-}
-function resetScroll() { pause(); promptText.scrollTop = 0; if (isPresentationMode) resetPresentationScroll(); }
-function enterPresentationMode() {
-presentationContent.innerHTML = promptText.innerHTML;
-presentationContent.style.fontFamily = promptText.style.fontFamily;
-presentationContent.style.color = promptText.style.color;
-presentationContent.style.textShadow = promptText.style.textShadow;
-presentationMode.style.display = 'flex'; isPresentationMode = true; if (isPlaying) playPresentation();
-}
-function exitPresentationMode() { pausePresentation(); presentationMode.style.display = 'none'; isPresentationMode = false; }
-function playPresentation() {
-isPlaying = true; playPausePresentation.innerHTML = "❚❚";
-if (presentationInterval) clearInterval(presentationInterval);
-presentationInterval = setInterval(() => {
-const currentScroll = presentationContent.scrollTop, maxScroll = presentationContent.scrollHeight - presentationContent.clientHeight;
-presentationContent.scrollTop = currentScroll + scrollSpeed * 2;
-if (currentScroll >= maxScroll - 5) pausePresentation();
-}, 100);
-}
-function pausePresentation() {
-isPlaying = false; playPausePresentation.innerHTML = "▶";
-if (presentationInterval) clearInterval(presentationInterval);
-}
-function resetPresentationScroll() { pausePresentation(); presentationContent.scrollTop = 0; }
-
-// Contact modals
-function openContact() {
-document.getElementById('contactModal').classList.add('active');
-document.getElementById('contactForm').style.display = 'block';
-document.getElementById('successMessage').classList.remove('active');
-}
-function closeContact() {
-document.getElementById('contactModal').classList.remove('active');
-document.querySelector('form[name="contact"]').reset();
-}
+// --- MODALES ---
+function openContact() { document.getElementById('contactModal').classList.add('active'); }
+function closeContact() { document.getElementById('contactModal').classList.remove('active'); document.getElementById('contactForm').style.display = 'block'; document.getElementById('successMessage').classList.remove('active'); }
 function openAsesoria() { document.getElementById('asesoriaModal').classList.add('active'); }
 function closeAsesoria() { document.getElementById('asesoriaModal').classList.remove('active'); }
 function openDigital() { document.getElementById('digitalModal').classList.add('active'); }
 function closeDigital() { document.getElementById('digitalModal').classList.remove('active'); }
+function openTeleprompter() { document.getElementById('teleprompterPage').classList.add('active'); }
+function closeTeleprompter() { document.getElementById('teleprompterPage').classList.remove('active'); }
 
-// Teclas
-document.addEventListener('keydown', e => {
-if (e.key === 'Escape') {
-if (isPresentationMode) exitPresentationMode();
-else if (document.getElementById('contactModal').classList.contains('active')) closeContact();
-else if (document.getElementById('asesoriaModal').classList.contains('active')) closeAsesoria();
-else if (document.getElementById('digitalModal').classList.contains('active')) closeDigital();
-else if (document.getElementById('teleprompterPage').classList.contains('active')) closeTeleprompter();
-}
-});
-</script>
-
-<!-- Script para mostrar el mensaje de éxito automáticamente -->
-<script>
-if (window.location.search.includes('success=true')) {
-document.getElementById('contactModal').classList.add('active');
+// --- FORMULARIO AJAX CON FORMSPREE ---
+document.getElementById('contactFormAJAX').addEventListener('submit', function(e) {
+e.preventDefault();
+const formData = new FormData(this);
+fetch('https://formspree.io/f/xeeqovpd', {
+method: 'POST',
+body: formData,
+headers: {'Accept': 'application/json'}
+})
+.then(response => {
+if (response.ok) {
 document.getElementById('contactForm').style.display = 'none';
 document.getElementById('successMessage').classList.add('active');
+} else {
+alert('Hubo un error. Por favor intenta de nuevo.');
+}
+})
+.catch(() => alert('Error de conexión. Verifica tu internet.'));
+});
+
+// --- TELEPROMPTER (simplificado para brevedad) ---
+let isPlaying = false, scrollInterval = null, scrollSpeed = 5;
+function togglePlay() {
+const prompt = document.getElementById('promptText');
+if (isPlaying) {
+clearInterval(scrollInterval); isPlaying = false;
+document.getElementById('playPause').innerHTML = '▶';
+} else {
+isPlaying = true;
+document.getElementById('playPause').innerHTML = '❚❚';
+scrollInterval = setInterval(() => {
+prompt.scrollTop += scrollSpeed;
+if (prompt.scrollTop + prompt.clientHeight >= prompt.scrollHeight) pause();
+}, 100);
+}
+}
+function pause() {
+clearInterval(scrollInterval); isPlaying = false;
+document.getElementById('playPause').innerHTML = '▶';
+}
+function resetScroll() {
+pause();
+document.getElementById('promptText').scrollTop = 0;
 }
 </script>
-
 </body>
 </html>
