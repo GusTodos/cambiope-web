@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CambioPE - Comunicación Política</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&family=Oswald:wght@400;700&family=Lato:wght@400;700&family=Open+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: 'Montserrat', sans-serif;
+background: #1E1E1E;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+color: #F5F5F5;
+}
+.container {
+text-align: center;
+max-width: 1200px;
+width: 100%;
+}
+.logo-container {
+margin-bottom: 50px;
+}
+.logo {
+max-width: 400px; /* 👈 Reducido 20% desde 500px */
+width: 90%;
+height: auto;
+}
+.subtitle {
+font-size: 27px;
+font-weight: 400;
+color: #F5F5F5;
+margin: 24px auto 32px auto; /* 👈 60% más corto: 60px → 24px, 80px → 32px */
+letter-spacing: 1px;
+font-family: 'Montserrat', sans-serif;
+line-height: 1.6;
+max-width: 900px;
+font-style: italic;
+}
+/* ... el resto del CSS sigue exactamente igual ... */
+.services {
+display: flex;
+justify-content: center;
+gap: 40px;
+flex-wrap: wrap;
+margin-top: 40px;
+position: relative;
+}
+.services::after {
+content: '';
+position: absolute;
+top: 50%;
+left: 5%;
+right: 2%;
+height: 2px;
+background: #9E9E9E;
+z-index: 0;
+}
+.services::before {
+content: '';
+position: absolute;
+top: 50%;
+right: 2%;
+width: 0;
+height: 0;
+border-left: 15px solid #9E9E9E;
+border-top: 8px solid transparent;
+border-bottom: 8px solid transparent;
+transform: translateY(-50%);
+z-index: 0;
+}
+.contact-container {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+margin-left: 20px;
+position: relative;
+}
+.contact-item {
+transform: scale(1);
+}
+.service-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+cursor: pointer;
+transition: transform 0.3s ease;
+z-index: 1;
+position: relative;
+}
+.service-item:hover {
+transform: translateY(-10px);
+}
+.contact-item:hover {
+transform: scale(1.05);
+}
+.service-circle {
+width: 130px;
+height: 130px;
+border-radius: 50%;
+background:
+radial-gradient(circle at 30% 30%, #B8B8B8 0%, #9E9E9E 20%, #7E7E7E 40%, #6E6E6E 60%, #5E5E5E 80%, #4E4E4E 100%);
+border: 6px solid #9E9E9E;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 56px;
+font-weight: bold;
+color: #F5F5F5;
+margin-bottom: 15px;
+box-shadow:
+0 10px 30px rgba(0, 0, 0, 0.6),
+inset -5px -5px 15px rgba(0, 0, 0, 0.5),
+inset 5px 5px 15px rgba(255, 255, 255, 0.3);
+transition: all 0.3s ease;
+font-family: 'Montserrat', sans-serif;
+text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+.contact-circle {
+width: 65px !important;
+height: 65px !important;
+font-size: 28px !important;
+}
+.service-item:hover .service-circle {
+box-shadow:
+0 15px 40px rgba(0, 0, 0, 0.7),
+inset -5px -5px 15px rgba(0, 0, 0, 0.6),
+inset 5px 5px 20px rgba(255, 255, 255, 0.4);
+transform: scale(1.05);
+}
+.service-label {
+font-size: 20px;
+font-weight: 600;
+color: #F5F5F5;
+text-align: center;
+font-family: 'Montserrat', sans-serif;
+}
+.contact-item .service-label {
+font-size: 14px;
+}
+/* Página del Teleprompter */
+.teleprompter-page {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100vh;
+background: #000;
+z-index: 1000;
+}
+.teleprompter-page.active {
+display: block;
+}
+.teleprompter-page * {
+box-sizing: border-box;
+}
+.teleprompter-page .tp-container {
+max-width: 100%;
+width: 100%;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+height: 100vh;
+}
+.teleprompter-page header {
+background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+padding: 15px 20px;
+text-align: center;
+font-size: 24px;
+font-weight: bold;
+color: #fff;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+border-bottom: 2px solid #444;
+letter-spacing: 1px;
+position: relative;
+white-space: nowrap;
+font-family: 'Montserrat', sans-serif;
+}
+.valle-name {
+position: absolute;
+right: 15px;
+top: 50%;
+transform: translateY(-50%);
+font-style: italic;
+font-weight: normal;
+font-size: 16px;
+color: #aaa;
+opacity: 0.8;
+}
+.tp-controls {
+padding: 15px;
+background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+justify-content: center;
+align-items: center;
+border-bottom: 2px solid #2a2a2a;
+}
+.control-group {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+.control-label {
+color: #fff;
+font-size: 14px;
+font-weight: bold;
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+min-width: 50px;
+white-space: nowrap;
+}
+.tp-select {
+background: rgba(0, 0, 0, 0.3);
+color: #fff;
+border: 2px solid #666;
+padding: 8px 10px;
+border-radius: 8px;
+font-size: 14px;
+min-width: 120px;
+font-weight: bold;
+height: 36px;
+}
+.slider-container {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 6px 12px;
+background: rgba(0, 0, 0, 0.2);
+border-radius: 30px;
+border: 1px solid #666;
+min-width: 180px;
+}
+.tp-range {
+-webkit-appearance: none;
+width: 100px;
+height: 14px;
+border-radius: 8px;
+background: rgba(0, 0, 0, 0.3);
+box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+border: 1px solid #666;
+}
+.tp-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+width: 22px;
+height: 22px;
+border-radius: 50%;
+background: linear-gradient(to bottom, #fff, #ddd);
+cursor: pointer;
+box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+.tp-controls-bottom {
+display: flex;
+justify-content: center;
+padding: 15px;
+background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+gap: 15px;
+flex-wrap: wrap;
+}
+.tp-btn {
+cursor: pointer;
+border: none;
+border-radius: 12px;
+width: 60px;
+height: 60px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 24px;
+font-weight: bold;
+transition: all 0.2s ease;
+position: relative;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 -6px 10px rgba(0, 0, 0, 0.3);
+background: linear-gradient(to bottom, #5a5a5a 0%, #4a4a4a 30%, #3a3a3a 70%, #2a2a2a 100%);
+color: #fff;
+border: 2px solid #666;
+}
+.tp-btn:active {
+transform: translateY(3px);
+box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+.tp-btn.play-btn {
+background: linear-gradient(to bottom, #1a6e1a 0%, #155a15 30%, #0f4510 70%, #0a300a 100%);
+}
+.tp-btn.stop-btn {
+background: linear-gradient(to bottom, #8a1a1a 0%, #7a1515 30%, #6a0f0f 70%, #5a0a0a 100%);
+}
+.tp-btn.presentation-btn {
+background: linear-gradient(to bottom, #1a699e 0%, #15557d 30%, #0f405c 70%, #0a2b3b 100%);
+}
+.tp-btn.info-btn {
+background: linear-gradient(to bottom, #696969 0%, #555555 30%, #404040 70%, #2b2b2b 100%);
+}
+.tp-btn.exit-btn {
+background: linear-gradient(to bottom, #8a1a1a 0%, #7a1515 30%, #6a0f0f 70%, #5a0a0a 100%);
+}
+.prompt-container {
+flex: 1;
+overflow: hidden;
+padding: 20px;
+background-color: #000;
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+}
+.prompt-text {
+max-width: 900px;
+font-size: 36px;
+line-height: 1.6;
+color: #fff;
+text-align: center;
+opacity: 0.95;
+text-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+padding: 20px;
+user-select: text;
+font-family: 'Montserrat', monospace;
+width: 100%;
+height: 100%;
+overflow-y: auto;
+scroll-behavior: smooth;
+border: 3px solid #444;
+border-radius: 15px;
+}
+.tp-instructions {
+text-align: center;
+font-size: 14px;
+color: #aaa;
+margin-top: 5px;
+padding: 10px;
+border-top: 1px solid #333;
+}
+.presentation-mode {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: #000;
+z-index: 1001;
+display: none;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+.presentation-content {
+max-width: 900px;
+width: 100%;
+height: 100%;
+overflow-y: auto;
+padding: 20px;
+font-size: 48px;
+line-height: 1.6;
+color: #fff;
+text-align: center;
+font-family: 'Montserrat', monospace;
+text-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+}
+.presentation-controls {
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 15px;
+z-index: 1002;
+}
+.exit-presentation {
+position: fixed;
+top: 20px;
+right: 20px;
+background: rgba(255, 0, 0, 0.7);
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+z-index: 1002;
+}
+.instructions-modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);
+z-index: 1002;
+display: none;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+.instructions-content {
+max-width: 800px;
+width: 100%;
+background-color: #1a1a1a;
+border-radius: 15px;
+padding: 30px;
+max-height: 80vh;
+overflow-y: auto;
+font-family: 'Montserrat', sans-serif;
+}
+.instructions-content h2 {
+color: #0f0;
+margin-bottom: 20px;
+text-align: center;
+font-family: 'Montserrat', sans-serif;
+}
+.instructions-content ul {
+margin-left: 20px;
+margin-bottom: 20px;
+}
+.instructions-content li {
+margin-bottom: 10px;
+line-height: 1.5;
+font-family: 'Montserrat', sans-serif;
+}
+.close-instructions {
+background: #8a1a1a;
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+margin-top: 20px;
+font-family: 'Montserrat', sans-serif;
+}
+/* Modales con nuevo estilo */
+.contact-modal, .asesoria-modal, .digital-modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.95);
+z-index: 2000;
+display: none;
+overflow-y: auto;
+padding: 20px;
+}
+.contact-modal.active, .asesoria-modal.active, .digital-modal.active {
+display: block;
+}
+.contact-content, .asesoria-content, .digital-content {
+max-width: 900px;
+width: 100%;
+background: #1E1E1E;
+border-radius: 20px;
+overflow: hidden;
+margin: 20px auto;
+box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+border: 2px solid #9E9E9E;
+}
+.asesoria-image, .digital-image {
+width: 100%;
+height: 300px;
+object-fit: cover;
+display: block;
+}
+.contact-content {
+padding: 40px;
+}
+.asesoria-text, .digital-text {
+padding: 40px;
+color: #FFFFFF;
+font-family: 'Montserrat', sans-serif;
+}
+.contact-content h2, .asesoria-text h1, .digital-text h1 {
+color: #FFFFFF;
+font-size: 28px;
+margin-bottom: 10px;
+line-height: 1.3;
+font-family: 'Montserrat', sans-serif;
+font-weight: 700;
+text-align: center;
+}
+.contact-content p, .asesoria-text h2, .digital-text h2 {
+color: #FFFFFF;
+text-align: center;
+margin-bottom: 30px;
+font-size: 20px;
+font-weight: 400;
+line-height: 1.4;
+font-family: 'Montserrat', sans-serif;
+}
+.asesoria-text h3, .digital-text h3 {
+color: #FFFFFF;
+font-size: 22px;
+margin-top: 30px;
+margin-bottom: 15px;
+font-family: 'Montserrat', sans-serif;
+font-weight: 600;
+}
+.asesoria-text p, .digital-text p {
+color: #FFFFFF;
+font-size: 16px;
+line-height: 1.8;
+margin-bottom: 20px;
+text-align: left;
+font-family: 'Montserrat', sans-serif;
+}
+.asesoria-text ul, .digital-text ul {
+list-style: none;
+padding: 0;
+margin: 20px 0;
+}
+.asesoria-text ul li, .digital-text ul li {
+color: #FFFFFF;
+font-size: 16px;
+line-height: 1.8;
+margin-bottom: 25px;
+padding-left: 30px;
+position: relative;
+font-family: 'Montserrat', sans-serif;
+}
+.asesoria-text ul li::before, .digital-text ul li::before {
+content: '▶';
+color: #9E9E9E;
+font-size: 14px;
+position: absolute;
+left: 0;
+top: 2px;
+}
+.asesoria-text ul li strong, .digital-text ul li strong {
+color: #FFFFFF;
+font-size: 18px;
+display: block;
+margin-bottom: 8px;
+font-family: 'Montserrat', sans-serif;
+font-weight: 700;
+}
+.form-group {
+margin-bottom: 20px;
+}
+.form-group label {
+display: block;
+color: #FFFFFF;
+margin-bottom: 8px;
+font-weight: 600;
+font-size: 14px;
+font-family: 'Montserrat', sans-serif;
+}
+.form-group input,
+.form-group textarea {
+width: 100%;
+padding: 12px;
+border: 2px solid #9E9E9E;
+border-radius: 8px;
+background: rgba(255, 255, 255, 0.05);
+color: #F5F5F5;
+font-size: 16px;
+font-family: 'Montserrat', sans-serif;
+transition: all 0.3s ease;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+outline: none;
+border-color: #BDBDBD;
+background: rgba(255, 255, 255, 0.1);
+}
+.form-group textarea {
+min-height: 120px;
+resize: vertical;
+}
+.form-buttons {
+display: flex;
+gap: 15px;
+margin-top: 30px;
+}
+.btn-submit, .btn-close-asesoria, .btn-close-digital {
+flex: 1;
+background: linear-gradient(135deg, #9E9E9E, #7E7E7E);
+color: #F5F5F5;
+border: none;
+padding: 15px;
+border-radius: 10px;
+font-size: 18px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+display: block;
+margin: 30px auto 0;
+max-width: 200px;
+font-family: 'Montserrat', sans-serif;
+}
+.btn-submit:hover, .btn-close-asesoria:hover, .btn-close-digital:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 20px rgba(158, 158, 158, 0.5);
+}
+.btn-cancel {
+flex: 1;
+background: transparent;
+color: #F5F5F5;
+border: 2px solid #9E9E9E;
+padding: 15px;
+border-radius: 10px;
+font-size: 18px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+font-family: 'Montserrat', sans-serif;
+}
+.btn-cancel:hover {
+border-color: #BDBDBD;
+color: #BDBDBD;
+}
+.success-message {
+display: none;
+text-align: center;
+padding: 20px;
+}
+.success-message.active {
+display: block;
+}
+.success-message h3 {
+color: #FFFFFF;
+font-size: 28px;
+margin-bottom: 15px;
+font-family: 'Montserrat', sans-serif;
+font-weight: 700;
+}
+.success-message p {
+color: #BDBDBD;
+font-size: 16px;
+font-family: 'Montserrat', sans-serif;
+}
+@media (max-width: 768px) {
+.logo {
+max-width: 350px;
+}
+.subtitle {
+font-size: 20px;
+margin: 40px 20px 50px 20px;
+padding: 0 10px;
+}
+.services {
+gap: 25px;
+}
+.service-circle {
+width: 100px;
+height: 100px;
+font-size: 42px;
+}
+.contact-circle {
+width: 50px !important;
+height: 50px !important;
+font-size: 21px !important;
+}
+.service-label {
+font-size: 16px;
+}
+.contact-item .service-label {
+font-size: 11px;
+}
+.contact-container {
+margin-left: 0;
+margin-top: 20px;
+}
+.contact-content, .asesoria-text, .digital-text {
+padding: 30px 20px;
+}
+.asesoria-text h1, .digital-text h1 {
+font-size: 24px;
+}
+.asesoria-text h2, .digital-text h2 {
+font-size: 18px;
+}
+.asesoria-text h3, .digital-text h3 {
+font-size: 20px;
+}
+.asesoria-image, .digital-image {
+height: 200px;
+}
+}
+</style>
+</head>
+<body>
+<!-- Página Principal -->
+<div class="main-page" id="mainPage">
+<div class="container">
+<div class="logo-container">
+<img src="images/logo.png" alt="CambioPE" class="logo">
+</div>
+<h2 class="subtitle">
+Todo cambio pasa por tres etapas:<br>
+primero es ridiculizado,<br>
+luego es violentamente rechazado,<br>
+y finalmente es aceptado como algo evidente.
+</h2>
+<div class="services">
+<div class="service-item" onclick="openAsesoria()">
+<div class="service-circle">A</div>
+<div class="service-label">Asesoría</div>
+</div>
+<div class="service-item" onclick="openDigital()">
+<div class="service-circle">D</div>
+<div class="service-label">Digital</div>
+</div>
+<div class="service-item" onclick="openTeleprompter()">
+<div class="service-circle">T</div>
+<div class="service-label">Teleprompter</div>
+</div>
+<div class="contact-container">
+<div class="service-item contact-item" onclick="openContact()">
+<div class="service-circle contact-circle">C</div>
+<div class="service-label">Contacto</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Página del Teleprompter 2V Completo -->
+<div class="teleprompter-page" id="teleprompterPage">
+<div class="tp-container">
+<header>
+Teleprompter 2V
+<span class="valle-name">del Valle</span>
+</header>
+<div class="tp-controls">
+<div class="control-group">
+<span class="control-label">Fuente:</span>
+<select id="fontFamily" class="tp-select">
+<option value="Montserrat" selected>Montserrat</option>
+<option value="Roboto Mono">Roboto Mono</option>
+<option value="Oswald">Oswald</option>
+<option value="Lato">Lato</option>
+<option value="Open Sans">Open Sans</option>
+<option value="PT Sans">PT Sans</option>
+<option value="Source Sans Pro">Source Sans Pro</option>
+<option value="Work Sans">Work Sans</option>
+</select>
+</div>
+<div class="slider-container">
+<span class="control-label">Vel:</span>
+<input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
+<span id="speedValue" style="color: #4CAF50; min-width: 40px;">5</span>
+</div>
+<div class="slider-container">
+<span class="control-label">Zoom:</span>
+<input type="range" id="zoom" class="tp-range" min="50" max="200" value="100" step="10">
+<span id="zoomValue" style="color: #4CAF50; min-width: 50px;">100%</span>
+</div>
+<div class="control-group">
+<span class="control-label">Tema:</span>
+<select id="theme" class="tp-select">
+<option value="white">Blanco</option>
+<option value="yellow">Amarillo</option>
+<option value="blue">Azul</option>
+<option value="red">Rojo</option>
+</select>
+</div>
+</div>
+<div class="prompt-container">
+<div class="prompt-text" id="promptText" contenteditable="true">
+<p>¡Bienvenido al Teleprompter 2V de CambioPE! Haz clic en Play para comenzar. Puedes editar este texto directamente.</p>
+<p>Este es tu espacio para escribir tu guion político, discurso o mensaje.</p>
+<p>El texto se desplazará automáticamente a la velocidad que elijas en los controles.</p>
+<p>Puedes cambiar la fuente, el tamaño y el color del texto para adaptarlo a tus necesidades.</p>
+<p>El teleprompter es una herramienta esencial para presentaciones, entrevistas y grabaciones profesionales.</p>
+<p>Con este sistema, podrás mantener tu mirada fija en la cámara mientras lees tu mensaje.</p>
+<p>Recuerda practicar antes de tu presentación para lograr una comunicación natural y efectiva.</p>
+<p>¡Buena suerte con tu mensaje político!</p>
+</div>
+</div>
+<div class="tp-controls-bottom">
+<button id="playPause" class="tp-btn play-btn">▶</button>
+<button id="reset" class="tp-btn stop-btn">■</button>
+<button id="presentation" class="tp-btn presentation-btn">📺</button>
+<button id="instructionsBtn" class="tp-btn info-btn">ℹ️</button>
+<button onclick="closeTeleprompter()" class="tp-btn exit-btn">🚪</button>
+</div>
+<div class="tp-instructions">
+Usa los controles para ajustar velocidad y zoom. Botón 🚪 para volver al inicio.
+</div>
+</div>
+<!-- Modo Presentación -->
+<div class="presentation-mode" id="presentationMode">
+<div class="presentation-content" id="presentationContent"></div>
+<div class="presentation-controls">
+<button id="playPausePresentation" class="tp-btn play-btn">▶</button>
+<button id="resetPresentation" class="tp-btn stop-btn">■</button>
+</div>
+<button class="exit-presentation" id="exitPresentation">Salir de Presentación</button>
+</div>
+<!-- Modal de Instrucciones -->
+<div class="instructions-modal" id="instructionsModal">
+<div class="instructions-content">
+<h2>Instrucciones del Teleprompter 2V</h2>
+<ul>
+<li><strong>Play/Pause (▶/❚❚)</strong>: Inicia o pausa el desplazamiento del texto.</li>
+<li><strong>Stop (■)</strong>: Detiene el desplazamiento y reinicia la posición del texto.</li>
+<li><strong>Modo Presentación (📺)</strong>: Activa la vista de presentación completa con texto en grande.</li>
+<li><strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento del texto.</li>
+<li><strong>Zoom</strong>: Ajusta el tamaño del texto.</li>
+<li><strong>Fuente</strong>: Cambia entre diferentes tipos de letra legibles.</li>
+<li><strong>Tema</strong>: Cambia el color del texto (blanco, amarillo, azul, rojo).</li>
+<li><strong>Salir (🚪)</strong>: Regresa a la página principal de CambioPE.</li>
+</ul>
+<p>En modo presentación, el texto se desplaza automáticamente. Puedes editar el texto directamente haciendo clic en él.</p>
+<button class="close-instructions" id="closeInstructions">Cerrar</button>
+</div>
+</div>
+</div>
+<!-- Modal de Contacto -->
+<div class="contact-modal" id="contactModal">
+<div class="contact-content">
+<div id="contactForm">
+<h2>Contáctanos</h2>
+<p>Envíanos tu consulta y te responderemos pronto</p>
+<form name="contact" method="POST" data-netlify="true" onsubmit="return handleSubmit(event)">
+<input type="hidden" name="form-name" value="contact">
+<div class="form-group">
+<label for="name">Nombre *</label>
+<input type="text" id="name" name="name" required>
+</div>
+<div class="form-group">
+<label for="email">Email *</label>
+<input type="email" id="email" name="email" required>
+</div>
+<div class="form-group">
+<label for="phone">Teléfono</label>
+<input type="tel" id="phone" name="phone">
+</div>
+<div class="form-group">
+<label for="message">Mensaje *</label>
+<textarea id="message" name="message" required></textarea>
+</div>
+<div class="form-buttons">
+<button type="submit" class="btn-submit">Enviar Mensaje</button>
+<button type="button" class="btn-cancel" onclick="closeContact()">Cancelar</button>
+</div>
+</form>
+</div>
+<div class="success-message" id="successMessage">
+<h3>✓ ¡Mensaje Enviado!</h3>
+<p>Gracias por contactarnos. Te responderemos pronto a cambioperuano1@gmail.com</p>
+<button class="btn-submit" onclick="closeContact()" style="margin-top: 20px; width: 100%;">Cerrar</button>
+</div>
+</div>
+</div>
+<!-- Modal de Asesoría -->
+<div class="asesoria-modal" id="asesoriaModal">
+<div class="asesoria-content">
+<img src="images/asesoria.jpg" alt="En política, lo que no se comunica, no existe" class="asesoria-image">
+<div class="asesoria-text">
+<h1>En política, lo que no se comunica, no existe.</h1>
+<h2>Asesoría estratégica para líderes que buscan marcar la diferencia en Argentina y Perú.</h2>
+<h3>El Desafío:</h3>
+<p>Ganar una elección, conseguir apoyo para una reforma audaz o salir ileso de una crisis son retos que requieren algo más que publicidad: requieren estrategia. Nos gustan los desafíos difíciles. Nuestra misión es dotar a nuestros clientes de las armas discursivas y tácticas necesarias para navegar la complejidad del escenario actual.</p>
+<h3>¿Qué hacemos por ti?</h3>
+<ul>
+<li>
+<strong>1. Construcción de Liderazgo (Campañas):</strong>
+Te ayudamos a posicionarte como la mejor opción. Desarrollamos la narrativa y las tácticas de tierra y aire para movilizar voluntades y ganar el corazón del electorado.
+</li>
+<li>
+<strong>2. Estrategia Electoral:</strong>
+Nos especializamos en posicionar candidatos competitivos. Desde la narrativa hasta la movilización, creamos el camino para ganar elecciones.
+</li>
+<li>
+<strong>3. Blindaje y Respuesta (Crisis):</strong>
+Cuando estalla una crisis, el tiempo es oro. Ofrecemos contención inmediata y estrategias de giro para proteger tu capital político y reputacional, transformando el riesgo en una muestra de carácter.
+</li>
+</ul>
+<button class="btn-close-asesoria" onclick="closeAsesoria()">Cerrar</button>
+</div>
+</div>
+</div>
+<!-- Modal de Digital -->
+<div class="digital-modal" id="digitalModal">
+<div class="digital-content">
+<img src="images/digital.jpg" alt="Tu mensaje, en la pantalla de cada ciudadano" class="digital-image">
+<div class="digital-text">
+<h1>Tu mensaje, en la pantalla de cada ciudadano.</h1>
+<h2>Comunicación política digital para conectar, persuadir y movilizar.</h2>
+<h3>El Desafío Digital:</h3>
+<p>La atención de la gente es el recurso más escaso del siglo XXI. En un entorno saturado de información, la comunicación política tradicional se vuelve irrelevante. Para gobernar o ganar elecciones en Argentina y Perú hoy, necesitas hablar el idioma del entorno digital y construir una comunidad auténtica alrededor de tu proyecto.</p>
+<h3>¿Cómo lo hacemos?</h3>
+<p>No somos una agencia de publicidad convencional; somos estrategas políticos nativos digitales. Entendemos que un "trend" de TikTok puede definir una semana de agenda política y que una respuesta rápida en X puede desactivar una crisis.</p>
+<ul>
+<li>
+<strong>1. Escucha Activa y Monitoreo (Social Listening):</strong>
+Mapeamos el humor social en tiempo real. Detectamos tendencias emergentes, identificamos influenciadores clave y anticipamos posibles crisis antes de que se vuelvan inmanejables.
+</li>
+<li>
+<strong>2. Campañas de Contraste y Defensa:</strong>
+En el terreno digital, el ataque es constante. Desarrollamos tácticas de defensa rápida y, cuando es necesario, campañas de contraste efectivas y basadas en datos.
+</li>
+<li>
+<strong>3. Ecosistema de Contenidos Transmedia:</strong>
+Adaptamos la narrativa política a la gramática de cada plataforma. Desde la inmediatez de X (Twitter) y la estética de Instagram, hasta el lenguaje dinámico de TikTok. Creamos contenido diseñado para romper el "scroll" y generar compromiso.
+</li>
+</ul>
+<button class="btn-close-digital" onclick="closeDigital()">Cerrar</button>
+</div>
+</div>
+</div>
+<script>
+// Variables de estado del Teleprompter
+let isPlaying = false;
+let scrollInterval = null;
+let presentationInterval = null;
+let scrollSpeed = 5;
+let zoomLevel = 100;
+let isPresentationMode = false;
+// Elementos del DOM
+let promptText, playPauseButton, resetButton, speedControl, speedValue, zoomControl, zoomValue, fontFamilySelect, themeSelect;
+let presentationButton, instructionsButton, presentationMode, presentationContent, exitPresentation;
+let playPausePresentation, resetPresentation, instructionsModal, closeInstructions;
+function openTeleprompter() {
+document.getElementById('teleprompterPage').classList.add('active');
+initTeleprompter();
+}
+function closeTeleprompter() {
+if (isPlaying) {
+pause();
+}
+if (isPresentationMode) {
+exitPresentationMode();
+}
+document.getElementById('teleprompterPage').classList.remove('active');
+}
+function initTeleprompter() {
+try {
+promptText = document.querySelector('#promptText');
+playPauseButton = document.querySelector('#playPause');
+resetButton = document.querySelector('#reset');
+speedControl = document.querySelector('#speed');
+speedValue = document.querySelector('#speedValue');
+zoomControl = document.querySelector('#zoom');
+zoomValue = document.querySelector('#zoomValue');
+fontFamilySelect = document.querySelector('#fontFamily');
+themeSelect = document.querySelector('#theme');
+presentationButton = document.querySelector('#presentation');
+instructionsButton = document.querySelector('#instructionsBtn');
+presentationMode = document.querySelector('#presentationMode');
+presentationContent = document.querySelector('#presentationContent');
+exitPresentation = document.querySelector('#exitPresentation');
+playPausePresentation = document.querySelector('#playPausePresentation');
+resetPresentation = document.querySelector('#resetPresentation');
+instructionsModal = document.querySelector('#instructionsModal');
+closeInstructions = document.querySelector('#closeInstructions');
+scrollSpeed = parseFloat(speedControl.value);
+speedValue.textContent = scrollSpeed;
+zoomLevel = parseInt(zoomControl.value);
+zoomValue.textContent = zoomLevel + '%';
+promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+speedControl.addEventListener('input', function() {
+scrollSpeed = parseFloat(this.value);
+speedValue.textContent = scrollSpeed;
+});
+zoomControl.addEventListener('input', function() {
+zoomLevel = parseInt(this.value);
+zoomValue.textContent = zoomLevel + '%';
+promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+});
+fontFamilySelect.addEventListener('change', function() {
+promptText.style.fontFamily = this.value + ', sans-serif';
+});
+themeSelect.addEventListener('change', function() {
+const theme = this.value;
+switch(theme) {
+case 'yellow':
+promptText.style.color = '#ff0';
+promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)';
+break;
+case 'blue':
+promptText.style.color = '#0ff';
+promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)';
+break;
+case 'red':
+promptText.style.color = '#f00';
+promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)';
+break;
+default:
+promptText.style.color = '#fff';
+promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
+}
+});
+playPauseButton.addEventListener('click', togglePlay);
+resetButton.addEventListener('click', resetScroll);
+presentationButton.addEventListener('click', enterPresentationMode);
+instructionsButton.addEventListener('click', function() {
+instructionsModal.style.display = 'flex';
+});
+closeInstructions.addEventListener('click', function() {
+instructionsModal.style.display = 'none';
+});
+exitPresentation.addEventListener('click', exitPresentationMode);
+playPausePresentation.addEventListener('click', function() {
+if (isPlaying) {
+pausePresentation();
+} else {
+playPresentation();
+}
+});
+resetPresentation.addEventListener('click', resetPresentationScroll);
+} catch (error) {
+console.error("Error en teleprompter:", error);
+}
+}
+function togglePlay() {
+if (isPlaying) {
+pause();
+} else {
+play();
+}
+}
+function play() {
+isPlaying = true;
+playPauseButton.innerHTML = "❚❚";
+if (scrollInterval) {
+clearInterval(scrollInterval);
+}
+scrollInterval = setInterval(() => {
+const currentScroll = promptText.scrollTop;
+const maxScroll = promptText.scrollHeight - promptText.clientHeight;
+promptText.scrollTop = currentScroll + scrollSpeed * 2;
+if (currentScroll >= maxScroll - 5) {
+pause();
+}
+}, 100);
+if (isPresentationMode) {
+playPresentation();
+}
+}
+function pause() {
+isPlaying = false;
+playPauseButton.innerHTML = "▶";
+if (scrollInterval) {
+clearInterval(scrollInterval);
+scrollInterval = null;
+}
+if (isPresentationMode) {
+pausePresentation();
+}
+}
+function resetScroll() {
+pause();
+promptText.scrollTop = 0;
+if (isPresentationMode) {
+resetPresentationScroll();
+}
+}
+function enterPresentationMode() {
+presentationContent.innerHTML = promptText.innerHTML;
+presentationContent.style.fontFamily = promptText.style.fontFamily;
+presentationContent.style.color = promptText.style.color;
+presentationContent.style.textShadow = promptText.style.textShadow;
+presentationMode.style.display = 'flex';
+isPresentationMode = true;
+if (isPlaying) {
+playPresentation();
+}
+}
+function exitPresentationMode() {
+pausePresentation();
+presentationMode.style.display = 'none';
+isPresentationMode = false;
+}
+function playPresentation() {
+isPlaying = true;
+playPausePresentation.innerHTML = "❚❚";
+if (presentationInterval) {
+clearInterval(presentationInterval);
+}
+presentationInterval = setInterval(() => {
+const currentScroll = presentationContent.scrollTop;
+const maxScroll = presentationContent.scrollHeight - presentationContent.clientHeight;
+presentationContent.scrollTop = currentScroll + scrollSpeed * 2;
+if (currentScroll >= maxScroll - 5) {
+pausePresentation();
+}
+}, 100);
+}
+function pausePresentation() {
+isPlaying = false;
+playPausePresentation.innerHTML = "▶";
+if (presentationInterval) {
+clearInterval(presentationInterval);
+presentationInterval = null;
+}
+}
+function resetPresentationScroll() {
+pausePresentation();
+presentationContent.scrollTop = 0;
+}
+function openContact() {
+document.getElementById('contactModal').classList.add('active');
+document.getElementById('contactForm').style.display = 'block';
+document.getElementById('successMessage').classList.remove('active');
+}
+function closeContact() {
+document.getElementById('contactModal').classList.remove('active');
+document.querySelector('form[name="contact"]').reset();
+}
+function openAsesoria() {
+document.getElementById('asesoriaModal').classList.add('active');
+}
+function closeAsesoria() {
+document.getElementById('asesoriaModal').classList.remove('active');
+}
+function openDigital() {
+document.getElementById('digitalModal').classList.add('active');
+}
+function closeDigital() {
+document.getElementById('digitalModal').classList.remove('active');
+}
+function handleSubmit(event) {
+event.preventDefault();
+const form = event.target;
+const formData = new FormData(form);
+fetch('/', {
+method: 'POST',
+headers: { "Content-Type": "application/x-www-form-urlencoded" },
+body: new URLSearchParams(formData).toString()
+})
+.then(() => {
+document.getElementById('contactForm').style.display = 'none';
+document.getElementById('successMessage').classList.add('active');
+})
+.catch((error) => {
+alert('Hubo un error al enviar el mensaje. Por favor intenta de nuevo.');
+console.error('Error:', error);
+});
+return false;
+}
+document.addEventListener('keydown', function(e) {
+if (e.key === 'Escape') {
+if (isPresentationMode) {
+exitPresentationMode();
+} else if (document.getElementById('contactModal').classList.contains('active')) {
+closeContact();
+} else if (document.getElementById('asesoriaModal').classList.contains('active')) {
+closeAsesoria();
+} else if (document.getElementById('digitalModal').classList.contains('active')) {
+closeDigital();
+} else if (document.getElementById('teleprompterPage').classList.contains('active')) {
+closeTeleprompter();
+}
+}
+});
+</script>
+</body>
+</html>
