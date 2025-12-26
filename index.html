@@ -34,7 +34,7 @@ padding: 40px 20px;
 box-sizing: border-box;
 }
 .logo-container {
-margin-bottom: 50px;
+margin-bottom: 30px; /* 👈 Reducido desde 50px → baja el logo medio renglón */
 }
 .logo {
 max-width: 400px;
@@ -739,6 +739,7 @@ y finalmente es aceptado como algo evidente.
 <h2>Contáctanos</h2>
 <p>Envíanos tu consulta y te responderemos pronto</p>
 <form name="contact" action="https://formspree.io/f/xeeqovpd" method="POST">
+<input type="hidden" name="_next" value="https://gustodos.github.io/cambiope-web/?success=true">
 <div class="form-group">
 <label for="name">Nombre *</label>
 <input type="text" id="name" name="name" required>
@@ -817,7 +818,7 @@ y finalmente es aceptado como algo evidente.
 Teleprompter 2V
 <span class="valle-name">del Valle</span>
 </header>
-<div class "tp-controls">
+<div class="tp-controls">
 <div class="control-group">
 <span class="control-label">Fuente:</span>
 <select id="fontFamily" class="tp-select">
@@ -836,7 +837,7 @@ Teleprompter 2V
 <input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
 <span id="speedValue" style="color: #4CAF50; min-width: 40px;">5</span>
 </div>
-<div class="slider-container">
+<div class "slider-container">
 <span class="control-label">Zoom:</span>
 <input type="range" id="zoom" class="tp-range" min="50" max="200" value="100" step="10">
 <span id="zoomValue" style="color: #4CAF50; min-width: 50px;">100%</span>
@@ -942,7 +943,7 @@ playPauseButton.addEventListener('click', togglePlay);
 resetButton.addEventListener('click', resetScroll);
 presentationButton.addEventListener('click', enterPresentationMode);
 instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
-closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none');
+closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none';
 exitPresentation.addEventListener('click', exitPresentationMode);
 playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
 resetPresentation.addEventListener('click', resetPresentationScroll);
@@ -1013,5 +1014,15 @@ else if (document.getElementById('teleprompterPage').classList.contains('active'
 }
 });
 </script>
+
+<!-- Script para mostrar el mensaje de éxito automáticamente -->
+<script>
+if (window.location.search.includes('success=true')) {
+document.getElementById('contactModal').classList.add('active');
+document.getElementById('contactForm').style.display = 'none';
+document.getElementById('successMessage').classList.add('active');
+}
+</script>
+
 </body>
 </html>
