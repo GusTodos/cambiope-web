@@ -23,15 +23,21 @@ padding: 20px;
 color: #F5F5F5;
 }
 .container {
-text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 max-width: 1200px;
 width: 100%;
+height: 100vh;
+padding: 40px 20px;
+box-sizing: border-box;
 }
 .logo-container {
 margin-bottom: 50px;
 }
 .logo {
-max-width: 400px; /* 👈 Reducido 20% desde 500px */
+max-width: 400px; /* Reducido 20% desde 500px */
 width: 90%;
 height: auto;
 }
@@ -39,20 +45,21 @@ height: auto;
 font-size: 27px;
 font-weight: 400;
 color: #F5F5F5;
-margin: 24px auto 32px auto; /* 👈 60% más corto: 60px → 24px, 80px → 32px */
+margin: 0 auto 40px auto; /* Centrado verticalmente */
 letter-spacing: 1px;
 font-family: 'Montserrat', sans-serif;
 line-height: 1.6;
 max-width: 900px;
 font-style: italic;
+text-align: center; /* 👈 Centrado horizontalmente */
 }
-/* ... el resto del CSS sigue exactamente igual ... */
 .services {
 display: flex;
 justify-content: center;
 gap: 40px;
 flex-wrap: wrap;
-margin-top: 40px;
+margin-top: 20px;
+margin-bottom: 40px;
 position: relative;
 }
 .services::after {
@@ -822,7 +829,7 @@ Usa los controles para ajustar velocidad y zoom. Botón 🚪 para volver al inic
 <div id="contactForm">
 <h2>Contáctanos</h2>
 <p>Envíanos tu consulta y te responderemos pronto</p>
-<form name="contact" method="POST" data-netlify="true" onsubmit="return handleSubmit(event)">
+<form name="contact" action="https://formspree.io/f/xyz123abc" method="POST">
 <input type="hidden" name="form-name" value="contact">
 <div class="form-group">
 <label for="name">Nombre *</label>
@@ -1120,25 +1127,6 @@ document.getElementById('digitalModal').classList.add('active');
 }
 function closeDigital() {
 document.getElementById('digitalModal').classList.remove('active');
-}
-function handleSubmit(event) {
-event.preventDefault();
-const form = event.target;
-const formData = new FormData(form);
-fetch('/', {
-method: 'POST',
-headers: { "Content-Type": "application/x-www-form-urlencoded" },
-body: new URLSearchParams(formData).toString()
-})
-.then(() => {
-document.getElementById('contactForm').style.display = 'none';
-document.getElementById('successMessage').classList.add('active');
-})
-.catch((error) => {
-alert('Hubo un error al enviar el mensaje. Por favor intenta de nuevo.');
-console.error('Error:', error);
-});
-return false;
 }
 document.addEventListener('keydown', function(e) {
 if (e.key === 'Escape') {
