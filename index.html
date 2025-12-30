@@ -733,7 +733,7 @@ y finalmente es aceptado como algo evidente.
 <img src="images/asesoria.jpg" alt="En política, lo que no se comunica, no existe" class="asesoria-image">
 <div class="asesoria-text">
 <h1>En política, lo que no se comunica, no existe.</h1>
-<h2>Asesoría estratégica para líderes que buscan marcar la diferencia en Argentina y Perú.</h2>
+<h2>Asesoría estratégica para líderes que buscan marcar la diferencia.</h2>
 <h3>El Desafío:</h3>
 <p>Ganar una elección, conseguir apoyo para una reforma audaz o salir ileso de una crisis son retos que requieren algo más que publicidad: requieren estrategia. Nos gustan los desafíos difíciles. Nuestra misión es dotar a nuestros clientes de las armas discursivas y tácticas necesarias para navegar la complejidad del escenario actual.</p>
 <h3>¿Qué hacemos por ti?</h3>
@@ -852,7 +852,7 @@ Usa los controles para ajustar velocidad y zoom. Botón 🚪 para volver al inic
 <li><strong>Play/Pause (▶/❚❚)</strong>: Inicia o pausa el desplazamiento del texto.</li>
 <li><strong>Stop (■)</strong>: Detiene el desplazamiento y reinicia la posición del texto.</li>
 <li><strong>Modo Presentación (📺)</strong>: Activa la vista de presentación completa con texto en grande.</li>
-<li><<strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento del texto.</li>
+<li><strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento del texto.</li>
 <li><strong>Zoom</strong>: Ajusta el tamaño del texto.</li>
 <li><strong>Fuente</strong>: Cambia entre diferentes tipos de letra legibles.</li>
 <li><strong>Tema</strong>: Cambia el color del texto (blanco, amarillo, azul, rojo).</li>
@@ -876,7 +876,17 @@ function openAsesoria() { document.getElementById('asesoriaModal').classList.add
 function closeAsesoria() { document.getElementById('asesoriaModal').classList.remove('active'); }
 function openDigital() { document.getElementById('digitalModal').classList.add('active'); }
 function closeDigital() { document.getElementById('digitalModal').classList.remove('active'); }
-function openTeleprompter() { document.getElementById('teleprompterPage').classList.add('active'); }
+function openTeleprompter() { 
+document.getElementById('teleprompterPage').classList.add('active'); 
+// Asegurar que el botón Play esté listo
+setTimeout(() => {
+const btn = document.getElementById('playPause');
+if (btn) {
+btn.removeEventListener('click', togglePlay);
+btn.addEventListener('click', togglePlay);
+}
+}, 100);
+}
 function closeTeleprompter() { document.getElementById('teleprompterPage').classList.remove('active'); }
 
 // --- FORMULARIO AJAX CON FORMSPREE ---
@@ -903,52 +913,6 @@ alert('Error de conexión. Verifica tu internet.');
 
 // --- TELEPROMPTER COMPLETO ---
 let isPlaying = false, scrollInterval = null, presentationInterval = null, scrollSpeed = 5, zoomLevel = 100, isPresentationMode = false;
-
-function initTeleprompter() {
-const promptText = document.querySelector('#promptText');
-const playPauseButton = document.querySelector('#playPause');
-const resetButton = document.querySelector('#reset');
-const speedControl = document.querySelector('#speed');
-const speedValue = document.querySelector('#speedValue');
-const zoomControl = document.querySelector('#zoom');
-const zoomValue = document.querySelector('#zoomValue');
-const fontFamilySelect = document.querySelector('#fontFamily');
-const themeSelect = document.querySelector('#theme');
-const presentationButton = document.querySelector('#presentation');
-const instructionsButton = document.querySelector('#instructionsBtn');
-const presentationMode = document.querySelector('#presentationMode');
-const presentationContent = document.querySelector('#presentationContent');
-const exitPresentation = document.querySelector('#exitPresentation');
-const playPausePresentation = document.querySelector('#playPausePresentation');
-const resetPresentation = document.querySelector('#resetPresentation');
-const instructionsModal = document.querySelector('#instructionsModal');
-const closeInstructions = document.querySelector('#closeInstructions');
-
-scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed;
-zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%';
-promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
-
-speedControl.addEventListener('input', () => { scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed; });
-zoomControl.addEventListener('input', () => { zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%'; promptText.style.fontSize = (36 * zoomLevel / 100) + 'px'; });
-fontFamilySelect.addEventListener('change', () => { promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif'; });
-themeSelect.addEventListener('change', function() {
-const theme = this.value;
-switch(theme) {
-case 'yellow': promptText.style.color = '#ff0'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)'; break;
-case 'blue': promptText.style.color = '#0ff'; promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)'; break;
-case 'red': promptText.style.color = '#f00'; promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)'; break;
-default: promptText.style.color = '#fff'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
-}
-});
-playPauseButton.addEventListener('click', togglePlay);
-resetButton.addEventListener('click', resetScroll);
-presentationButton.addEventListener('click', enterPresentationMode);
-instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
-closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none');
-exitPresentation.addEventListener('click', exitPresentationMode);
-playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
-resetPresentation.addEventListener('click', resetPresentationScroll);
-}
 
 function togglePlay() {
 const promptText = document.querySelector('#promptText');
@@ -1015,7 +979,51 @@ pausePresentation(); document.querySelector('#presentationContent').scrollTop = 
 // --- Iniciar teleprompter al abrir ---
 document.getElementById('teleprompterPage').addEventListener('transitionend', () => {
 if (document.getElementById('teleprompterPage').classList.contains('active')) {
-initTeleprompter();
+// No iniciar scroll automáticamente: solo preparar controles
+const speedControl = document.querySelector('#speed');
+const speedValue = document.querySelector('#speedValue');
+const zoomControl = document.querySelector('#zoom');
+const zoomValue = document.querySelector('#zoomValue');
+const fontFamilySelect = document.querySelector('#fontFamily');
+const themeSelect = document.querySelector('#theme');
+const presentationButton = document.querySelector('#presentation');
+const instructionsButton = document.querySelector('#instructionsBtn');
+const exitPresentation = document.querySelector('#exitPresentation');
+const playPausePresentation = document.querySelector('#playPausePresentation');
+const resetPresentation = document.querySelector('#resetPresentation');
+const instructionsModal = document.querySelector('#instructionsModal');
+const closeInstructions = document.querySelector('#closeInstructions');
+const promptText = document.querySelector('#promptText');
+
+scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed;
+zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%';
+promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+
+speedControl.addEventListener('input', () => { scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed; });
+zoomControl.addEventListener('input', () => { zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%'; promptText.style.fontSize = (36 * zoomLevel / 100) + 'px'; });
+fontFamilySelect.addEventListener('change', () => { promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif'; });
+themeSelect.addEventListener('change', function() {
+const theme = this.value;
+switch(theme) {
+case 'yellow': promptText.style.color = '#ff0'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)'; break;
+case 'blue': promptText.style.color = '#0ff'; promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)'; break;
+case 'red': promptText.style.color = '#f00'; promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)'; break;
+default: promptText.style.color = '#fff'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
+}
+});
+presentationButton.addEventListener('click', enterPresentationMode);
+instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
+closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none');
+exitPresentation.addEventListener('click', exitPresentationMode);
+playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
+resetPresentation.addEventListener('click', resetPresentationScroll);
+
+// Asegurar evento en Play
+const playBtn = document.getElementById('playPause');
+if (playBtn) {
+playBtn.removeEventListener('click', togglePlay);
+playBtn.addEventListener('click', togglePlay);
+}
 }
 });
 
