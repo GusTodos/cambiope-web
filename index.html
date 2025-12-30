@@ -878,14 +878,7 @@ function openDigital() { document.getElementById('digitalModal').classList.add('
 function closeDigital() { document.getElementById('digitalModal').classList.remove('active'); }
 function openTeleprompter() { 
 document.getElementById('teleprompterPage').classList.add('active'); 
-// Asegurar que el botón Play esté listo
-setTimeout(() => {
-const btn = document.getElementById('playPause');
-if (btn) {
-btn.removeEventListener('click', togglePlay);
-btn.addEventListener('click', togglePlay);
-}
-}, 100);
+initTeleprompter();
 }
 function closeTeleprompter() { document.getElementById('teleprompterPage').classList.remove('active'); }
 
@@ -911,8 +904,58 @@ alert('Error de conexión. Verifica tu internet.');
 }
 });
 
-// --- TELEPROMPTER COMPLETO ---
+// --- TELEPROMPTER COMPLETO (ESTABLE Y SIN ERRORES) ---
 let isPlaying = false, scrollInterval = null, presentationInterval = null, scrollSpeed = 5, zoomLevel = 100, isPresentationMode = false;
+
+function initTeleprompter() {
+const promptText = document.querySelector('#promptText');
+const playPauseButton = document.querySelector('#playPause');
+const resetButton = document.querySelector('#reset');
+const speedControl = document.querySelector('#speed');
+const speedValue = document.querySelector('#speedValue');
+const zoomControl = document.querySelector('#zoom');
+const zoomValue = document.querySelector('#zoomValue');
+const fontFamilySelect = document.querySelector('#fontFamily');
+const themeSelect = document.querySelector('#theme');
+const presentationButton = document.querySelector('#presentation');
+const instructionsButton = document.querySelector('#instructionsBtn');
+const presentationMode = document.querySelector('#presentationMode');
+const presentationContent = document.querySelector('#presentationContent');
+const exitPresentation = document.querySelector('#exitPresentation');
+const playPausePresentation = document.querySelector('#playPausePresentation');
+const resetPresentation = document.querySelector('#resetPresentation');
+const instructionsModal = document.querySelector('#instructionsModal');
+const closeInstructions = document.querySelector('#closeInstructions');
+
+scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed;
+zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%';
+promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+
+speedControl.addEventListener('input', () => { scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed; });
+zoomControl.addEventListener('input', () => { zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%'; promptText.style.fontSize = (36 * zoomLevel / 100) + 'px'; });
+fontFamilySelect.addEventListener('change', () => { promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif'; });
+themeSelect.addEventListener('change', function() {
+const theme = this.value;
+switch(theme) {
+case 'yellow': promptText.style.color = '#ff0'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)'; break;
+case 'blue': promptText.style.color = '#0ff'; promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)'; break;
+case 'red': promptText.style.color = '#f00'; promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)'; break;
+default: promptText.style.color = '#fff'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
+}
+});
+playPauseButton.addEventListener('click', togglePlay);
+resetButton.addEventListener('click', resetScroll);
+presentationButton.addEventListener('click', enterPresentationMode);
+instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
+closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none');
+exitPresentation.addEventListener('click', exitPresentationMode);
+playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
+resetPresentation.addEventListener('click', resetPresentationScroll);
+
+// Asegurar que el botón Play funcione siempre
+playPauseButton.removeEventListener('click', togglePlay); // Elimina duplicados
+playPauseButton.addEventListener('click', togglePlay);
+}
 
 function togglePlay() {
 const promptText = document.querySelector('#promptText');
@@ -979,51 +1022,7 @@ pausePresentation(); document.querySelector('#presentationContent').scrollTop = 
 // --- Iniciar teleprompter al abrir ---
 document.getElementById('teleprompterPage').addEventListener('transitionend', () => {
 if (document.getElementById('teleprompterPage').classList.contains('active')) {
-// No iniciar scroll automáticamente: solo preparar controles
-const speedControl = document.querySelector('#speed');
-const speedValue = document.querySelector('#speedValue');
-const zoomControl = document.querySelector('#zoom');
-const zoomValue = document.querySelector('#zoomValue');
-const fontFamilySelect = document.querySelector('#fontFamily');
-const themeSelect = document.querySelector('#theme');
-const presentationButton = document.querySelector('#presentation');
-const instructionsButton = document.querySelector('#instructionsBtn');
-const exitPresentation = document.querySelector('#exitPresentation');
-const playPausePresentation = document.querySelector('#playPausePresentation');
-const resetPresentation = document.querySelector('#resetPresentation');
-const instructionsModal = document.querySelector('#instructionsModal');
-const closeInstructions = document.querySelector('#closeInstructions');
-const promptText = document.querySelector('#promptText');
-
-scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed;
-zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%';
-promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
-
-speedControl.addEventListener('input', () => { scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed; });
-zoomControl.addEventListener('input', () => { zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%'; promptText.style.fontSize = (36 * zoomLevel / 100) + 'px'; });
-fontFamilySelect.addEventListener('change', () => { promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif'; });
-themeSelect.addEventListener('change', function() {
-const theme = this.value;
-switch(theme) {
-case 'yellow': promptText.style.color = '#ff0'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)'; break;
-case 'blue': promptText.style.color = '#0ff'; promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)'; break;
-case 'red': promptText.style.color = '#f00'; promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)'; break;
-default: promptText.style.color = '#fff'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
-}
-});
-presentationButton.addEventListener('click', enterPresentationMode);
-instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
-closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none');
-exitPresentation.addEventListener('click', exitPresentationMode);
-playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
-resetPresentation.addEventListener('click', resetPresentationScroll);
-
-// Asegurar evento en Play
-const playBtn = document.getElementById('playPause');
-if (playBtn) {
-playBtn.removeEventListener('click', togglePlay);
-playBtn.addEventListener('click', togglePlay);
-}
+initTeleprompter();
 }
 });
 
