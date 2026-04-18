@@ -3,1042 +3,1445 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CambioPE - Comunicación Política</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&family=Oswald:wght@400;700&family=Lato:wght@400;700&family=Open+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+<title>CambioPE · Comunicación Política</title>
+<meta name="description" content="CambioPE · Consultoría de comunicación política en Argentina y Perú. En política, lo que no se comunica, no existe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+:root{
+  --bg:#0f0f10;
+  --bg-2:#1a1a1c;
+  --surface:#1e1e20;
+  --surface-2:#262628;
+  --line:#2e2e31;
+  --text:#f2f0ea;
+  --text-2:#b8b4a8;
+  --muted:#7a7668;
+  --accent:#e9c46a;      /* dorado cálido, menos chillón que el amarillo saturado */
+  --accent-2:#f4a261;    /* acento naranja terroso */
+  --danger:#c44536;
+  --ok:#7fb069;
+  --radius:14px;
+  --radius-lg:22px;
+  --shadow:0 10px 40px rgba(0,0,0,.45);
+  --shadow-soft:0 6px 24px rgba(0,0,0,.25);
+  --serif:'Playfair Display', Georgia, serif;
+  --sans:'Inter', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+  --grain-opacity:.035;
 }
-body {
-font-family: 'Montserrat', sans-serif;
-background: #1E1E1E;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 20px;
-color: #F5F5F5;
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
 }
-.container {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-max-width: 1200px;
-width: 100%;
-height: 100vh;
-padding: 40px 20px;
-box-sizing: border-box;
+
+/* Textura sutil de grano */
+body::before{
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity:var(--grain-opacity);
+  mix-blend-mode:overlay;
 }
-.logo-container {
-margin-bottom: 30px;
+
+/* Orbe decorativo de fondo */
+body::after{
+  content:'';
+  position:fixed;
+  top:-20%;right:-10%;
+  width:60vw;height:60vw;
+  background:radial-gradient(circle at 30% 30%, rgba(233,196,106,.08), transparent 60%);
+  pointer-events:none;
+  z-index:0;
+  filter:blur(40px);
 }
-.logo {
-max-width: 400px;
-width: 90%;
-height: auto;
+
+/* ============ NAVBAR ============ */
+nav.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(15,15,16,.75);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
 }
-.subtitle {
-font-size: 27px;
-font-weight: 400;
-color: #F5F5F5;
-margin: 0 auto 40px auto;
-letter-spacing: 1px;
-font-family: 'Montserrat', sans-serif;
-line-height: 1.6;
-max-width: 900px;
-font-style: italic;
-text-align: center;
+.brand{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:-.5px;
+  color:var(--text);
+  text-decoration:none;
+  display:flex;align-items:center;gap:10px;
 }
-.services {
-display: flex;
-justify-content: center;
-gap: 40px;
-flex-wrap: wrap;
-margin-top: 20px;
-margin-bottom: 40px;
-position: relative;
+.brand-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
 }
-.services::after {
-content: '';
-position: absolute;
-top: 50%;
-left: 5%;
-right: 2%;
-height: 2px;
-background: #9E9E9E;
-z-index: 0;
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{
+  color:var(--text-2);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  transition:color .25s;
+  cursor:pointer;
 }
-.services::before {
-content: '';
-position: absolute;
-top: 50%;
-right: 2%;
-width: 0;
-height: 0;
-border-left: 15px solid #9E9E9E;
-border-top: 8px solid transparent;
-border-bottom: 8px solid transparent;
-transform: translateY(-50%);
-z-index: 0;
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{
+  padding:9px 18px;
+  border:1px solid var(--accent);
+  border-radius:999px;
+  color:var(--accent)!important;
+  font-size:12px!important;
 }
-.contact-container {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-margin-left: 20px;
-position: relative;
+.nav-cta:hover{background:var(--accent);color:var(--bg)!important}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:120px 24px 80px;
+  text-align:center;
+  position:relative;
+  z-index:2;
 }
-.contact-item {
-transform: scale(1);
+.hero-kicker{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:3px;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:24px;
+  opacity:0;
+  animation:fadeUp .8s ease forwards;
 }
-.service-item {
-display: flex;
-flex-direction: column;
-align-items: center;
-cursor: pointer;
-transition: transform 0.3s ease;
-z-index: 1;
-position: relative;
+.hero-kicker::before,.hero-kicker::after{
+  content:'';display:inline-block;width:30px;height:1px;background:var(--accent);
+  vertical-align:middle;margin:0 12px;
 }
-.service-item:hover {
-transform: translateY(-10px);
+.logo-wrap{
+  opacity:0;
+  animation:fadeUp .9s ease .1s forwards;
 }
-.contact-item:hover {
-transform: scale(1.05);
+.logo{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(58px,10vw,120px);
+  color:var(--text);
+  line-height:1;
+  letter-spacing:-2px;
 }
-.service-circle {
-width: 130px;
-height: 130px;
-border-radius: 50%;
-background:
-radial-gradient(circle at 30% 30%, #B8B8B8 0%, #9E9E9E 20%, #7E7E7E 40%, #6E6E6E 60%, #5E5E5E 80%, #4E4E4E 100%);
-border: 6px solid #9E9E9E;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 56px;
-font-weight: bold;
-color: #F5F5F5;
-margin-bottom: 15px;
-box-shadow:
-0 10px 30px rgba(0, 0, 0, 0.6),
-inset -5px -5px 15px rgba(0, 0, 0, 0.5),
-inset 5px 5px 15px rgba(255, 255, 255, 0.3);
-transition: all 0.3s ease;
-font-family: 'Montserrat', sans-serif;
-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+.logo .accent{color:var(--accent)}
+
+.hero-tagline{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(20px,2.4vw,30px);
+  color:var(--text-2);
+  max-width:680px;
+  margin:32px auto 0;
+  line-height:1.4;
+  opacity:0;
+  animation:fadeUp .9s ease .25s forwards;
 }
-.contact-circle {
-width: 65px !important;
-height: 65px !important;
-font-size: 28px !important;
+.hero-tagline strong{color:var(--text);font-weight:400}
+.hero-tagline .quote-mark{
+  font-size:1.4em;color:var(--accent);
+  font-family:var(--serif);
+  line-height:0;vertical-align:-.15em;margin:0 4px;
 }
-.service-item:hover .service-circle {
-box-shadow:
-0 15px 40px rgba(0, 0, 0, 0.7),
-inset -5px -5px 15px rgba(0, 0, 0, 0.6),
-inset 5px 5px 20px rgba(255, 255, 255, 0.4);
-transform: scale(1.05);
+
+.hero-meta{
+  margin-top:48px;
+  display:flex;gap:32px;justify-content:center;flex-wrap:wrap;
+  font-family:var(--mono);font-size:11px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease .4s forwards;
 }
-.service-label {
-font-size: 20px;
-font-weight: 600;
-color: #F5F5F5;
-text-align: center;
-font-family: 'Montserrat', sans-serif;
+.hero-meta span{display:flex;align-items:center;gap:8px}
+.hero-meta span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent)}
+
+.scroll-hint{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  color:var(--muted);font-family:var(--mono);font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  opacity:0;animation:fadeUp 1s ease .6s forwards;
 }
-.contact-item .service-label {
-font-size: 14px;
+.scroll-hint::after{
+  content:'';display:block;width:1px;height:40px;background:var(--accent);
+  margin:10px auto 0;
+  animation:scrollLine 2s ease-in-out infinite;
+  transform-origin:top;
 }
-/* Teleprompter */
-.teleprompter-page {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100vh;
-background: #000;
-z-index: 1000;
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollLine{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1)}}
+
+/* ============ SERVICIOS ============ */
+.services-section{
+  padding:80px 24px 120px;
+  max-width:1240px;margin:0 auto;
+  position:relative;z-index:2;
 }
-.teleprompter-page.active {
-display: block;
+.section-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:48px;flex-wrap:wrap;gap:20px;
+  border-bottom:1px solid var(--line);padding-bottom:24px;
 }
-.teleprompter-page * { box-sizing: border-box; }
-.teleprompter-page .tp-container {
-max-width: 100%;
-width: 100%;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-height: 100vh;
+.section-title{
+  font-family:var(--serif);font-size:clamp(32px,5vw,52px);
+  font-weight:700;line-height:1;letter-spacing:-1px;
 }
-.teleprompter-page header {
-background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
-padding: 15px 20px;
-text-align: center;
-font-size: 24px;
-font-weight: bold;
-color: #fff;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-border-bottom: 2px solid #444;
-letter-spacing: 1px;
-position: relative;
-white-space: nowrap;
-font-family: 'Montserrat', sans-serif;
+.section-title em{color:var(--accent);font-style:italic;font-weight:400}
+.section-num{
+  font-family:var(--mono);font-size:12px;color:var(--muted);
+  letter-spacing:2px;
 }
-.valle-name {
-position: absolute;
-right: 15px;
-top: 50%;
-transform: translateY(-50%);
-font-style: italic;
-font-weight: normal;
-font-size: 16px;
-color: #aaa;
-opacity: 0.8;
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
 }
-.tp-controls {
-padding: 15px;
-background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
-display: flex;
-flex-wrap: wrap;
-gap: 12px;
-justify-content: center;
-align-items: center;
-border-bottom: 2px solid #2a2a2a;
+.service-card{
+  background:var(--bg-2);
+  padding:40px 32px;
+  cursor:pointer;
+  transition:background .4s ease;
+  position:relative;
+  display:flex;flex-direction:column;gap:16px;
+  min-height:280px;
 }
-.control-group {
-display: flex;
-align-items: center;
-gap: 8px;
+.service-card:hover{background:var(--surface)}
+.service-card::after{
+  content:'→';
+  position:absolute;top:40px;right:32px;
+  font-size:24px;color:var(--muted);
+  transition:all .3s ease;
 }
-.control-label {
-color: #fff;
-font-size: 14px;
-font-weight: bold;
-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-min-width: 50px;
-white-space: nowrap;
+.service-card:hover::after{color:var(--accent);transform:translate(4px,-4px)}
+
+.service-letter{
+  font-family:var(--serif);font-style:italic;
+  font-size:72px;line-height:.8;
+  color:var(--accent);
+  font-weight:400;
+  margin-bottom:8px;
 }
-.tp-select {
-background: rgba(0, 0, 0, 0.3);
-color: #fff;
-border: 2px solid #666;
-padding: 8px 10px;
-border-radius: 8px;
-font-size: 14px;
-min-width: 120px;
-font-weight: bold;
-height: 36px;
+.service-name{
+  font-family:var(--sans);
+  font-size:22px;font-weight:600;
+  color:var(--text);
+  letter-spacing:-.3px;
 }
-.slider-container {
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 6px 12px;
-background: rgba(0, 0, 0, 0.2);
-border-radius: 30px;
-border: 1px solid #666;
-min-width: 180px;
+.service-desc{
+  font-size:14px;color:var(--text-2);line-height:1.6;
+  margin-top:auto;
 }
-.tp-range {
--webkit-appearance: none;
-width: 100px;
-height: 14px;
-border-radius: 8px;
-background: rgba(0, 0, 0, 0.3);
-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-border: 1px solid #666;
+.service-tag{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:2px;color:var(--muted);
+  text-transform:uppercase;
 }
-.tp-range::-webkit-slider-thumb {
--webkit-appearance: none;
-width: 22px;
-height: 22px;
-border-radius: 50%;
-background: linear-gradient(to bottom, #fff, #ddd);
-cursor: pointer;
-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+
+/* ============ FILOSOFÍA ============ */
+.philosophy{
+  padding:100px 24px;
+  background:linear-gradient(180deg,transparent,rgba(233,196,106,.03),transparent);
+  position:relative;z-index:2;
+  text-align:center;
 }
-.tp-controls-bottom {
-display: flex;
-justify-content: center;
-padding: 15px;
-background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
-gap: 15px;
-flex-wrap: wrap;
+.philosophy-inner{max-width:900px;margin:0 auto}
+.philosophy-quote{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(28px,4.5vw,48px);
+  font-weight:400;line-height:1.25;
+  color:var(--text);
+  letter-spacing:-.5px;
 }
-.tp-btn {
-cursor: pointer;
-border: none;
-border-radius: 12px;
-width: 60px;
-height: 60px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 24px;
-font-weight: bold;
-transition: all 0.2s ease;
-position: relative;
-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 -6px 10px rgba(0, 0, 0, 0.3);
-background: linear-gradient(to bottom, #5a5a5a 0%, #4a4a4a 30%, #3a3a3a 70%, #2a2a2a 100%);
-color: #fff;
-border: 2px solid #666;
+.philosophy-quote .highlight{
+  color:var(--accent);
+  background:linear-gradient(180deg,transparent 60%,rgba(233,196,106,.15) 60%);
 }
-.tp-btn:active {
-transform: translateY(3px);
-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+.philosophy-attr{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:3px;color:var(--muted);
+  text-transform:uppercase;margin-top:32px;
 }
-.tp-btn.play-btn {
-background: linear-gradient(to bottom, #1a6e1a 0%, #155a15 30%, #0f4510 70%, #0a300a 100%);
+
+/* ============ FOOTER ============ */
+footer{
+  padding:60px 32px 40px;
+  border-top:1px solid var(--line);
+  background:var(--bg-2);
+  position:relative;z-index:2;
 }
-.tp-btn.stop-btn {
-background: linear-gradient(to bottom, #8a1a1a 0%, #7a1515 30%, #6a0f0f 70%, #5a0a0a 100%);
+.footer-grid{
+  max-width:1240px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:20px;
 }
-.tp-btn.presentation-btn {
-background: linear-gradient(to bottom, #1a699e 0%, #15557d 30%, #0f405c 70%, #0a2b3b 100%);
+.footer-brand{
+  font-family:var(--serif);font-style:italic;font-size:18px;
+  color:var(--text-2);
 }
-.tp-btn.info-btn {
-background: linear-gradient(to bottom, #696969 0%, #555555 30%, #404040 70%, #2b2b2b 100%);
+.footer-meta{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:2px;color:var(--muted);
+  text-transform:uppercase;
 }
-.tp-btn.exit-btn {
-background: linear-gradient(to bottom, #8a1a1a 0%, #7a1515 30%, #6a0f0f 70%, #5a0a0a 100%);
+
+/* ============ TELEPROMPTER ============ */
+.teleprompter-page{
+  display:none;
+  position:fixed;inset:0;
+  background:#000;z-index:500;
+  flex-direction:column;
 }
-.prompt-container {
-flex: 1;
-overflow: hidden;
-padding: 20px;
-background-color: #000;
-display: flex;
-justify-content: center;
-align-items: center;
-position: relative;
+.teleprompter-page.active{display:flex}
+
+.tp-header{
+  padding:14px 24px;
+  background:linear-gradient(180deg,#1a1a1c,#0f0f10);
+  border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
 }
-.prompt-text {
-max-width: 900px;
-font-size: 36px;
-line-height: 1.6;
-color: #fff;
-text-align: center;
-opacity: 0.95;
-text-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
-padding: 20px;
-user-select: text;
-font-family: 'Montserrat', monospace;
-width: 100%;
-height: 100%;
-overflow-y: auto;
-scroll-behavior: smooth;
-border: 3px solid #444;
-border-radius: 15px;
+.tp-title{
+  font-family:var(--serif);font-style:italic;
+  font-size:22px;color:var(--text);font-weight:700;
 }
-.tp-instructions {
-text-align: center;
-font-size: 14px;
-color: #aaa;
-margin-top: 5px;
-padding: 10px;
-border-top: 1px solid #333;
+.tp-title .accent{color:var(--accent)}
+.tp-title .sub{
+  font-family:var(--mono);font-size:11px;
+  color:var(--muted);letter-spacing:2px;margin-left:10px;
+  font-style:normal;font-weight:400;
 }
-/* Modales */
-.contact-modal, .asesoria-modal, .digital-modal {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.95);
-z-index: 2000;
-display: none;
-overflow-y: auto;
-padding: 20px;
+
+.tp-controls{
+  padding:16px 24px;
+  background:var(--bg-2);
+  border-bottom:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:20px;
+  justify-content:center;align-items:center;
 }
-.contact-modal.active, .asesoria-modal.active, .digital-modal.active {
-display: block;
+.control-group{
+  display:flex;align-items:center;gap:10px;
 }
-.contact-content, .asesoria-content, .digital-content {
-max-width: 900px;
-width: 100%;
-background: #1E1E1E;
-border-radius: 20px;
-overflow: hidden;
-margin: 20px auto;
-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-border: 2px solid #9E9E9E;
+.control-label{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:2px;color:var(--muted);
+  text-transform:uppercase;
+  min-width:44px;
 }
-.asesoria-image, .digital-image {
-width: 100%;
-height: 300px;
-object-fit: cover;
-display: block;
+.tp-select{
+  background:var(--surface);
+  color:var(--text);
+  border:1px solid var(--line);
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:13px;font-family:var(--sans);
+  min-width:130px;cursor:pointer;
+  outline:none;
+  transition:border-color .2s;
 }
-.contact-content {
-padding: 40px;
+.tp-select:hover,.tp-select:focus{border-color:var(--accent)}
+
+.slider-container{
+  display:flex;align-items:center;gap:12px;
+  padding:8px 14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  min-width:200px;
 }
-.asesoria-text, .digital-text {
-padding: 40px;
-color: #FFFFFF;
-font-family: 'Montserrat', sans-serif;
+.tp-range{
+  -webkit-appearance:none;appearance:none;
+  flex:1;height:4px;border-radius:4px;
+  background:var(--line);outline:none;
 }
-.contact-content h2, .asesoria-text h1, .digital-text h1 {
-color: #FFFFFF;
-font-size: 28px;
-margin-bottom: 10px;
-line-height: 1.3;
-font-family: 'Montserrat', sans-serif;
-font-weight: 700;
-text-align: center;
+.tp-range::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--accent);cursor:pointer;
+  box-shadow:0 0 0 4px rgba(233,196,106,.15);
+  transition:box-shadow .2s;
 }
-.contact-content p, .asesoria-text h2, .digital-text h2 {
-color: #FFFFFF;
-text-align: center;
-margin-bottom: 30px;
-font-size: 20px;
-font-weight: 400;
-line-height: 1.4;
-font-family: 'Montserrat', sans-serif;
+.tp-range::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(233,196,106,.25)}
+.tp-range::-moz-range-thumb{
+  width:16px;height:16px;border-radius:50%;border:none;
+  background:var(--accent);cursor:pointer;
 }
-.asesoria-text h3, .digital-text h3 {
-color: #FFFFFF;
-font-size: 22px;
-margin-top: 30px;
-margin-bottom: 15px;
-font-family: 'Montserrat', sans-serif;
-font-weight: 600;
+.tp-value{
+  font-family:var(--mono);font-size:12px;
+  color:var(--accent);min-width:44px;text-align:right;
 }
-.asesoria-text p, .digital-text p {
-color: #FFFFFF;
-font-size: 16px;
-line-height: 1.8;
-margin-bottom: 20px;
-text-align: left;
-font-family: 'Montserrat', sans-serif;
+
+.prompt-container{
+  flex:1;
+  overflow:hidden;
+  padding:24px;
+  display:flex;justify-content:center;align-items:stretch;
+  position:relative;
+  background:#000;
 }
-.asesoria-text ul, .digital-text ul {
-list-style: none;
-padding: 0;
-margin: 20px 0;
+.reading-line{
+  position:absolute;
+  left:24px;right:24px;
+  top:50%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(233,196,106,.4),transparent);
+  pointer-events:none;
+  z-index:2;
+  opacity:.6;
 }
-.asesoria-text ul li, .digital-text ul li {
-color: #FFFFFF;
-font-size: 16px;
-line-height: 1.8;
-margin-bottom: 25px;
-padding-left: 30px;
-position: relative;
-font-family: 'Montserrat', sans-serif;
+.prompt-text{
+  max-width:1000px;width:100%;
+  font-size:36px;line-height:1.7;
+  color:#fff;
+  text-align:center;
+  padding:50vh 30px;
+  font-family:var(--mono);
+  overflow-y:auto;overflow-x:hidden;
+  scroll-behavior:auto;
+  outline:none;
+  scrollbar-width:thin;
+  scrollbar-color:var(--line) transparent;
 }
-.asesoria-text ul li::before, .digital-text ul li::before {
-content: '▶';
-color: #9E9E9E;
-font-size: 14px;
-position: absolute;
-left: 0;
-top: 2px;
+.prompt-text::-webkit-scrollbar{width:6px}
+.prompt-text::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.prompt-text p{margin-bottom:1em}
+.prompt-text[contenteditable="true"]:focus{
+  box-shadow:inset 0 0 0 1px rgba(233,196,106,.2);
+  border-radius:8px;
 }
-.asesoria-text ul li strong, .digital-text ul li strong {
-color: #FFFFFF;
-font-size: 18px;
-display: block;
-margin-bottom: 8px;
-font-family: 'Montserrat', sans-serif;
-font-weight: 700;
+
+.tp-controls-bottom{
+  display:flex;justify-content:center;align-items:center;
+  gap:12px;
+  padding:16px 24px;
+  background:var(--bg-2);
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
 }
-.form-group {
-margin-bottom: 20px;
+.tp-btn{
+  cursor:pointer;
+  border:1px solid var(--line);
+  border-radius:12px;
+  width:52px;height:52px;
+  display:flex;justify-content:center;align-items:center;
+  font-size:20px;font-weight:bold;
+  background:var(--surface);
+  color:var(--text);
+  transition:all .2s ease;
 }
-.form-group label {
-display: block;
-color: #FFFFFF;
-margin-bottom: 8px;
-font-weight: 600;
-font-size: 14px;
-font-family: 'Montserrat', sans-serif;
+.tp-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tp-btn:active{transform:translateY(0)}
+.tp-btn.play-btn{background:var(--ok);border-color:var(--ok);color:#fff}
+.tp-btn.play-btn:hover{filter:brightness(1.15);border-color:var(--ok)}
+.tp-btn.stop-btn{background:var(--danger);border-color:var(--danger);color:#fff}
+.tp-btn.stop-btn:hover{filter:brightness(1.15);border-color:var(--danger)}
+.tp-btn.presentation-btn{background:#1e5f8a;border-color:#1e5f8a;color:#fff}
+.tp-btn.exit-btn{background:transparent}
+
+.tp-tip{
+  text-align:center;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:2px;color:var(--muted);
+  padding:10px;text-transform:uppercase;
+  border-top:1px solid var(--line);
+  background:var(--bg);
+}
+.tp-tip kbd{
+  display:inline-block;
+  padding:2px 6px;
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--surface);
+  font-family:var(--mono);
+  margin:0 2px;
+  font-size:10px;
+  color:var(--text-2);
+}
+
+/* Modo Presentación */
+.presentation-mode{
+  position:fixed;inset:0;
+  background:#000;
+  z-index:600;
+  display:none;
+  flex-direction:column;
+}
+.presentation-mode.active{display:flex}
+.presentation-content{
+  flex:1;
+  overflow-y:auto;overflow-x:hidden;
+  padding:50vh 8vw;
+  font-size:60px;line-height:1.6;
+  color:#fff;text-align:center;
+  font-family:var(--mono);
+  scrollbar-width:none;
+}
+.presentation-content::-webkit-scrollbar{display:none}
+.presentation-content p{margin-bottom:1em}
+.presentation-line{
+  position:fixed;
+  left:5%;right:5%;top:50%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(233,196,106,.5),transparent);
+  z-index:601;pointer-events:none;
+}
+.presentation-controls{
+  position:fixed;bottom:30px;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:12px;
+  z-index:602;
+  background:rgba(15,15,16,.8);
+  backdrop-filter:blur(10px);
+  padding:10px;border-radius:16px;
+  border:1px solid var(--line);
+}
+.exit-presentation{
+  position:fixed;top:24px;right:24px;
+  background:rgba(196,69,54,.9);
+  color:#fff;border:none;
+  padding:10px 20px;border-radius:10px;
+  cursor:pointer;font-size:13px;
+  font-family:var(--mono);letter-spacing:2px;
+  text-transform:uppercase;
+  z-index:602;
+  transition:all .2s;
+}
+.exit-presentation:hover{background:var(--danger)}
+
+/* Modal de instrucciones */
+.instructions-modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(8px);
+  z-index:700;
+  display:none;
+  justify-content:center;align-items:center;
+  padding:24px;
+}
+.instructions-modal.active{display:flex}
+.instructions-content{
+  max-width:640px;width:100%;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:40px;
+  max-height:85vh;overflow-y:auto;
+  box-shadow:var(--shadow);
+}
+.instructions-content h2{
+  font-family:var(--serif);font-style:italic;
+  color:var(--accent);margin-bottom:8px;
+  font-size:28px;font-weight:700;
+}
+.instructions-content .sub{
+  font-family:var(--mono);font-size:11px;
+  color:var(--muted);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:24px;
+}
+.instructions-content ul{list-style:none;margin-bottom:24px}
+.instructions-content li{
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+  font-size:14px;color:var(--text-2);
+  display:flex;gap:14px;align-items:flex-start;
+}
+.instructions-content li:last-child{border-bottom:none}
+.instructions-content li strong{
+  color:var(--text);min-width:80px;
+  font-family:var(--mono);font-size:13px;
+}
+.close-instructions{
+  background:var(--accent);color:var(--bg);
+  border:none;padding:12px 24px;
+  border-radius:10px;cursor:pointer;
+  font-family:var(--sans);font-weight:600;font-size:13px;
+  letter-spacing:1px;text-transform:uppercase;
+  width:100%;transition:all .2s;
+}
+.close-instructions:hover{filter:brightness(1.1)}
+
+/* ============ MODALES ============ */
+.modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(10px);
+  z-index:800;
+  display:none;
+  justify-content:center;align-items:center;
+  padding:24px;
+  animation:fadeIn .3s ease;
+}
+.modal.active{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-content{
+  max-width:560px;width:100%;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:48px 40px;
+  box-shadow:var(--shadow);
+  position:relative;
+  max-height:90vh;overflow-y:auto;
+  animation:slideUp .4s ease;
+}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-close{
+  position:absolute;top:20px;right:20px;
+  background:none;border:none;
+  color:var(--muted);
+  font-size:22px;cursor:pointer;
+  width:36px;height:36px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.modal-close:hover{background:var(--surface);color:var(--text)}
+
+.modal-kicker{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:3px;color:var(--accent);
+  text-transform:uppercase;margin-bottom:10px;
+}
+.modal-title{
+  font-family:var(--serif);font-style:italic;
+  font-size:36px;color:var(--text);
+  margin-bottom:10px;line-height:1.1;font-weight:700;
+}
+.modal-desc{
+  color:var(--text-2);font-size:15px;
+  margin-bottom:32px;line-height:1.6;
+}
+
+/* Formulario */
+.form-group{margin-bottom:20px}
+.form-group label{
+  display:block;
+  color:var(--text-2);
+  margin-bottom:8px;
+  font-size:11px;font-family:var(--mono);
+  letter-spacing:2px;text-transform:uppercase;
 }
 .form-group input,
-.form-group textarea {
-width: 100%;
-padding: 12px;
-border: 2px solid #9E9E9E;
-border-radius: 8px;
-background: rgba(255, 255, 255, 0.05);
-color: #F5F5F5;
-font-size: 16px;
-font-family: 'Montserrat', sans-serif;
-transition: all 0.3s ease;
+.form-group textarea{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  color:var(--text);
+  font-size:15px;
+  font-family:var(--sans);
+  transition:all .2s;
+  outline:none;
 }
 .form-group input:focus,
-.form-group textarea:focus {
-outline: none;
-border-color: #BDBDBD;
-background: rgba(255, 255, 255, 0.1);
+.form-group textarea:focus{
+  border-color:var(--accent);
+  background:var(--surface-2);
 }
-.form-group textarea {
-min-height: 120px;
-resize: vertical;
+.form-group textarea{min-height:120px;resize:vertical}
+
+.form-buttons{display:flex;gap:12px;margin-top:28px}
+.btn-submit{
+  flex:1;
+  background:var(--accent);
+  color:var(--bg);
+  border:none;padding:15px;
+  border-radius:10px;
+  font-size:13px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;font-family:var(--sans);
+  transition:all .2s;
 }
-.form-buttons {
-display: flex;
-gap: 15px;
-margin-top: 30px;
+.btn-submit:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-cancel{
+  background:transparent;
+  color:var(--text-2);
+  border:1px solid var(--line);
+  padding:15px 24px;
+  border-radius:10px;
+  font-size:13px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;font-family:var(--sans);
+  transition:all .2s;
 }
-.btn-submit, .btn-close-asesoria, .btn-close-digital {
-flex: 1;
-background: linear-gradient(135deg, #9E9E9E, #7E7E7E);
-color: #F5F5F5;
-border: none;
-padding: 15px;
-border-radius: 10px;
-font-size: 18px;
-font-weight: bold;
-cursor: pointer;
-transition: all 0.3s ease;
-display: block;
-margin: 30px auto 0;
-max-width: 200px;
-font-family: 'Montserrat', sans-serif;
+.btn-cancel:hover{border-color:var(--text-2);color:var(--text)}
+
+.success-message{display:none;text-align:center;padding:20px}
+.success-message.active{display:block}
+.success-message .icon{
+  width:60px;height:60px;margin:0 auto 20px;
+  border-radius:50%;
+  background:rgba(127,176,105,.15);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ok);font-size:28px;
 }
-.btn-cancel {
-flex: 1;
-background: transparent;
-color: #F5F5F5;
-border: 2px solid #9E9E9E;
-padding: 15px;
-border-radius: 10px;
-font-size: 18px;
-font-weight: bold;
-cursor: pointer;
-transition: all 0.3s ease;
-font-family: 'Montserrat', sans-serif;
+.success-message h3{
+  font-family:var(--serif);font-style:italic;
+  color:var(--text);font-size:28px;
+  margin-bottom:10px;font-weight:700;
 }
-.success-message {
-display: none;
-text-align: center;
-padding: 20px;
+.success-message p{color:var(--text-2);margin-bottom:20px}
+
+/* Modal de servicio info */
+.info-body{color:var(--text-2);font-size:15px;line-height:1.7}
+.info-body ul{list-style:none;margin-top:16px}
+.info-body ul li{
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  display:flex;gap:10px;
 }
-.success-message.active {
-display: block;
+.info-body ul li::before{
+  content:'—';color:var(--accent);flex-shrink:0;
 }
-.success-message h3 {
-color: #FFFFFF;
-font-size: 28px;
-margin-bottom: 15px;
-font-family: 'Montserrat', sans-serif;
-font-weight: 700;
+.info-body ul li:last-child{border-bottom:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:768px){
+  nav.topbar{padding:14px 20px}
+  .brand{font-size:18px}
+  .nav-links{
+    display:none;
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;
+    background:var(--bg-2);
+    border-bottom:1px solid var(--line);
+    padding:20px;
+  }
+  .nav-links.mobile-open{display:flex}
+  .nav-links a{padding:12px 0;border-bottom:1px solid var(--line)}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-toggle{display:block}
+
+  .hero{padding:110px 20px 60px;min-height:90vh}
+  .hero-kicker{font-size:10px;letter-spacing:2px}
+  .hero-kicker::before,.hero-kicker::after{width:20px;margin:0 8px}
+  .hero-meta{gap:18px;font-size:10px}
+  .scroll-hint{display:none}
+
+  .services-section{padding:60px 20px 80px}
+  .service-card{padding:32px 24px;min-height:auto}
+  .service-letter{font-size:56px}
+  .service-card::after{top:32px;right:24px}
+
+  .philosophy{padding:60px 20px}
+
+  .modal-content{padding:36px 24px}
+  .modal-title{font-size:28px}
+
+  .tp-header{padding:12px 16px}
+  .tp-title{font-size:18px}
+  .tp-controls{padding:12px 16px;gap:12px}
+  .control-group{width:100%;justify-content:space-between}
+  .slider-container{min-width:0;width:100%}
+  .tp-select{flex:1}
+  .prompt-text{font-size:24px;padding:45vh 20px}
+  .presentation-content{font-size:36px;padding:45vh 5vw}
+  .tp-btn{width:46px;height:46px;font-size:18px}
+
+  footer{padding:40px 20px 30px}
+  .footer-grid{flex-direction:column;text-align:center}
 }
-.success-message p {
-color: #BDBDBD;
-font-size: 16px;
-font-family: 'Montserrat', sans-serif;
-}
-.presentation-mode {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: #000;
-z-index: 1001;
-display: none;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 20px;
-}
-.presentation-content {
-max-width: 900px;
-width: 100%;
-height: 100%;
-overflow-y: auto;
-padding: 20px;
-font-size: 48px;
-line-height: 1.6;
-color: #fff;
-text-align: center;
-font-family: 'Montserrat', monospace;
-text-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
-}
-.presentation-controls {
-position: fixed;
-bottom: 20px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 15px;
-z-index: 1002;
-}
-.exit-presentation {
-position: fixed;
-top: 20px;
-right: 20px;
-background: rgba(255, 0, 0, 0.7);
-color: white;
-border: none;
-padding: 10px 20px;
-border-radius: 5px;
-cursor: pointer;
-font-size: 16px;
-z-index: 1002;
-}
-.instructions-modal {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.9);
-z-index: 1002;
-display: none;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 20px;
-}
-.instructions-content {
-max-width: 800px;
-width: 100%;
-background-color: #1a1a1a;
-border-radius: 15px;
-padding: 30px;
-max-height: 80vh;
-overflow-y: auto;
-font-family: 'Montserrat', sans-serif;
-}
-.instructions-content h2 {
-color: #0f0;
-margin-bottom: 20px;
-text-align: center;
-font-family: 'Montserrat', sans-serif;
-}
-.instructions-content ul {
-margin-left: 20px;
-margin-bottom: 20px;
-}
-.instructions-content li {
-margin-bottom: 10px;
-line-height: 1.5;
-font-family: 'Montserrat', sans-serif;
-}
-.close-instructions {
-background: #8a1a1a;
-color: white;
-border: none;
-padding: 10px 20px;
-border-radius: 5px;
-cursor: pointer;
-font-size: 16px;
-margin-top: 20px;
-font-family: 'Montserrat', sans-serif;
-}
-@media (max-width: 768px) {
-.logo { max-width: 350px; }
-.subtitle { font-size: 20px; margin: 40px 20px 50px 20px; padding: 0 10px; }
-.services { gap: 25px; }
-.service-circle { width: 100px; height: 100px; font-size: 42px; }
-.contact-circle { width: 50px !important; height: 50px !important; font-size: 21px !important; }
-.service-label { font-size: 16px; }
-.contact-item .service-label { font-size: 11px; }
-.contact-container { margin-left: 0; margin-top: 20px; }
-.contact-content, .asesoria-text, .digital-text { padding: 30px 20px; }
-.asesoria-text h1, .digital-text h1 { font-size: 24px; }
-.asesoria-text h2, .digital-text h2 { font-size: 18px; }
-.asesoria-text h3, .digital-text h3 { font-size: 20px; }
-.asesoria-image, .digital-image { height: 200px; }
+
+/* Hacer scroll en prompt invisible cuando no se necesita */
+.prompt-text::-webkit-scrollbar{width:0}
+
+/* Accesibilidad - reduce motion */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- Página Principal -->
-<div class="main-page" id="mainPage">
-<div class="container">
-<div class="logo-container">
-<img src="images/logo.png" alt="CambioPE" class="logo">
-</div>
-<h2 class="subtitle">
-Todo cambio pasa por tres etapas:<br>
-primero es ridiculizado,<br>
-luego es violentamente rechazado,<br>
-y finalmente es aceptado como algo evidente.
-</h2>
-<div class="services">
-<div class="service-item" onclick="openAsesoria()">
-<div class="service-circle">A</div>
-<div class="service-label">Asesoría</div>
-</div>
-<div class="service-item" onclick="openDigital()">
-<div class="service-circle">D</div>
-<div class="service-label">Digital</div>
-</div>
-<div class="service-item" onclick="openTeleprompter()">
-<div class="service-circle">T</div>
-<div class="service-label">Teleprompter</div>
-</div>
-<div class="contact-container">
-<div class="service-item contact-item" onclick="openContact()">
-<div class="service-circle contact-circle">C</div>
-<div class="service-label">Contacto</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- ============ NAVBAR ============ -->
+<nav class="topbar">
+  <a href="#" class="brand" onclick="scrollToTop(event)">
+    <span class="brand-dot"></span>
+    cambiope<em style="font-style:normal;color:var(--muted)">.com</em>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a onclick="openInfo('asesoria')">Asesoría</a>
+    <a onclick="openInfo('digital')">Digital</a>
+    <a onclick="openInfo('produccion')">Producción</a>
+    <a onclick="openTeleprompter()">Teleprompter</a>
+    <a class="nav-cta" onclick="openContact()">Contacto</a>
+  </div>
+  <button class="nav-toggle" onclick="toggleNav()">☰</button>
+</nav>
 
-<!-- Modal de Contacto -->
-<div class="contact-modal" id="contactModal">
-<div class="contact-content">
-<div id="contactForm">
-<h2>Contáctanos</h2>
-<p>Envíanos tu consulta y te responderemos pronto</p>
-<form id="contactFormAJAX">
-<div class="form-group">
-<label for="name">Nombre *</label>
-<input type="text" id="name" name="name" required>
-</div>
-<div class="form-group">
-<label for="email">Email *</label>
-<input type="email" id="email" name="email" required>
-</div>
-<div class="form-group">
-<label for="phone">Teléfono</label>
-<input type="tel" id="phone" name="phone">
-</div>
-<div class="form-group">
-<label for="message">Mensaje *</label>
-<textarea id="message" name="message" required></textarea>
-</div>
-<div class="form-buttons">
-<button type="submit" class="btn-submit">Enviar Mensaje</button>
-<button type="button" class="btn-cancel" onclick="closeContact()">Cancelar</button>
-</div>
-</form>
-</div>
-<div class="success-message" id="successMessage">
-<h3>✓ ¡Mensaje Enviado!</h3>
-<p>Gracias por contactarnos. Te responderemos pronto.</p>
-<button class="btn-submit" onclick="closeContact()" style="margin-top: 20px; width: 100%;">Cerrar</button>
-</div>
-</div>
-</div>
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="hero-kicker">Comunicación Política</div>
+  <div class="logo-wrap">
+    <div class="logo">cambio<span class="accent">pe</span></div>
+  </div>
+  <p class="hero-tagline">
+    <span class="quote-mark">"</span>En política, lo que <strong>no se comunica</strong>, no existe<span class="quote-mark">"</span>
+  </p>
+  <div class="hero-meta">
+    <span>Argentina</span>
+    <span>Perú</span>
+    <span>Estrategia · Narrativa · Campaña</span>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
 
-<!-- Modal de Asesoría -->
-<div class="asesoria-modal" id="asesoriaModal">
-<div class="asesoria-content">
-<img src="images/asesoria.jpg" alt="En política, lo que no se comunica, no existe" class="asesoria-image">
-<div class="asesoria-text">
-<h1>En política, lo que no se comunica, no existe</h1>
-<h2>Asesoría estratégica para líderes que buscan marcar la diferencia</h2>
-<h3>El Desafío:</h3>
-<p>Ganar una elección, conseguir apoyo para una reforma audaz o salir ileso de una crisis son retos que requieren algo más que publicidad: requieren estrategia. Nos gustan los desafíos difíciles. Nuestra misión es dotar a nuestros clientes de las armas discursivas y tácticas necesarias para navegar la complejidad del escenario actual.</p>
-<h3>¿Qué hacemos por ti?</h3>
-<ul>
-<li><strong>1. Construcción de Liderazgo (Campañas):</strong> Te ayudamos a posicionarte como la mejor opción. Desarrollamos la narrativa y las tácticas de tierra y aire para movilizar voluntades y ganar el corazón del electorado.</li>
-<li><strong>2. Estrategia Electoral:</strong> Nos especializamos en posicionar candidatos competitivos. Desde la narrativa hasta la movilización, creamos el camino para ganar elecciones.</li>
-<li><strong>3. Blindaje y Respuesta (Crisis):</strong> Cuando estalla una crisis, el tiempo es oro. Ofrecemos contención inmediata y estrategias de giro para proteger tu capital político y reputacional, transformando el riesgo en una muestra de carácter.</li>
-</ul>
-<button class="btn-close-asesoria" onclick="closeAsesoria()">Cerrar</button>
-</div>
-</div>
-</div>
+<!-- ============ SERVICIOS ============ -->
+<section class="services-section" id="servicios">
+  <div class="section-head">
+    <h2 class="section-title">Nuestros <em>servicios</em></h2>
+    <div class="section-num">01 / 02</div>
+  </div>
 
-<!-- Modal de Digital -->
-<div class="digital-modal" id="digitalModal">
-<div class="digital-content">
-<img src="images/digital.jpg" alt="Tu mensaje, en la pantalla de cada ciudadano" class="digital-image">
-<div class="digital-text">
-<h1>Tu mensaje, en la pantalla de cada ciudadano</h1>
-<h2>Comunicación política digital para conectar, persuadir y movilizar</h2>
-<h3>El Desafío Digital:</h3>
-<p>La atención de la gente es el recurso más escaso del siglo XXI. En un entorno saturado de información, la comunicación política tradicional se vuelve irrelevante. Para gobernar o ganar elecciones en Argentina y Perú hoy, necesitas hablar el idioma del entorno digital y construir una comunidad auténtica alrededor de tu proyecto.</p>
-<h3>¿Cómo lo hacemos?</h3>
-<p>No somos una agencia de publicidad convencional; somos estrategas políticos nativos digitales. Entendemos que un "trend" de TikTok puede definir una semana de agenda política y que una respuesta rápida en X puede desactivar una crisis.</p>
-<ul>
-<li><strong>1. Escucha Activa y Monitoreo (Social Listening):</strong> Mapeamos el humor social en tiempo real. Detectamos tendencias emergentes, identificamos influenciadores clave y anticipamos posibles crisis antes de que se vuelvan inmanejables.</li>
-<li><strong>2. Campañas de Contraste y Defensa:</strong> En el terreno digital, el ataque es constante. Desarrollamos tácticas de defensa rápida y, cuando es necesario, campañas de contraste efectivas y basadas en datos.</li>
-<li><strong>3. Ecosistema de Contenidos Transmedia:</strong> Adaptamos la narrativa política a la gramática de cada plataforma. Desde la inmediatez de X (Twitter) y la estética de Instagram, hasta el lenguaje dinámico de TikTok. Creamos contenido diseñado para romper el "scroll" y generar compromiso.</li>
-</ul>
-<button class="btn-close-digital" onclick="closeDigital()">Cerrar</button>
-</div>
-</div>
-</div>
+  <div class="services-grid">
+    <div class="service-card" onclick="openInfo('asesoria')">
+      <div class="service-tag">01 · Estrategia</div>
+      <div class="service-letter">A</div>
+      <div class="service-name">Asesoría</div>
+      <div class="service-desc">Consultoría política estratégica para candidatos, partidos y gobiernos. Diseño de posicionamiento, mensaje y campaña.</div>
+    </div>
 
-<!-- Teleprompter -->
+    <div class="service-card" onclick="openInfo('digital')">
+      <div class="service-tag">02 · Redes</div>
+      <div class="service-letter">D</div>
+      <div class="service-name">Digital</div>
+      <div class="service-desc">Estrategia digital integral, gestión de redes, narrativa online y microsegmentación para campañas modernas.</div>
+    </div>
+
+    <div class="service-card" onclick="openInfo('produccion')">
+      <div class="service-tag">03 · Contenidos</div>
+      <div class="service-letter">P</div>
+      <div class="service-name">Producción</div>
+      <div class="service-desc">Producción audiovisual profesional: spots, videos para redes, piezas gráficas y material de campaña.</div>
+    </div>
+
+    <div class="service-card" onclick="openTeleprompter()">
+      <div class="service-tag">04 · Herramienta</div>
+      <div class="service-letter">T</div>
+      <div class="service-name">Teleprompter</div>
+      <div class="service-desc">Sistema profesional 2V para discursos, presentaciones y grabaciones. Totalmente configurable.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FILOSOFÍA ============ -->
+<section class="philosophy" id="filosofia">
+  <div class="philosophy-inner">
+    <div class="section-num" style="margin-bottom:24px">02 / 02 · Filosofía</div>
+    <p class="philosophy-quote">
+      En política, lo que <span class="highlight">no se comunica</span>, no existe.
+      <br>Y lo que se comunica mal, <span class="highlight">existe en contra tuya.</span>
+    </p>
+    <div class="philosophy-attr">— CambioPE · Consultoría Política</div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">cambiope.com</div>
+    <div class="footer-meta">© 2026 · Comunicación Política</div>
+    <div>
+      <a onclick="openContact()" style="color:var(--accent);cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;">Contacto →</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ TELEPROMPTER ============ -->
 <div class="teleprompter-page" id="teleprompterPage">
-<div class="tp-container">
-<header>
-Teleprompter 2V
-<span class="valle-name">del Valle</span>
-</header>
-<div class="tp-controls">
-<div class="control-group">
-<span class="control-label">Fuente:</span>
-<select id="fontFamily" class="tp-select">
-<option value="Montserrat" selected>Montserrat</option>
-<option value="Roboto Mono">Roboto Mono</option>
-<option value="Oswald">Oswald</option>
-<option value="Lato">Lato</option>
-<option value="Open Sans">Open Sans</option>
-<option value="PT Sans">PT Sans</option>
-<option value="Source Sans Pro">Source Sans Pro</option>
-<option value="Work Sans">Work Sans</option>
-</select>
-</div>
-<div class="slider-container">
-<span class="control-label">Vel:</span>
-<input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
-<span id="speedValue" style="color: #4CAF50; min-width: 40px;">5</span>
-</div>
-<div class="slider-container">
-<span class="control-label">Zoom:</span>
-<input type="range" id="zoom" class="tp-range" min="50" max="200" value="100" step="10">
-<span id="zoomValue" style="color: #4CAF50; min-width: 50px;">100%</span>
-</div>
-<div class="control-group">
-<span class="control-label">Tema:</span>
-<select id="theme" class="tp-select">
-<option value="white">Blanco</option>
-<option value="yellow">Amarillo</option>
-<option value="blue">Azul</option>
-<option value="red">Rojo</option>
-</select>
-</div>
-</div>
-<div class="prompt-container">
-<div class="prompt-text" id="promptText" contenteditable="true">
-<p>¡Bienvenido al Teleprompter 2V de CambioPE! Haz clic en Play para comenzar. Puedes editar este texto directamente.</p>
-<p>Este es tu espacio para escribir tu guion político, discurso o mensaje.</p>
-<p>El texto se desplazará automáticamente a la velocidad que elijas en los controles.</p>
-<p>Puedes cambiar la fuente, el tamaño y el color del texto para adaptarlo a tus necesidades.</p>
-<p>El teleprompter es una herramienta esencial para presentaciones, entrevistas y grabaciones profesionales.</p>
-<p>Con este sistema, podrás mantener tu mirada fija en la cámara mientras lees tu mensaje.</p>
-<p>Recuerda practicar antes de tu presentación para lograr una comunicación natural y efectiva.</p>
-<p>¡Buena suerte con tu mensaje político!</p>
-</div>
-</div>
-<div class="tp-controls-bottom">
-<button id="playPause" class="tp-btn play-btn">▶</button>
-<button id="reset" class="tp-btn stop-btn">■</button>
-<button id="presentation" class="tp-btn presentation-btn">📺</button>
-<button id="instructionsBtn" class="tp-btn info-btn">ℹ️</button>
-<button onclick="closeTeleprompter()" class="tp-btn exit-btn">🚪</button>
-</div>
-<div class="tp-instructions">
-Usa los controles para ajustar velocidad y zoom. Botón 🚪 para volver al inicio.
-</div>
-</div>
+  <div class="tp-header">
+    <div class="tp-title">
+      Teleprompter <span class="accent">2V</span>
+      <span class="sub">del Valle</span>
+    </div>
+    <button class="tp-btn exit-btn" onclick="closeTeleprompter()" title="Volver al inicio" style="width:44px;height:44px;font-size:16px;">✕</button>
+  </div>
+
+  <div class="tp-controls">
+    <div class="control-group">
+      <span class="control-label">Fuente</span>
+      <select id="fontFamily" class="tp-select">
+        <option value="JetBrains Mono">JetBrains Mono</option>
+        <option value="Roboto Mono">Roboto Mono</option>
+        <option value="Inter">Inter</option>
+        <option value="Playfair Display">Playfair Display</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Arial">Arial</option>
+      </select>
+    </div>
+
+    <div class="slider-container">
+      <span class="control-label">Vel</span>
+      <input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
+      <span id="speedValue" class="tp-value">5</span>
+    </div>
+
+    <div class="slider-container">
+      <span class="control-label">Zoom</span>
+      <input type="range" id="zoom" class="tp-range" min="50" max="250" value="100" step="10">
+      <span id="zoomValue" class="tp-value">100%</span>
+    </div>
+
+    <div class="control-group">
+      <span class="control-label">Tema</span>
+      <select id="theme" class="tp-select">
+        <option value="white">Blanco</option>
+        <option value="amber">Ámbar</option>
+        <option value="cyan">Cian</option>
+        <option value="red">Rojo</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <span class="control-label">Espejo</span>
+      <select id="mirror" class="tp-select" style="min-width:110px">
+        <option value="none">Normal</option>
+        <option value="h">Horizontal</option>
+        <option value="v">Vertical</option>
+        <option value="hv">Ambos</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="prompt-container">
+    <div class="reading-line"></div>
+    <div class="prompt-text" id="promptText" contenteditable="true" spellcheck="false">
+      <p>Bienvenido al Teleprompter 2V de CambioPE.</p>
+      <p>Haz clic en <strong>Play</strong> ▶ para comenzar. Este texto es editable: toca aquí y escribe tu guion, discurso o mensaje.</p>
+      <p>Usá los controles superiores para ajustar velocidad, zoom, fuente, color y modo espejo.</p>
+      <p>Atajos de teclado: <strong>Espacio</strong> play/pausa · <strong>R</strong> reset · <strong>F</strong> presentación · <strong>ESC</strong> salir · <strong>↑/↓</strong> velocidad.</p>
+      <p>El modo presentación activa pantalla completa con texto ampliado para uso con cámara profesional.</p>
+      <p>Recordá ensayar tu mensaje antes de la grabación. Pausá las veces que necesites.</p>
+      <p>En política, lo que no se comunica, no existe.</p>
+      <p style="color:var(--accent)">— Buena suerte con tu mensaje. —</p>
+    </div>
+  </div>
+
+  <div class="tp-controls-bottom">
+    <button id="playPause" class="tp-btn play-btn" title="Play / Pausa (Espacio)">▶</button>
+    <button id="reset" class="tp-btn stop-btn" title="Reset (R)">■</button>
+    <button id="presentation" class="tp-btn presentation-btn" title="Presentación (F)">⛶</button>
+    <button id="instructionsBtn" class="tp-btn" title="Instrucciones">ℹ</button>
+  </div>
+
+  <div class="tp-tip">
+    <kbd>Space</kbd> play · <kbd>R</kbd> reset · <kbd>F</kbd> presentación · <kbd>↑↓</kbd> velocidad · <kbd>ESC</kbd> salir
+  </div>
+
+  <!-- Modo Presentación -->
+  <div class="presentation-mode" id="presentationMode">
+    <div class="presentation-line"></div>
+    <div class="presentation-content" id="presentationContent"></div>
+    <div class="presentation-controls">
+      <button id="playPausePresentation" class="tp-btn play-btn">▶</button>
+      <button id="resetPresentation" class="tp-btn stop-btn">■</button>
+    </div>
+    <button class="exit-presentation" id="exitPresentation">✕ Salir</button>
+  </div>
+
+  <!-- Instrucciones -->
+  <div class="instructions-modal" id="instructionsModal">
+    <div class="instructions-content">
+      <h2>Teleprompter 2V</h2>
+      <div class="sub">Manual de uso rápido</div>
+      <ul>
+        <li><strong>▶ / ❚❚</strong><span>Inicia o pausa el desplazamiento del texto. Atajo: <kbd>Espacio</kbd></span></li>
+        <li><strong>■ Reset</strong><span>Detiene y reinicia la posición del texto. Atajo: <kbd>R</kbd></span></li>
+        <li><strong>⛶ Presentación</strong><span>Activa pantalla completa con texto ampliado. Atajo: <kbd>F</kbd></span></li>
+        <li><strong>Velocidad</strong><span>Ajusta velocidad de scroll (1–10). <kbd>↑</kbd> / <kbd>↓</kbd></span></li>
+        <li><strong>Zoom</strong><span>Tamaño del texto (50%–250%)</span></li>
+        <li><strong>Tema</strong><span>Color del texto: blanco, ámbar, cian, rojo</span></li>
+        <li><strong>Espejo</strong><span>Invierte el texto horizontal/vertical (cámaras profesionales)</span></li>
+        <li><strong>Texto</strong><span>Editable directamente: toca y escribe tu guion</span></li>
+      </ul>
+      <button class="close-instructions" id="closeInstructions">Entendido</button>
+    </div>
+  </div>
 </div>
 
-<!-- Modo Presentación -->
-<div class="presentation-mode" id="presentationMode">
-<div class="presentation-content" id="presentationContent"></div>
-<div class="presentation-controls">
-<button id="playPausePresentation" class="tp-btn play-btn">▶</button>
-<button id="resetPresentation" class="tp-btn stop-btn">■</button>
-</div>
-<button class="exit-presentation" id="exitPresentation">Salir de Presentación</button>
+<!-- ============ MODAL CONTACTO ============ -->
+<div class="modal" id="contactModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeContact()">✕</button>
+    <div id="contactForm">
+      <div class="modal-kicker">Contacto</div>
+      <h2 class="modal-title">Hablemos de tu <em>campaña</em></h2>
+      <p class="modal-desc">Envianos tu consulta y te respondemos a la brevedad.</p>
+
+      <!-- Form usa Formspree. Reemplazá FORMSPREE_ID por tu ID real (ver README) -->
+      <form id="contactFormEl" action="https://formspree.io/f/FORMSPREE_ID" method="POST" onsubmit="return handleSubmit(event)">
+        <input type="hidden" name="_subject" value="Nuevo contacto desde cambiope.com">
+        <input type="hidden" name="_replyto" id="_replyto">
+        <!-- Honeypot anti-spam -->
+        <p style="display:none"><label>No completar: <input name="_gotcha"></label></p>
+
+        <div class="form-group">
+          <label for="name">Nombre *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Teléfono</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+          <label for="message">Mensaje *</label>
+          <textarea id="message" name="message" required placeholder="Contanos brevemente tu proyecto o consulta…"></textarea>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn-submit">Enviar</button>
+          <button type="button" class="btn-cancel" onclick="closeContact()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      <div class="icon">✓</div>
+      <h3>Mensaje enviado</h3>
+      <p>Gracias por contactarnos. Te respondemos pronto.</p>
+      <button class="btn-submit" onclick="closeContact()">Cerrar</button>
+    </div>
+  </div>
 </div>
 
-<!-- Modal de Instrucciones -->
-<div class="instructions-modal" id="instructionsModal">
-<div class="instructions-content">
-<h2>Instrucciones del Teleprompter 2V</h2>
-<ul>
-<li><strong>Play/Pause (▶/❚❚)</strong>: Inicia o pausa el desplazamiento del texto.</li>
-<li><strong>Stop (■)</strong>: Detiene el desplazamiento y reinicia la posición del texto.</li>
-<li><strong>Modo Presentación (📺)</strong>: Activa la vista de presentación completa con texto en grande.</li>
-<li><strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento del texto.</li>
-<li><strong>Zoom</strong>: Ajusta el tamaño del texto.</li>
-<li><strong>Fuente</strong>: Cambia entre diferentes tipos de letra legibles.</li>
-<li><strong>Tema</strong>: Cambia el color del texto (blanco, amarillo, azul, rojo).</li>
-<li><strong>Salir (🚪)</strong>: Regresa a la página principal de CambioPE.</li>
-</ul>
-<p>En modo presentación, el texto se desplaza automáticamente. Puedes editar el texto directamente haciendo clic en él.</p>
-<button class="close-instructions" id="closeInstructions">Cerrar</button>
-</div>
+<!-- ============ MODAL INFO SERVICIOS ============ -->
+<div class="modal" id="infoModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeInfo()">✕</button>
+    <div class="modal-kicker" id="infoKicker">Servicio</div>
+    <h2 class="modal-title" id="infoTitle"></h2>
+    <div class="info-body" id="infoBody"></div>
+    <div class="form-buttons" style="margin-top:32px">
+      <button class="btn-submit" onclick="closeInfo();openContact()">Solicitar información</button>
+    </div>
+  </div>
 </div>
 
 <script>
-// --- MODALES ---
-function openContact() { document.getElementById('contactModal').classList.add('active'); }
-function closeContact() {
-document.getElementById('contactModal').classList.remove('active');
-document.getElementById('contactForm').style.display = 'block';
-document.getElementById('successMessage').classList.remove('active');
-document.getElementById('contactFormAJAX').reset();
+// ============ NAV ============
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('mobile-open');
 }
-function openAsesoria() { document.getElementById('asesoriaModal').classList.add('active'); }
-function closeAsesoria() { document.getElementById('asesoriaModal').classList.remove('active'); }
-function openDigital() { document.getElementById('digitalModal').classList.add('active'); }
-function closeDigital() { document.getElementById('digitalModal').classList.remove('active'); }
-function openTeleprompter() { 
-document.getElementById('teleprompterPage').classList.add('active'); 
-initTeleprompter();
+function scrollToTop(e){
+  if(e) e.preventDefault();
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('navLinks').classList.remove('mobile-open');
 }
-function closeTeleprompter() { document.getElementById('teleprompterPage').classList.remove('active'); }
+function scrollTo(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('navLinks').classList.remove('mobile-open');
+}
 
-// --- FORMULARIO AJAX CON FORMSPREE ---
-document.getElementById('contactFormAJAX').addEventListener('submit', async function(e) {
-e.preventDefault();
-const formData = new FormData(this);
-formData.append('_replyto', document.getElementById('email').value);
-try {
-const response = await fetch('https://formspree.io/f/xeeqovpd', {
-method: 'POST',
-body: formData,
-headers: { 'Accept': 'application/json' }
+// ============ INFO MODAL ============
+const SERVICES_INFO = {
+  asesoria:{
+    kicker:'01 · Asesoría',
+    title:'Asesoría estratégica',
+    body:`<p>Consultoría política integral para candidatos, partidos y gobiernos. Nuestro enfoque combina análisis político clásico con herramientas contemporáneas.</p>
+      <ul>
+        <li>Diagnóstico político y de posicionamiento</li>
+        <li>Diseño de estrategia y narrativa de campaña</li>
+        <li>Gestión de crisis y respuesta rápida</li>
+        <li>Preparación de debates y entrevistas</li>
+        <li>Entrenamiento de voceros y candidatos</li>
+      </ul>`
+  },
+  digital:{
+    kicker:'02 · Digital',
+    title:'Estrategia digital',
+    body:`<p>Campañas digitales basadas en datos, microsegmentación y formatos ganadores. Convertimos algoritmos en votos.</p>
+      <ul>
+        <li>Gestión de redes sociales y comunidades</li>
+        <li>Microsegmentación y pauta política</li>
+        <li>Análisis de tendencias y escucha social</li>
+        <li>Narrativa digital y contenido viral</li>
+        <li>Uso estratégico de IA en campaña</li>
+      </ul>`
+  },
+  produccion:{
+    kicker:'03 · Producción',
+    title:'Producción audiovisual',
+    body:`<p>Producción profesional de contenidos políticos para todas las plataformas. Del spot de TV al video vertical para redes.</p>
+      <ul>
+        <li>Spots de campaña y publicidad política</li>
+        <li>Video corto vertical para redes (TikTok, Reels, Shorts)</li>
+        <li>Piezas gráficas y animadas</li>
+        <li>Cobertura de eventos y actos</li>
+        <li>Dirección creativa y guiones</li>
+      </ul>`
+  }
+};
+function openInfo(key){
+  const data = SERVICES_INFO[key];
+  if(!data) return;
+  document.getElementById('infoKicker').textContent = data.kicker;
+  document.getElementById('infoTitle').innerHTML = data.title;
+  document.getElementById('infoBody').innerHTML = data.body;
+  document.getElementById('infoModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeInfo(){
+  document.getElementById('infoModal').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+// ============ TELEPROMPTER ============
+const TP = {
+  isPlaying:false,
+  scrollInterval:null,
+  presentationInterval:null,
+  scrollSpeed:5,
+  zoomLevel:100,
+  isPresentationMode:false,
+  initialized:false,
+  elements:{}
+};
+
+function openTeleprompter(){
+  document.getElementById('teleprompterPage').classList.add('active');
+  document.body.style.overflow='hidden';
+  if(!TP.initialized) initTeleprompter();
+}
+
+function closeTeleprompter(){
+  pauseTP();
+  if(TP.isPresentationMode) exitPresentationMode();
+  document.getElementById('teleprompterPage').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+function initTeleprompter(){
+  const E = TP.elements;
+  E.promptText = document.getElementById('promptText');
+  E.playPause = document.getElementById('playPause');
+  E.reset = document.getElementById('reset');
+  E.speed = document.getElementById('speed');
+  E.speedValue = document.getElementById('speedValue');
+  E.zoom = document.getElementById('zoom');
+  E.zoomValue = document.getElementById('zoomValue');
+  E.fontFamily = document.getElementById('fontFamily');
+  E.theme = document.getElementById('theme');
+  E.mirror = document.getElementById('mirror');
+  E.presentation = document.getElementById('presentation');
+  E.instructionsBtn = document.getElementById('instructionsBtn');
+  E.presentationMode = document.getElementById('presentationMode');
+  E.presentationContent = document.getElementById('presentationContent');
+  E.exitPresentation = document.getElementById('exitPresentation');
+  E.playPausePresentation = document.getElementById('playPausePresentation');
+  E.resetPresentation = document.getElementById('resetPresentation');
+  E.instructionsModal = document.getElementById('instructionsModal');
+  E.closeInstructions = document.getElementById('closeInstructions');
+
+  // Valores iniciales
+  TP.scrollSpeed = parseFloat(E.speed.value);
+  E.speedValue.textContent = TP.scrollSpeed;
+  TP.zoomLevel = parseInt(E.zoom.value);
+  E.zoomValue.textContent = TP.zoomLevel + '%';
+  applyZoom();
+
+  // Eventos
+  E.speed.addEventListener('input', ()=>{
+    TP.scrollSpeed = parseFloat(E.speed.value);
+    E.speedValue.textContent = TP.scrollSpeed;
+  });
+  E.zoom.addEventListener('input', ()=>{
+    TP.zoomLevel = parseInt(E.zoom.value);
+    E.zoomValue.textContent = TP.zoomLevel + '%';
+    applyZoom();
+  });
+  E.fontFamily.addEventListener('change', ()=>{
+    E.promptText.style.fontFamily = `"${E.fontFamily.value}", sans-serif`;
+    E.presentationContent.style.fontFamily = `"${E.fontFamily.value}", sans-serif`;
+  });
+  E.theme.addEventListener('change', applyTheme);
+  E.mirror.addEventListener('change', applyMirror);
+
+  E.playPause.addEventListener('click', togglePlay);
+  E.reset.addEventListener('click', resetScroll);
+  E.presentation.addEventListener('click', enterPresentationMode);
+  E.instructionsBtn.addEventListener('click', ()=> E.instructionsModal.classList.add('active'));
+  E.closeInstructions.addEventListener('click', ()=> E.instructionsModal.classList.remove('active'));
+  E.instructionsModal.addEventListener('click', (e)=>{
+    if(e.target === E.instructionsModal) E.instructionsModal.classList.remove('active');
+  });
+  E.exitPresentation.addEventListener('click', exitPresentationMode);
+  E.playPausePresentation.addEventListener('click', ()=> TP.isPlaying ? pausePresentation() : playPresentation());
+  E.resetPresentation.addEventListener('click', resetPresentationScroll);
+
+  TP.initialized = true;
+}
+
+function applyZoom(){
+  const base = 36;
+  TP.elements.promptText.style.fontSize = (base * TP.zoomLevel / 100) + 'px';
+}
+
+function applyTheme(){
+  const theme = TP.elements.theme.value;
+  const targets = [TP.elements.promptText, TP.elements.presentationContent];
+  const themes = {
+    white:{c:'#fff',s:'0 0 30px rgba(255,255,255,.7)'},
+    amber:{c:'#e9c46a',s:'0 0 30px rgba(233,196,106,.8)'},
+    cyan:{c:'#7dd3fc',s:'0 0 30px rgba(125,211,252,.8)'},
+    red:{c:'#f87171',s:'0 0 30px rgba(248,113,113,.8)'}
+  };
+  const t = themes[theme] || themes.white;
+  targets.forEach(el=>{
+    if(!el) return;
+    el.style.color = t.c;
+    el.style.textShadow = t.s;
+  });
+}
+
+function applyMirror(){
+  const m = TP.elements.mirror.value;
+  let transform = 'none';
+  if(m==='h') transform = 'scaleX(-1)';
+  else if(m==='v') transform = 'scaleY(-1)';
+  else if(m==='hv') transform = 'scale(-1,-1)';
+  TP.elements.promptText.style.transform = transform;
+  TP.elements.presentationContent.style.transform = transform;
+}
+
+function togglePlay(){
+  if(TP.isPlaying) pauseTP(); else playTP();
+}
+
+function playTP(){
+  TP.isPlaying = true;
+  TP.elements.playPause.innerHTML = '❚❚';
+  if(TP.elements.playPausePresentation) TP.elements.playPausePresentation.innerHTML = '❚❚';
+
+  if(TP.scrollInterval) clearInterval(TP.scrollInterval);
+
+  TP.scrollInterval = setInterval(()=>{
+    const el = TP.elements.promptText;
+    const max = el.scrollHeight - el.clientHeight;
+    el.scrollTop += TP.scrollSpeed * 1.5;
+    if(el.scrollTop >= max - 2) pauseTP();
+  }, 40);
+
+  if(TP.isPresentationMode) playPresentation();
+}
+
+function pauseTP(){
+  TP.isPlaying = false;
+  if(TP.elements.playPause) TP.elements.playPause.innerHTML = '▶';
+  if(TP.elements.playPausePresentation) TP.elements.playPausePresentation.innerHTML = '▶';
+  if(TP.scrollInterval){ clearInterval(TP.scrollInterval); TP.scrollInterval=null; }
+  if(TP.presentationInterval){ clearInterval(TP.presentationInterval); TP.presentationInterval=null; }
+}
+
+function resetScroll(){
+  pauseTP();
+  TP.elements.promptText.scrollTop = 0;
+  if(TP.isPresentationMode) resetPresentationScroll();
+}
+
+function enterPresentationMode(){
+  const E = TP.elements;
+  E.presentationContent.innerHTML = E.promptText.innerHTML;
+  E.presentationContent.style.fontFamily = E.promptText.style.fontFamily || `"${E.fontFamily.value}", sans-serif`;
+  E.presentationContent.style.color = E.promptText.style.color || '#fff';
+  E.presentationContent.style.textShadow = E.promptText.style.textShadow || '0 0 30px rgba(255,255,255,.7)';
+  E.presentationContent.style.transform = E.promptText.style.transform || 'none';
+  E.presentationMode.classList.add('active');
+  TP.isPresentationMode = true;
+
+  // Pantalla completa si es posible
+  if(document.documentElement.requestFullscreen){
+    document.documentElement.requestFullscreen().catch(()=>{});
+  }
+
+  if(TP.isPlaying) playPresentation();
+}
+
+function exitPresentationMode(){
+  pausePresentation();
+  TP.elements.presentationMode.classList.remove('active');
+  TP.isPresentationMode = false;
+  if(document.fullscreenElement){
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+
+function playPresentation(){
+  TP.isPlaying = true;
+  TP.elements.playPausePresentation.innerHTML = '❚❚';
+  TP.elements.playPause.innerHTML = '❚❚';
+
+  if(TP.presentationInterval) clearInterval(TP.presentationInterval);
+
+  TP.presentationInterval = setInterval(()=>{
+    const el = TP.elements.presentationContent;
+    const max = el.scrollHeight - el.clientHeight;
+    el.scrollTop += TP.scrollSpeed * 1.5;
+    if(el.scrollTop >= max - 2) pausePresentation();
+  }, 40);
+}
+
+function pausePresentation(){
+  TP.isPlaying = false;
+  if(TP.elements.playPausePresentation) TP.elements.playPausePresentation.innerHTML = '▶';
+  if(TP.elements.playPause) TP.elements.playPause.innerHTML = '▶';
+  if(TP.presentationInterval){ clearInterval(TP.presentationInterval); TP.presentationInterval=null; }
+  if(TP.scrollInterval){ clearInterval(TP.scrollInterval); TP.scrollInterval=null; }
+}
+
+function resetPresentationScroll(){
+  pausePresentation();
+  TP.elements.presentationContent.scrollTop = 0;
+}
+
+// ============ CONTACTO ============
+function openContact(){
+  document.getElementById('contactModal').classList.add('active');
+  document.getElementById('contactForm').style.display='block';
+  document.getElementById('successMessage').classList.remove('active');
+  document.body.style.overflow='hidden';
+  document.getElementById('navLinks').classList.remove('mobile-open');
+}
+function closeContact(){
+  document.getElementById('contactModal').classList.remove('active');
+  document.body.style.overflow='';
+  const form = document.getElementById('contactFormEl');
+  if(form) form.reset();
+}
+function handleSubmit(event){
+  event.preventDefault();
+  const form = event.target;
+
+  // Detectar si Formspree está configurado
+  const action = form.getAttribute('action') || '';
+  const formspreeOk = action.includes('formspree.io/f/') && !action.includes('FORMSPREE_ID');
+
+  // Setear reply-to para que al responder el mail vaya al remitente
+  const emailInput = form.querySelector('#email');
+  const replyTo = form.querySelector('#_replyto');
+  if(emailInput && replyTo) replyTo.value = emailInput.value;
+
+  if(formspreeOk){
+    // Envío normal vía Formspree
+    const formData = new FormData(form);
+    fetch(form.action, {
+      method:'POST',
+      body:formData,
+      headers:{'Accept':'application/json'}
+    })
+    .then(r => {
+      if(r.ok){
+        document.getElementById('contactForm').style.display='none';
+        document.getElementById('successMessage').classList.add('active');
+      } else {
+        throw new Error('Error en el envío');
+      }
+    })
+    .catch(err => {
+      alert('Hubo un error al enviar. Por favor escribinos directamente a cambioperuano1@gmail.com');
+      console.error(err);
+    });
+  } else {
+    // Fallback: abrir cliente de mail con los datos
+    const name = form.querySelector('#name').value;
+    const email = form.querySelector('#email').value;
+    const phone = form.querySelector('#phone').value;
+    const message = form.querySelector('#message').value;
+    const subject = encodeURIComponent('Contacto desde cambiope.com');
+    const body = encodeURIComponent(
+      `Nombre: ${name}\nEmail: ${email}\nTeléfono: ${phone}\n\nMensaje:\n${message}`
+    );
+    window.location.href = `mailto:cambioperuano1@gmail.com?subject=${subject}&body=${body}`;
+    // Mostrar mensaje de éxito igual
+    setTimeout(() => {
+      document.getElementById('contactForm').style.display='none';
+      document.getElementById('successMessage').classList.add('active');
+    }, 500);
+  }
+  return false;
+}
+
+// ============ KEYBOARD ============
+document.addEventListener('keydown', (e)=>{
+  const tpActive = document.getElementById('teleprompterPage').classList.contains('active');
+  const contactActive = document.getElementById('contactModal').classList.contains('active');
+  const infoActive = document.getElementById('infoModal').classList.contains('active');
+  const instrActive = document.getElementById('instructionsModal')?.classList.contains('active');
+
+  if(e.key === 'Escape'){
+    if(instrActive){ document.getElementById('instructionsModal').classList.remove('active'); return; }
+    if(TP.isPresentationMode){ exitPresentationMode(); return; }
+    if(contactActive){ closeContact(); return; }
+    if(infoActive){ closeInfo(); return; }
+    if(tpActive){ closeTeleprompter(); return; }
+  }
+
+  // Atajos solo dentro del teleprompter y NO en elementos editables
+  if(tpActive && !e.target.isContentEditable && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){
+    if(e.code === 'Space'){ e.preventDefault(); togglePlay(); }
+    else if(e.key.toLowerCase() === 'r'){ e.preventDefault(); resetScroll(); }
+    else if(e.key.toLowerCase() === 'f'){ e.preventDefault(); TP.isPresentationMode ? exitPresentationMode() : enterPresentationMode(); }
+    else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      TP.scrollSpeed = Math.min(10, TP.scrollSpeed + 0.5);
+      TP.elements.speed.value = TP.scrollSpeed;
+      TP.elements.speedValue.textContent = TP.scrollSpeed;
+    }
+    else if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      TP.scrollSpeed = Math.max(1, TP.scrollSpeed - 0.5);
+      TP.elements.speed.value = TP.scrollSpeed;
+      TP.elements.speedValue.textContent = TP.scrollSpeed;
+    }
+  }
 });
-if (response.ok) {
-document.getElementById('contactForm').style.display = 'none';
-document.getElementById('successMessage').classList.add('active');
-} else {
-alert('Hubo un error. Por favor intenta de nuevo.');
-}
-} catch (error) {
-alert('Error de conexión. Verifica tu internet.');
-}
+
+// Click fuera del modal cierra
+document.getElementById('contactModal').addEventListener('click', (e)=>{
+  if(e.target.id === 'contactModal') closeContact();
 });
-
-// --- TELEPROMPTER COMPLETO (CORREGIDO) ---
-let isPlaying = false, scrollInterval = null, presentationInterval = null, scrollSpeed = 5, zoomLevel = 100, isPresentationMode = false;
-
-function initTeleprompter() {
-const promptText = document.querySelector('#promptText');
-const playPauseButton = document.querySelector('#playPause');
-const resetButton = document.querySelector('#reset');
-const speedControl = document.querySelector('#speed');
-const speedValue = document.querySelector('#speedValue');
-const zoomControl = document.querySelector('#zoom');
-const zoomValue = document.querySelector('#zoomValue');
-const fontFamilySelect = document.querySelector('#fontFamily');
-const themeSelect = document.querySelector('#theme');
-const presentationButton = document.querySelector('#presentation');
-const instructionsButton = document.querySelector('#instructionsBtn');
-const presentationMode = document.querySelector('#presentationMode');
-const presentationContent = document.querySelector('#presentationContent');
-const exitPresentation = document.querySelector('#exitPresentation');
-const playPausePresentation = document.querySelector('#playPausePresentation');
-const resetPresentation = document.querySelector('#resetPresentation');
-const instructionsModal = document.querySelector('#instructionsModal');
-const closeInstructions = document.querySelector('#closeInstructions');
-
-scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed;
-zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%';
-promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
-
-speedControl.addEventListener('input', () => { scrollSpeed = parseFloat(speedControl.value); speedValue.textContent = scrollSpeed; });
-zoomControl.addEventListener('input', () => { zoomLevel = parseInt(zoomControl.value); zoomValue.textContent = zoomLevel + '%'; promptText.style.fontSize = (36 * zoomLevel / 100) + 'px'; });
-fontFamilySelect.addEventListener('change', () => { promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif'; });
-themeSelect.addEventListener('change', function() {
-const theme = this.value;
-switch(theme) {
-case 'yellow': promptText.style.color = '#ff0'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 0, 0.9)'; break;
-case 'blue': promptText.style.color = '#0ff'; promptText.style.textShadow = '0 0 30px rgba(0, 255, 255, 0.9)'; break;
-case 'red': promptText.style.color = '#f00'; promptText.style.textShadow = '0 0 30px rgba(255, 0, 0, 0.9)'; break;
-default: promptText.style.color = '#fff'; promptText.style.textShadow = '0 0 30px rgba(255, 255, 255, 0.9)';
-}
-});
-playPauseButton.addEventListener('click', togglePlay);
-resetButton.addEventListener('click', resetScroll); // <-- Aquí se asigna el evento
-presentationButton.addEventListener('click', enterPresentationMode);
-instructionsButton.addEventListener('click', () => instructionsModal.style.display = 'flex');
-closeInstructions.addEventListener('click', () => instructionsModal.style.display = 'none');
-exitPresentation.addEventListener('click', exitPresentationMode);
-playPausePresentation.addEventListener('click', () => isPlaying ? pausePresentation() : playPresentation());
-resetPresentation.addEventListener('click', resetPresentationScroll);
-
-// Asegurar que el botón Play funcione siempre
-playPauseButton.removeEventListener('click', togglePlay); // Elimina duplicados
-playPauseButton.addEventListener('click', togglePlay);
-}
-
-function togglePlay() {
-const promptText = document.querySelector('#promptText');
-if (isPlaying) {
-pause(); return;
-}
-isPlaying = true;
-document.getElementById('playPause').innerHTML = "❚❚";
-if (scrollInterval) clearInterval(scrollInterval);
-scrollInterval = setInterval(() => {
-const current = promptText.scrollTop;
-const max = promptText.scrollHeight - promptText.clientHeight;
-promptText.scrollTop = current + scrollSpeed * 2;
-if (current >= max - 5) pause();
-}, 100);
-if (isPresentationMode) playPresentation();
-}
-function pause() {
-isPlaying = false;
-document.getElementById('playPause').innerHTML = "▶";
-if (scrollInterval) clearInterval(scrollInterval);
-if (isPresentationMode) pausePresentation();
-}
-function resetScroll() {
-pause(); 
-document.querySelector('#promptText').scrollTop = 0; // <-- Esta línea garantiza que siempre vuelva al inicio
-if (isPresentationMode) resetPresentationScroll();
-}
-function enterPresentationMode() {
-const presentationContent = document.querySelector('#presentationContent');
-presentationContent.innerHTML = document.querySelector('#promptText').innerHTML;
-presentationContent.style.fontFamily = document.querySelector('#promptText').style.fontFamily;
-presentationContent.style.color = document.querySelector('#promptText').style.color;
-presentationContent.style.textShadow = document.querySelector('#promptText').style.textShadow;
-document.querySelector('#presentationMode').style.display = 'flex';
-isPresentationMode = true;
-if (isPlaying) playPresentation();
-}
-function exitPresentationMode() {
-pausePresentation();
-document.querySelector('#presentationMode').style.display = 'none';
-isPresentationMode = false;
-}
-function playPresentation() {
-isPlaying = true;
-document.getElementById('playPausePresentation').innerHTML = "❚❚";
-if (presentationInterval) clearInterval(presentationInterval);
-presentationInterval = setInterval(() => {
-const el = document.querySelector('#presentationContent');
-const current = el.scrollTop;
-const max = el.scrollHeight - el.clientHeight;
-el.scrollTop = current + scrollSpeed * 2;
-if (current >= max - 5) pausePresentation();
-}, 100);
-}
-function pausePresentation() {
-isPlaying = false;
-document.getElementById('playPausePresentation').innerHTML = "▶";
-if (presentationInterval) clearInterval(presentationInterval);
-}
-function resetPresentationScroll() {
-pausePresentation(); document.querySelector('#presentationContent').scrollTop = 0;
-}
-
-// --- Iniciar teleprompter al abrir ---
-document.getElementById('teleprompterPage').addEventListener('transitionend', () => {
-if (document.getElementById('teleprompterPage').classList.contains('active')) {
-initTeleprompter();
-}
-});
-
-// --- Cerrar con tecla Escape ---
-document.addEventListener('keydown', e => {
-if (e.key === 'Escape') {
-if (document.querySelector('#presentationMode').style.display === 'flex') exitPresentationMode();
-else if (document.querySelector('#instructionsModal').style.display === 'flex') document.querySelector('#instructionsModal').style.display = 'none';
-else if (document.querySelector('#teleprompterPage').classList.contains('active')) closeTeleprompter();
-else if (document.querySelector('#contactModal').classList.contains('active')) closeContact();
-else if (document.querySelector('#asesoriaModal').classList.contains('active')) closeAsesoria();
-else if (document.querySelector('#digitalModal').classList.contains('active')) closeDigital();
-}
+document.getElementById('infoModal').addEventListener('click', (e)=>{
+  if(e.target.id === 'infoModal') closeInfo();
 });
 </script>
-
 </body>
 </html>
