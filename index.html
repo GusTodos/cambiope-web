@@ -6,629 +6,449 @@
   <title>Cambiope · Comunicación y Medios</title>
   <meta name="description" content="Comunicación política, estrategia digital y medios. Lima · Madrid · Buenos Aires."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&family=Oswald:wght@400;700&family=Lato:wght@400;700&family=Open+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue-core: #1641CC;
-      --blue-deep: #0D2A8A;
-      --blue-bright: #2563EB;
-      --blue-light: #3B82F6;
-      --blue-accent: #60A5FA;
+      --blue: #1641CC;
+      --blue-dark: #0D2A8A;
+      --blue-mid: #1E4FE0;
+      --blue-light: #2D6AFF;
+      --blue-pale: #6B9FFF;
+      --white: #FFFFFF;
       --black: #050810;
       --dark: #0A0F1E;
-      --dark-mid: #111827;
-      --dark-card: #141C2F;
-      --border: rgba(99,148,255,0.15);
-      --text-white: #F0F4FF;
-      --text-muted: #8BA3CC;
-      --text-dim: #4B6080;
+      --dark-card: #0F1528;
+      --border-blue: rgba(255,255,255,0.12);
+      --border-dark: rgba(99,148,255,0.15);
       --font-display: 'Space Grotesk', sans-serif;
       --font-body: 'Inter', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--black);
-      color: var(--text-white);
+      color: var(--white);
       font-family: var(--font-body);
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* ─── DIAGONAL PATTERN ─── */
+    .diag-pattern {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .diag-pattern::before {
+      content: '';
+      position: absolute; inset: -100%;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px,
+        transparent 1px, transparent 48px
+      );
+    }
+
+    /* ─── BIG C ─── */
+    .big-c {
+      position: absolute;
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(16rem, 40vw, 32rem); line-height: 1;
+      letter-spacing: -0.06em; color: rgba(255,255,255,0.06);
+      pointer-events: none; user-select: none; z-index: 0;
+    }
+
+    /* ─── NAV ─── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      background: #050810;
-      border-bottom: 1px solid var(--border);
+      padding: 0 48px; height: 64px;
+      background: var(--blue);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
     }
     .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.01em;
-      color: var(--text-white);
-      text-decoration: none;
+      font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+      letter-spacing: -0.01em; color: var(--white); text-decoration: none;
       display: flex; align-items: center; gap: 10px;
     }
-    .nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-light); display: inline-block; }
-    .nav-right { display: flex; align-items: center; gap: 32px; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-logo .cp-badge {
+      width: 28px; height: 28px; background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; border-radius: 2px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text-white); }
+    .nav-links a:hover { color: var(--white); }
     .nav-warroom {
-      background: transparent;
-      color: var(--blue-accent);
-      border: 1px solid var(--blue-core);
-      padding: 8px 16px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.12); color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 7px 15px; font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.2s;
+      display: flex; align-items: center; gap: 7px;
     }
-    .nav-warroom:hover { background: var(--blue-core); color: #fff; }
+    .nav-warroom:hover { background: rgba(255,255,255,0.22); }
     .nav-warroom .wr-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--blue-accent);
-      animation: blink 1.4s infinite;
+      background: #fff; animation: blink 1.4s infinite;
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
     .nav-cta {
-      background: var(--blue-core);
-      color: #fff;
-      border: none;
-      padding: 9px 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s;
+      background: var(--white); color: var(--blue);
+      padding: 8px 18px; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; transition: opacity 0.2s;
     }
-    .nav-cta:hover { background: var(--blue-bright); }
+    .nav-cta:hover { opacity: 0.88; }
 
-    /* ── HERO ── */
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      margin-top: 64px; background: var(--black);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 11px 0; overflow: hidden; white-space: nowrap;
+    }
+    .ticker-content {
+      display: inline-block; animation: ticker 35s linear infinite;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--blue-pale);
+    }
+    @keyframes ticker { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
+
+    /* ─── HERO ─── */
     #hero {
-      min-height: 100vh;
+      min-height: 100vh; background: var(--blue);
       display: flex; flex-direction: column; justify-content: center;
-      padding: 120px 48px 80px;
-      position: relative;
-      overflow: hidden;
-      background: var(--black);
+      padding: 100px 48px 80px; position: relative; overflow: hidden;
     }
-    .hero-grid {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(99,148,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99,148,255,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .hero-accent-bar {
-      position: absolute;
-      top: 0; left: 0;
-      width: 4px; height: 100%;
-      background: var(--blue-core);
-    }
+    #hero .big-c { right: -6rem; top: 50%; transform: translateY(-50%); }
     .hero-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--blue-accent);
-      margin-bottom: 28px;
-      position: relative; z-index: 1;
-      display: flex; align-items: center; gap: 12px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+      margin-bottom: 28px; position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 14px;
     }
     .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 32px; height: 1px;
-      background: var(--blue-accent);
+      content:''; display:inline-block; width:28px; height:1px; background:rgba(255,255,255,0.4);
     }
     h1 {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      position: relative; z-index: 1;
-      max-width: 900px;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 700; line-height: 0.92;
+      letter-spacing: -0.03em; color: var(--white);
+      position: relative; z-index: 1; max-width: 900px;
     }
-    h1 em {
-      font-style: normal;
-      color: transparent;
-      -webkit-text-stroke: 1.5px rgba(99,148,255,0.6);
-    }
+    h1 em { font-style: normal; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.35); }
     .hero-sub {
-      margin-top: 36px;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      max-width: 480px;
-      position: relative; z-index: 1;
+      margin-top: 36px; font-size: 1.05rem; line-height: 1.65;
+      color: rgba(255,255,255,0.7); max-width: 460px; position: relative; z-index: 1;
     }
     .hero-actions {
-      margin-top: 48px;
-      display: flex; align-items: center; gap: 20px;
-      position: relative; z-index: 1;
-    }
-    .btn-primary {
-      background: var(--blue-core);
-      color: #fff;
-      padding: 14px 32px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      display: inline-block;
-    }
-    .btn-primary:hover { background: var(--blue-bright); transform: translateY(-1px); }
-    .btn-ghost {
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      font-weight: 500;
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px;
-      transition: color 0.2s;
-    }
-    .btn-ghost:hover { color: var(--text-white); }
-    .hero-stats {
-      position: relative; z-index: 1;
-      display: flex; gap: 56px;
-      margin-top: 80px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--text-white);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-top: 6px;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      padding: 100px 48px;
-      position: relative;
-    }
-    .section-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blue-accent);
-      margin-bottom: 16px;
-    }
-    h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.05;
-      color: var(--text-white);
-      max-width: 640px;
-    }
-    .section-intro {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 500px;
-      margin-top: 20px;
-    }
-
-    /* ── SERVICIOS ── */
-    #servicios { background: var(--dark); }
-    .services-header {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      margin-bottom: 64px;
-      gap: 32px;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-    }
-    .service-card {
-      background: var(--dark-card);
-      padding: 40px 32px;
-      transition: background 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--blue-core);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .service-card:hover { background: #17213A; }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-num {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--blue-accent);
-      margin-bottom: 24px;
-    }
-    .service-card h3 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 12px;
-      color: var(--text-white);
-    }
-    .service-card p {
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    /* ── MEDIO ── */
-    #medio { background: var(--black); }
-    .medio-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .medio-text h2 { max-width: 520px; }
-    .medio-text p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-top: 20px;
-    }
-    .medio-tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      margin-top: 32px;
-    }
-    .tag {
-      background: var(--dark-card);
-      border: 1px solid var(--border);
-      padding: 7px 14px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .medio-formats {
-      display: flex; flex-direction: column; gap: 1px;
-      background: var(--border);
-    }
-    .format-row {
-      background: var(--dark-card);
-      padding: 24px 28px;
-      display: flex; justify-content: space-between; align-items: center;
-      transition: background 0.2s;
-    }
-    .format-row:hover { background: #17213A; }
-    .format-name {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-white);
-    }
-    .format-desc {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-    .format-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--blue-accent);
-      background: rgba(96,165,250,0.1);
-      border: 1px solid rgba(96,165,250,0.2);
-      padding: 4px 10px;
-      white-space: nowrap;
-    }
-
-    /* ── NOSOTROS ── */
-    #nosotros { background: var(--dark); }
-    .nosotros-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .nosotros-text h2 { max-width: 500px; }
-    .nosotros-text p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-top: 24px;
-    }
-    .nosotros-values {
-      display: flex; flex-direction: column; gap: 1px;
-      background: var(--border);
-      margin-top: 48px;
-    }
-    .value-row {
-      background: var(--dark-card);
-      padding: 20px 24px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .value-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--blue-light);
-      flex-shrink: 0;
-    }
-    .value-row span {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-    .nosotros-visual {
-      position: relative;
-    }
-    .logo-display {
-      background: var(--dark-card);
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      height: 360px;
-      position: relative;
-      overflow: hidden;
-    }
-    .logo-bg-c {
-      position: absolute;
-      font-family: var(--font-display);
-      font-size: 16rem;
-      font-weight: 800;
-      color: var(--blue-deep);
-      line-height: 1;
-      letter-spacing: -0.05em;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      pointer-events: none;
-      user-select: none;
-    }
-    .logo-inner {
-      text-align: center;
-      position: relative; z-index: 1;
-    }
-    .logo-text-main {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--text-white);
-      letter-spacing: -0.02em;
-    }
-    .logo-text-main span { color: var(--blue-light); }
-    .logo-sub-text {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-top: 8px;
-    }
-    .presencia-tag {
-      position: absolute;
-      bottom: -16px; right: -16px;
-      background: var(--blue-core);
-      padding: 16px 24px;
-    }
-    .presencia-tag .pt-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 4px;
-    }
-    .presencia-tag .pt-value {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    /* ── CLIENTES ── */
-    #clientes { background: var(--black); }
-    .clientes-inner { display: flex; flex-direction: column; gap: 64px; }
-    .paises-strip {
-      display: flex; gap: 0;
-    }
-    .pais-item {
-      flex: 1;
-      border: 1px solid var(--border);
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      transition: background 0.2s;
-    }
-    .pais-item + .pais-item { border-left: none; }
-    .pais-item:hover { background: var(--dark-card); }
-    .pais-name {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-white);
-      margin-bottom: 8px;
-    }
-    .pais-desc {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .pais-item::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--blue-core);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .pais-item:hover::after { transform: scaleX(1); }
-
-    /* ── CTA FINAL ── */
-    #contacto {
-      background: var(--blue-core);
-      text-align: center;
-      padding: 120px 48px;
-    }
-    #contacto .section-label { color: rgba(255,255,255,0.6); }
-    #contacto h2 {
-      max-width: 800px;
-      margin: 0 auto 12px;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      text-align: center;
-      color: #fff;
-    }
-    #contacto h2 em {
-      font-style: normal;
-      color: var(--black);
-    }
-    #contacto p {
-      color: rgba(255,255,255,0.7);
-      font-size: 1rem;
-      margin-bottom: 48px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-top: 48px; display: flex; align-items: center; gap: 20px; position: relative; z-index: 1;
     }
     .btn-white {
-      background: #fff;
-      color: var(--blue-core);
-      padding: 16px 40px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s, color 0.2s;
+      background: var(--white); color: var(--blue);
+      padding: 14px 32px; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; transition: opacity 0.2s; display: inline-block;
     }
-    .btn-white:hover { background: var(--black); color: #fff; }
-    .contact-info {
-      margin-top: 32px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.08em;
+    .btn-white:hover { opacity: 0.88; }
+    .btn-ghost-white {
+      color: rgba(255,255,255,0.7); font-size: 0.8rem; font-weight: 500;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s;
     }
-    .contact-info a { color: rgba(255,255,255,0.8); text-decoration: none; }
-    .contact-info a:hover { text-decoration: underline; }
+    .btn-ghost-white:hover { color: var(--white); }
+    .hero-stats {
+      position: relative; z-index: 1; display: flex; gap: 56px;
+      margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .stat-num { font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; color: var(--white); line-height: 1; }
+    .stat-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 6px; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      border-top: 1px solid var(--border);
-      padding: 40px 48px;
-      display: flex; align-items: center; justify-content: space-between;
+    /* ─── SHARED ─── */
+    section { padding: 100px 48px; position: relative; }
+    .section-label { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
+    .on-blue .section-label { color: rgba(255,255,255,0.55); }
+    .on-dark .section-label { color: var(--blue-pale); }
+    h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; max-width: 640px;
     }
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--text-white);
+    .section-intro { font-size: 0.97rem; line-height: 1.7; max-width: 480px; margin-top: 18px; }
+    .on-blue .section-intro { color: rgba(255,255,255,0.65); }
+    .on-dark .section-intro { color: rgba(255,255,255,0.5); }
+
+    /* ─── SERVICIOS ─── */
+    #servicios { background: var(--blue-dark); overflow: hidden; }
+    #servicios .big-c { left: -8rem; bottom: -4rem; top: auto; }
+    .services-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 64px; gap: 32px; position: relative; z-index: 1; }
+    .services-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.1); position: relative; z-index: 1; }
+    .service-card {
+      background: var(--blue-dark); padding: 36px 28px; transition: background 0.2s; position: relative; overflow: hidden;
     }
-    .footer-brand span {
-      display: block;
-      font-family: var(--font-body);
-      font-size: 0.7rem;
-      font-weight: 400;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 3px;
+    .service-card::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background: var(--white); transform:scaleX(0); transform-origin:left; transition:transform 0.3s;
     }
-    .footer-links {
-      display: flex; gap: 24px; list-style: none;
+    .service-card:hover { background: var(--blue-mid); }
+    .service-card:hover::after { transform:scaleX(1); }
+    .service-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .service-card h3 { font-family: var(--font-display); font-size: 0.92rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 10px; color: var(--white); }
+    .service-card p { font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ─── NOSOTROS ─── */
+    #nosotros { background: var(--blue); overflow: hidden; }
+    #nosotros .big-c { right: -6rem; top: 50%; transform: translateY(-50%); }
+    .nosotros-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+    .nosotros-text p { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.75; margin-top: 22px; }
+    .nosotros-values { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.12); margin-top: 44px; }
+    .value-row { background: rgba(255,255,255,0.05); padding: 18px 22px; display: flex; align-items: center; gap: 14px; transition: background 0.2s; }
+    .value-row:hover { background: rgba(255,255,255,0.1); }
+    .value-dot { width:6px; height:6px; border-radius:50%; background:var(--white); flex-shrink:0; }
+    .value-row span { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.75); }
+    .monogram-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      height: 380px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
     }
-    .footer-links a {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+    .mono-diag {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 32px);
     }
-    .footer-links a:hover { color: var(--text-muted); }
-    .footer-copy {
-      font-size: 0.72rem;
-      color: var(--text-dim);
+    .mono-inner { text-align: center; position: relative; z-index: 1; }
+    .mono-cp { font-family: var(--font-display); font-weight: 800; color: rgba(255,255,255,0.12); line-height: 1; letter-spacing: -0.06em; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 10rem; }
+    .mono-name { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--white); letter-spacing: -0.02em; position: relative; z-index: 2; }
+    .mono-name span { color: rgba(255,255,255,0.45); }
+    .mono-sub { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 10px; position: relative; z-index: 2; }
+    .mono-tag { position: absolute; bottom: -1px; right: -1px; background: var(--black); padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.12); border-left: 1px solid rgba(255,255,255,0.12); }
+    .mono-tag .mt-label { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 3px; }
+    .mono-tag .mt-value { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white); }
+
+    /* ─── PRESENCIA ─── */
+    #clientes { background: var(--dark); }
+    .paises-strip { display: flex; gap: 0; margin-top: 48px; }
+    .pais-item { flex: 1; border: 1px solid var(--border-dark); padding: 44px 40px; text-align: center; position: relative; transition: background 0.2s; }
+    .pais-item + .pais-item { border-left: none; }
+    .pais-item:hover { background: var(--dark-card); }
+    .pais-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue-pale); margin-bottom: 16px; }
+    .pais-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .pais-desc { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; text-transform: uppercase; }
+    .pais-item::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--blue); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+    .pais-item:hover::after { transform:scaleX(1); }
+
+    /* ─── CTA ─── */
+    #contacto { background: var(--blue); text-align: center; padding: 120px 48px; position: relative; overflow: hidden; }
+    #contacto .big-c { left: 50%; top: 50%; transform: translate(-50%,-50%); font-size: clamp(20rem,50vw,40rem); }
+    #contacto .section-label { color: rgba(255,255,255,0.5); display:inline-block; margin-bottom:24px; }
+    #contacto h2 { max-width: none; margin: 0 auto 16px; font-size: clamp(2.5rem,6vw,5rem); text-align:center; color:var(--white); }
+    #contacto h2 em { font-style:normal; -webkit-text-stroke:2px rgba(255,255,255,0.3); color:transparent; }
+    #contacto p { color:rgba(255,255,255,0.6); font-size:1rem; margin-bottom:44px; max-width:400px; margin-left:auto; margin-right:auto; }
+    .btn-black { background: var(--black); color: var(--white); padding: 16px 44px; font-size: 0.83rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: opacity 0.2s; position: relative; z-index: 1; }
+    .btn-black:hover { opacity: 0.8; }
+    .cta-email { margin-top:28px; font-size:0.78rem; color:rgba(255,255,255,0.45); position:relative; z-index:1; }
+    .cta-email a { color:rgba(255,255,255,0.7); text-decoration:none; }
+    .cta-email a:hover { text-decoration:underline; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-brand { font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:var(--white); }
+    .footer-brand span { display:block; font-family:var(--font-body); font-size:0.68rem; font-weight:400; color:rgba(255,255,255,0.3); letter-spacing:0.08em; text-transform:uppercase; margin-top:3px; }
+    .footer-links { display:flex; gap:22px; list-style:none; }
+    .footer-links a { font-size:0.72rem; color:rgba(255,255,255,0.3); text-decoration:none; letter-spacing:0.07em; text-transform:uppercase; transition:color 0.2s; }
+    .footer-links a:hover { color:rgba(255,255,255,0.7); }
+    .footer-copy { font-size:0.7rem; color:rgba(255,255,255,0.2); }
+    .divider { border:none; border-top:1px solid var(--border-dark); margin:0; }
+
+    /* ═══════════════════════════════════════
+       TELEPROMPTER 2V — ESTILO ORIGINAL
+    ═══════════════════════════════════════ */
+    .teleprompter-page {
+      display: none; position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      background: #000; z-index: 1000;
+    }
+    .teleprompter-page.active { display: block; }
+    .teleprompter-page * { box-sizing: border-box; }
+    .tp-container { max-width: 100%; width: 100%; margin: 0 auto; display: flex; flex-direction: column; height: 100vh; }
+
+    .teleprompter-page header {
+      background: linear-gradient(to bottom, #1a33a0, #0D2A8A);
+      padding: 15px 20px; text-align: center;
+      font-size: 22px; font-weight: bold; color: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+      letter-spacing: 2px; position: relative; white-space: nowrap;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .valle-name {
+      position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+      font-style: italic; font-weight: normal; font-size: 15px;
+      color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;
+    }
+    .tp-exit-top {
+      position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; padding: 5px 14px; font-size: 13px; font-weight: 600;
+      cursor: pointer; letter-spacing: 0.06em; font-family: 'Inter', sans-serif;
+      transition: background 0.2s; border-radius: 3px;
+    }
+    .tp-exit-top:hover { background: rgba(255,255,255,0.22); }
+
+    .tp-controls {
+      padding: 12px 20px;
+      background: linear-gradient(to bottom, #1a2a6a, #111d55);
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; align-items: center;
+      border-bottom: 2px solid #0a1235;
+    }
+    .control-group { display: flex; align-items: center; gap: 8px; }
+    .control-label {
+      color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5); min-width: 50px; white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+    }
+    .tp-select {
+      background: rgba(0,0,0,0.4); color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 7px 10px; border-radius: 6px;
+      font-size: 13px; min-width: 120px; font-weight: 600;
+      height: 34px; font-family: 'Inter', sans-serif;
+    }
+    .slider-container {
+      display: flex; align-items: center; gap: 10px; padding: 5px 12px;
+      background: rgba(0,0,0,0.25); border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.15); min-width: 180px;
+    }
+    .tp-range {
+      -webkit-appearance: none; width: 100px; height: 12px;
+      border-radius: 8px; background: rgba(0,0,0,0.4);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .tp-range::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(to bottom, #4d7fff, #1641CC);
+      cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .tp-controls-bottom {
+      display: flex; justify-content: center; padding: 14px 20px;
+      background: linear-gradient(to bottom, #1a2a6a, #111d55);
+      gap: 14px; flex-wrap: wrap; border-top: 2px solid #0a1235;
+    }
+    .tp-btn {
+      cursor: pointer; border: none; border-radius: 10px;
+      width: 58px; height: 58px;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 22px; font-weight: bold; transition: all 0.2s;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.5), inset 0 -5px 10px rgba(0,0,0,0.3);
+      background: linear-gradient(to bottom, #2a3f8a 0%, #1a2f7a 40%, #0f1f5a 100%);
+      color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    }
+    .tp-btn:active { transform: translateY(2px); box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+    .tp-btn.play-btn  { background: linear-gradient(to bottom, #1a6e1a 0%, #0f4510 100%); }
+    .tp-btn.stop-btn  { background: linear-gradient(to bottom, #8a1a1a 0%, #5a0a0a 100%); }
+    .tp-btn.presentation-btn { background: linear-gradient(to bottom, #1641CC 0%, #0D2A8A 100%); }
+    .tp-btn.info-btn  { background: linear-gradient(to bottom, #555 0%, #2b2b2b 100%); }
+    .tp-btn.exit-btn  { background: linear-gradient(to bottom, #8a1a1a 0%, #5a0a0a 100%); }
+
+    .prompt-container {
+      flex: 1; overflow: hidden; padding: 20px;
+      background-color: #000;
+      display: flex; justify-content: center; align-items: center; position: relative;
+    }
+    .prompt-text {
+      max-width: 900px; font-size: 36px; line-height: 1.6; color: #fff;
+      text-align: center; opacity: 0.95;
+      text-shadow: 0 0 30px rgba(255,255,255,0.9);
+      padding: 20px; user-select: text;
+      font-family: 'Montserrat', sans-serif;
+      width: 100%; height: 100%; overflow-y: auto;
+      scroll-behavior: smooth;
+      border: 2px solid rgba(22,65,204,0.4);
+      border-radius: 12px;
+    }
+    .prompt-text p { margin-bottom: 1.2em; }
+
+    .tp-instructions {
+      text-align: center; font-size: 13px; color: rgba(255,255,255,0.35);
+      padding: 8px 10px; border-top: 1px solid #111d55;
+      background: #0a0f1e; font-family: 'Inter', sans-serif;
     }
 
-    /* ── DIVIDER ── */
-    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+    /* Presentation mode */
+    .presentation-mode {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: #000; z-index: 1001; display: none;
+      flex-direction: column; justify-content: center; align-items: center; padding: 20px;
+    }
+    .presentation-content {
+      max-width: 960px; width: 100%; height: 100%; overflow-y: auto; padding: 20px;
+      font-size: 52px; line-height: 1.5; color: #fff; text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 0 0 40px rgba(255,255,255,0.8);
+    }
+    .presentation-controls {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 14px; z-index: 1002;
+    }
+    .exit-presentation {
+      position: fixed; top: 20px; right: 20px;
+      background: rgba(22,65,204,0.8); color: white;
+      border: none; padding: 10px 20px; border-radius: 5px;
+      cursor: pointer; font-size: 15px; z-index: 1002;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+    }
+    .exit-presentation:hover { background: var(--blue); }
 
-    /* ── TICKER ── */
-    .ticker-wrap {
-      background: var(--blue-core);
-      padding: 12px 0;
-      overflow: hidden;
-      white-space: nowrap;
+    /* Instructions modal */
+    .instructions-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.92); z-index: 1002;
+      display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
     }
-    .ticker-content {
-      display: inline-block;
-      animation: ticker 32s linear infinite;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
+    .instructions-content {
+      max-width: 760px; width: 100%; background: #0f1528;
+      border-radius: 12px; padding: 32px;
+      max-height: 80vh; overflow-y: auto;
+      font-family: 'Inter', sans-serif;
+      border: 1px solid rgba(22,65,204,0.4);
     }
-    @keyframes ticker {
-      from { transform: translateX(100vw); }
-      to { transform: translateX(-100%); }
+    .instructions-content h2 { color: var(--blue-pale); margin-bottom: 20px; text-align: center; font-family: 'Space Grotesk', sans-serif; }
+    .instructions-content ul { margin-left: 20px; margin-bottom: 20px; }
+    .instructions-content li { margin-bottom: 10px; line-height: 1.6; color: rgba(255,255,255,0.8); }
+    .instructions-content p { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 16px; }
+    .close-instructions {
+      background: var(--blue); color: white; border: none;
+      padding: 10px 24px; border-radius: 6px; cursor: pointer;
+      font-size: 15px; margin-top: 20px; font-family: 'Inter', sans-serif; font-weight: 600;
     }
 
-    /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      #hero, section { padding: 80px 24px; }
-      h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .nosotros-inner, .medio-inner { grid-template-columns: 1fr; gap: 48px; }
-      .paises-strip { flex-direction: column; }
-      .pais-item + .pais-item { border-left: 1px solid var(--border); border-top: none; }
-      footer { flex-direction: column; gap: 24px; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
-      .hero-stats { gap: 32px; }
-      .nav-right { gap: 12px; }
+    /* ─── MOBILE ─── */
+    @media (max-width:900px) {
+      nav { padding:0 20px; }
+      .nav-links { display:none; }
+      #hero, section { padding:80px 24px; }
+      h1 { font-size: clamp(2.8rem,11vw,5rem); }
+      .services-grid { grid-template-columns:1fr 1fr; }
+      .nosotros-inner { grid-template-columns:1fr; gap:44px; }
+      .paises-strip { flex-direction:column; }
+      .pais-item + .pais-item { border-left:1px solid var(--border-dark); border-top:none; }
+      footer { flex-direction:column; gap:20px; text-align:center; }
+      .footer-links { flex-wrap:wrap; justify-content:center; }
+      .hero-stats { gap:28px; }
+      .nav-right { gap:10px; }
+      .tp-controls { gap:8px; }
+      .prompt-text { font-size: 26px; }
+      .presentation-content { font-size: 36px; }
     }
-    @media (max-width: 600px) {
-      .services-grid { grid-template-columns: 1fr; }
-      .services-header { flex-direction: column; align-items: flex-start; }
-      .nav-warroom { display: none; }
+    @media (max-width:600px) {
+      .services-grid { grid-template-columns:1fr; }
+      .services-header { flex-direction:column; align-items:flex-start; }
+      .nav-warroom { display:none; }
     }
   </style>
 </head>
@@ -637,13 +457,13 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <span class="dot"></span>
+    <span class="cp-badge">CP</span>
     Cambiope
   </a>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#medio">Medio</a></li>
+      <li><a href="#" onclick="openTeleprompter(); return false;">Teleprompter</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#clientes">Presencia</a></li>
     </ul>
@@ -655,53 +475,34 @@
 </nav>
 
 <!-- TICKER -->
-<div class="ticker-wrap" style="margin-top:64px;">
+<div class="ticker-wrap">
   <div class="ticker-content">
-    Comunicación política · Estrategia digital · Medios · Narrativa electoral · Posicionamiento · Análisis de entorno · Crisis management · Campañas · &nbsp;&nbsp;&nbsp;
-    Comunicación política · Estrategia digital · Medios · Narrativa electoral · Posicionamiento · Análisis de entorno · Crisis management · Campañas · &nbsp;&nbsp;&nbsp;
+    Comunicación política · Estrategia digital · Medios · Narrativa electoral · Posicionamiento · Análisis de entorno · Crisis management · Campañas · &nbsp;&nbsp;
+    Comunicación política · Estrategia digital · Medios · Narrativa electoral · Posicionamiento · Análisis de entorno · Crisis management · Campañas · &nbsp;&nbsp;
   </div>
 </div>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-accent-bar"></div>
-
-  <div class="hero-eyebrow">Comunicación y Medios · Lima · Madrid · Buenos Aires · Desde 2020</div>
-
-  <h1>
-    LIDERAMOS<br/>
-    <em>LA</em><br/>
-    NARRATIVA.
-  </h1>
-
-  <p class="hero-sub">
-    Comunicación política, estrategia digital y medios para quienes buscan impacto real en la conversación pública.
-  </p>
-
+  <div class="diag-pattern"></div>
+  <div class="big-c">C</div>
+  <div class="hero-eyebrow">Comunicación y Medios · Lima · Madrid · Buenos Aires</div>
+  <h1>LIDERAMOS<br/><em>LA</em><br/>NARRATIVA.</h1>
+  <p class="hero-sub">Comunicación política, estrategia digital y medios para quienes buscan impacto real en la conversación pública.</p>
   <div class="hero-actions">
-    <a href="#servicios" class="btn-primary">Nuestros servicios</a>
-    <a href="#medio" class="btn-ghost">Nuestro medio →</a>
+    <a href="#servicios" class="btn-white">Nuestros servicios</a>
+    <a href="#" onclick="openTeleprompter(); return false;" class="btn-ghost-white">Teleprompter 2V →</a>
   </div>
-
   <div class="hero-stats">
-    <div>
-      <div class="stat-num">+50</div>
-      <div class="stat-label">Clientes</div>
-    </div>
-    <div>
-      <div class="stat-num">3</div>
-      <div class="stat-label">Países</div>
-    </div>
-    <div>
-      <div class="stat-num">5+</div>
-      <div class="stat-label">Años de operación</div>
-    </div>
+    <div><div class="stat-num">+50</div><div class="stat-label">Clientes</div></div>
+    <div><div class="stat-num">3</div><div class="stat-label">Países</div></div>
+    <div><div class="stat-num">5+</div><div class="stat-label">Años</div></div>
   </div>
 </section>
 
 <!-- SERVICIOS -->
-<section id="servicios">
+<section id="servicios" class="on-blue">
+  <div class="big-c">C</div>
   <div class="services-header">
     <div>
       <div class="section-label">Qué hacemos</div>
@@ -709,178 +510,59 @@
     </div>
     <p class="section-intro">Una sola obsesión: posicionar a nuestros clientes en la conversación que importa.</p>
   </div>
-
   <div class="services-grid">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <h3>ESTRATEGIA DE POSICIONAMIENTO</h3>
-      <p>Diagnóstico, objetivos y hoja de ruta clara hacia la meta de cada cliente.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <h3>NARRATIVA POLÍTICA</h3>
-      <p>Encontramos la historia que debe contarse y la producimos para cada audiencia.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <h3>CAMPAÑAS ELECTORALES</h3>
-      <p>Plan estratégico basado en datos. De la fotografía del electorado al día D.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <h3>MARKETING DIGITAL</h3>
-      <p>Herramientas modernas y microsegmentación con monitoreo en tiempo real.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <h3>CRISIS MANAGEMENT</h3>
-      <p>Estrategia y respuesta para controlar situaciones potencialmente dañinas.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">06</div>
-      <h3>MEDIOS DIGITALES</h3>
-      <p>Producción editorial, cobertura en tiempo real y programación multiplataforma.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">07</div>
-      <h3>ANÁLISIS DE ENTORNO</h3>
-      <p>Lectura de contexto político y social para anticipar riesgos y detectar oportunidades.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">08</div>
-      <h3>TEAM BUILDING</h3>
-      <p>Armamos, capacitamos y entrenamos equipos de comunicación para gobiernos y organizaciones.</p>
-    </div>
-  </div>
-</section>
-
-<!-- MEDIO CAMBIOPE -->
-<section id="medio">
-  <div class="medio-inner">
-    <div class="medio-text">
-      <div class="section-label">Nuestro medio</div>
-      <h2>CAMBIOPE:<br/>PERIODISMO<br/>DE PODER</h2>
-      <p>
-        Cambiope es un medio digital de análisis político con foco en las élites, el poder y la toma de decisiones. No es un portal de noticias genérico: es la referencia para quienes siguen de cerca la política peruana y regional.
-      </p>
-      <p>
-        Cobertura en tiempo real, fuentes propias, y una línea editorial que no negocia independencia.
-      </p>
-      <div class="medio-tags">
-        <span class="tag">Política</span>
-        <span class="tag">Poder</span>
-        <span class="tag">Economía</span>
-        <span class="tag">Investigación</span>
-        <span class="tag">Región</span>
-        <span class="tag">Análisis</span>
-      </div>
-    </div>
-
-    <div>
-      <div class="medio-formats">
-        <div class="format-row">
-          <div>
-            <div class="format-name">Cambiope Mañana</div>
-            <div class="format-desc">Agenda política del día · En vivo desde X</div>
-          </div>
-          <span class="format-badge">Diario</span>
-        </div>
-        <div class="format-row">
-          <div>
-            <div class="format-name">Cambiope Tarde</div>
-            <div class="format-desc">Balance y análisis · En vivo desde X</div>
-          </div>
-          <span class="format-badge">Diario</span>
-        </div>
-        <div class="format-row">
-          <div>
-            <div class="format-name">Cobertura Editorial</div>
-            <div class="format-desc">Noticias, investigación y columnas de opinión</div>
-          </div>
-          <span class="format-badge">24/7</span>
-        </div>
-        <div class="format-row">
-          <div>
-            <div class="format-name">Multiplataforma</div>
-            <div class="format-desc">X · TikTok · Instagram · YouTube</div>
-          </div>
-          <span class="format-badge">Regional</span>
-        </div>
-      </div>
-    </div>
+    <div class="service-card"><div class="service-num">01</div><h3>ESTRATEGIA DE POSICIONAMIENTO</h3><p>Diagnóstico, objetivos y hoja de ruta clara hacia la meta de cada cliente.</p></div>
+    <div class="service-card"><div class="service-num">02</div><h3>NARRATIVA POLÍTICA</h3><p>Encontramos la historia que debe contarse y la producimos para cada audiencia.</p></div>
+    <div class="service-card"><div class="service-num">03</div><h3>CAMPAÑAS ELECTORALES</h3><p>Plan estratégico basado en datos. De la fotografía del electorado al día D.</p></div>
+    <div class="service-card"><div class="service-num">04</div><h3>MARKETING DIGITAL</h3><p>Herramientas modernas y microsegmentación con monitoreo en tiempo real.</p></div>
+    <div class="service-card"><div class="service-num">05</div><h3>CRISIS MANAGEMENT</h3><p>Estrategia y respuesta para controlar situaciones potencialmente dañinas.</p></div>
+    <div class="service-card"><div class="service-num">06</div><h3>MEDIOS DIGITALES</h3><p>Producción editorial, cobertura en tiempo real y programación multiplataforma.</p></div>
+    <div class="service-card"><div class="service-num">07</div><h3>ANÁLISIS DE ENTORNO</h3><p>Lectura de contexto político y social para anticipar riesgos y detectar oportunidades.</p></div>
+    <div class="service-card"><div class="service-num">08</div><h3>TEAM BUILDING</h3><p>Armamos, capacitamos y entrenamos equipos de comunicación para gobiernos y organizaciones.</p></div>
   </div>
 </section>
 
 <!-- NOSOTROS -->
-<section id="nosotros">
+<section id="nosotros" class="on-blue">
+  <div class="big-c">C</div>
   <div class="nosotros-inner">
     <div class="nosotros-text">
       <div class="section-label">Quiénes somos</div>
       <h2>COMUNICACIÓN<br/>CON CRITERIO</h2>
-      <p>
-        Cambiope es una operación de comunicación y medios con sede en Lima y presencia regional. Combinamos rigor editorial con estrategia digital para construir narrativas que generan impacto político real.
-      </p>
-      <p>
-        No trabajamos con slogans vacíos. Trabajamos con datos, contexto y posicionamiento diferenciado. Cada cliente recibe una estrategia hecha a medida.
-      </p>
-
+      <p>Cambiope es una operación de comunicación y medios con sede en Lima y presencia regional. Combinamos rigor editorial con estrategia digital para construir narrativas que generan impacto político real.</p>
+      <p>No trabajamos con slogans vacíos. Trabajamos con datos, contexto y posicionamiento diferenciado. Cada cliente recibe una estrategia hecha a medida.</p>
       <div class="nosotros-values">
-        <div class="value-row">
-          <div class="value-dot"></div>
-          <span>Independencia editorial sin negociación</span>
-        </div>
-        <div class="value-row">
-          <div class="value-dot"></div>
-          <span>Análisis basado en evidencia, no en intuición</span>
-        </div>
-        <div class="value-row">
-          <div class="value-dot"></div>
-          <span>Impacto real, no alcance cosmético</span>
-        </div>
-        <div class="value-row">
-          <div class="value-dot"></div>
-          <span>Posicionamiento a largo plazo</span>
-        </div>
+        <div class="value-row"><div class="value-dot"></div><span>Independencia editorial sin negociación</span></div>
+        <div class="value-row"><div class="value-dot"></div><span>Análisis basado en evidencia, no en intuición</span></div>
+        <div class="value-row"><div class="value-dot"></div><span>Impacto real, no alcance cosmético</span></div>
+        <div class="value-row"><div class="value-dot"></div><span>Posicionamiento a largo plazo</span></div>
       </div>
     </div>
-
-    <div class="nosotros-visual">
-      <div class="logo-display">
-        <div class="logo-bg-c">C</div>
-        <div class="logo-inner">
-          <div class="logo-text-main"><span>C</span>ambiope</div>
-          <div class="logo-sub-text">Comunicación y Medios</div>
+    <div>
+      <div class="monogram-card">
+        <div class="mono-diag"></div>
+        <div class="mono-cp">CP</div>
+        <div class="mono-inner">
+          <div class="mono-name"><span>C</span>ambiope</div>
+          <div class="mono-sub">Comunicación y Medios</div>
         </div>
-      </div>
-      <div class="presencia-tag">
-        <div class="pt-label">Operamos en</div>
-        <div class="pt-value">Lima · Madrid · Buenos Aires</div>
+        <div class="mono-tag">
+          <div class="mt-label">Operamos en</div>
+          <div class="mt-value">Lima · Madrid · Buenos Aires</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRESENCIA -->
-<section id="clientes">
-  <div class="clientes-inner">
-    <div>
-      <div class="section-label">Presencia regional</div>
-      <h2>OPERAMOS DONDE<br/>IMPORTA</h2>
-    </div>
-    <div class="paises-strip">
-      <div class="pais-item">
-        <div class="pais-name">Perú</div>
-        <div class="pais-desc">Sede principal</div>
-      </div>
-      <div class="pais-item">
-        <div class="pais-name">Argentina</div>
-        <div class="pais-desc">Operaciones regionales</div>
-      </div>
-      <div class="pais-item">
-        <div class="pais-name">España</div>
-        <div class="pais-desc">Expansión europea</div>
-      </div>
-    </div>
+<section id="clientes" class="on-dark">
+  <div class="section-label">Presencia regional</div>
+  <h2>OPERAMOS DONDE<br/>IMPORTA</h2>
+  <div class="paises-strip">
+    <div class="pais-item"><div class="pais-num">01</div><div class="pais-name">Perú</div><div class="pais-desc">Sede principal</div></div>
+    <div class="pais-item"><div class="pais-num">02</div><div class="pais-name">Argentina</div><div class="pais-desc">Operaciones regionales</div></div>
+    <div class="pais-item"><div class="pais-num">03</div><div class="pais-name">España</div><div class="pais-desc">Expansión europea</div></div>
   </div>
 </section>
 
@@ -888,31 +570,297 @@
 
 <!-- CTA -->
 <section id="contacto">
-  <div class="section-label" style="display:inline-block;margin-bottom:24px;">Listo para trabajar</div>
+  <div class="big-c">C</div>
+  <div class="section-label">Listo para trabajar</div>
   <h2>LA CONVERSACIÓN<br/>EMPIEZA <em>AQUÍ.</em></h2>
-  <p>Contáctanos y evaluamos cómo podemos posicionarte donde necesitas estar.</p>
-  <a href="mailto:contacto@cambiope.com" class="btn-white">CONTÁCTANOS →</a>
-  <div class="contact-info">
-    <a href="mailto:contacto@cambiope.com">contacto@cambiope.com</a>
-    &nbsp;·&nbsp; Lima, Perú
-  </div>
+  <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
+  <a href="mailto:contacto@cambiope.com" class="btn-black">CONTÁCTANOS →</a>
+  <div class="cta-email"><a href="mailto:contacto@cambiope.com">contacto@cambiope.com</a> · Lima, Perú</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">
-    Cambiope
-    <span>Comunicación y Medios · cambiope.com</span>
-  </div>
+  <div class="footer-brand">Cambiope<span>Comunicación y Medios · cambiope.com</span></div>
   <ul class="footer-links">
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#medio">Medio</a></li>
+    <li><a href="#" onclick="openTeleprompter(); return false;">Teleprompter 2V</a></li>
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#contacto">Contacto</a></li>
     <li><a href="https://warroomdigital.com.ar" target="_blank">War Room ↗</a></li>
   </ul>
   <div class="footer-copy">© 2026 Cambiope</div>
 </footer>
+
+<!-- ══════════════════════════════════════════
+     TELEPROMPTER 2V — código original
+══════════════════════════════════════════ -->
+<div class="teleprompter-page" id="teleprompterPage">
+  <div class="tp-container">
+
+    <header>
+      <button class="tp-exit-top" onclick="closeTeleprompter()">← Salir</button>
+      TELEPROMPTER 2V
+      <span class="valle-name">del Valle</span>
+    </header>
+
+    <div class="tp-controls">
+      <div class="control-group">
+        <span class="control-label">Fuente:</span>
+        <select id="fontFamily" class="tp-select">
+          <option value="Montserrat" selected>Montserrat</option>
+          <option value="Roboto Mono">Roboto Mono</option>
+          <option value="Oswald">Oswald</option>
+          <option value="Lato">Lato</option>
+          <option value="Open Sans">Open Sans</option>
+          <option value="PT Sans">PT Sans</option>
+          <option value="Source Sans Pro">Source Sans Pro</option>
+          <option value="Work Sans">Work Sans</option>
+        </select>
+      </div>
+      <div class="slider-container">
+        <span class="control-label">Vel:</span>
+        <input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
+        <span id="speedValue" style="color:#6B9FFF; min-width:30px; font-size:13px; font-family:'Inter',sans-serif;">5</span>
+      </div>
+      <div class="slider-container">
+        <span class="control-label">Zoom:</span>
+        <input type="range" id="zoom" class="tp-range" min="50" max="200" value="100" step="10">
+        <span id="zoomValue" style="color:#6B9FFF; min-width:44px; font-size:13px; font-family:'Inter',sans-serif;">100%</span>
+      </div>
+      <div class="control-group">
+        <span class="control-label">Tema:</span>
+        <select id="theme" class="tp-select">
+          <option value="white">Blanco</option>
+          <option value="yellow">Amarillo</option>
+          <option value="blue">Azul</option>
+          <option value="red">Rojo</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="prompt-container">
+      <div class="prompt-text" id="promptText" contenteditable="true">
+        <p>¡Bienvenido al Teleprompter 2V de Cambiope! Hacé clic en ▶ para comenzar. Podés editar este texto directamente.</p>
+        <p>Este es tu espacio para escribir tu guion político, discurso o mensaje.</p>
+        <p>El texto se desplazará automáticamente a la velocidad que elijas en los controles.</p>
+        <p>Podés cambiar la fuente, el tamaño y el color del texto para adaptarlo a tus necesidades.</p>
+        <p>El teleprompter es una herramienta esencial para presentaciones, entrevistas y grabaciones profesionales.</p>
+        <p>Con este sistema, podrás mantener tu mirada fija en la cámara mientras leés tu mensaje.</p>
+        <p>Recordá practicar antes de tu presentación para lograr una comunicación natural y efectiva.</p>
+        <p>¡Buena suerte con tu mensaje!</p>
+      </div>
+    </div>
+
+    <div class="tp-controls-bottom">
+      <button id="playPause" class="tp-btn play-btn">▶</button>
+      <button id="reset" class="tp-btn stop-btn">■</button>
+      <button id="presentation" class="tp-btn presentation-btn">📺</button>
+      <button id="instructionsBtn" class="tp-btn info-btn">ℹ️</button>
+      <button onclick="closeTeleprompter()" class="tp-btn exit-btn">🚪</button>
+    </div>
+
+    <div class="tp-instructions">
+      Espacio: play/pausa · ↑↓: velocidad · R: reset · 📺 modo presentación · 🚪 volver al inicio
+    </div>
+
+  </div>
+</div>
+
+<!-- Modo Presentación -->
+<div class="presentation-mode" id="presentationMode">
+  <div class="presentation-content" id="presentationContent"></div>
+  <div class="presentation-controls">
+    <button id="playPausePresentation" class="tp-btn play-btn">▶</button>
+    <button id="resetPresentation" class="tp-btn stop-btn">■</button>
+  </div>
+  <button class="exit-presentation" id="exitPresentation">Salir de Presentación</button>
+</div>
+
+<!-- Modal Instrucciones -->
+<div class="instructions-modal" id="instructionsModal">
+  <div class="instructions-content">
+    <h2>Instrucciones — Teleprompter 2V</h2>
+    <ul>
+      <li><strong>Play/Pause (▶/❚❚)</strong>: Inicia o pausa el desplazamiento del texto.</li>
+      <li><strong>Stop (■)</strong>: Detiene y reinicia la posición del texto.</li>
+      <li><strong>Modo Presentación (📺)</strong>: Vista de pantalla completa con texto grande.</li>
+      <li><strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento.</li>
+      <li><strong>Zoom</strong>: Ajusta el tamaño del texto.</li>
+      <li><strong>Fuente</strong>: Cambia entre tipos de letra legibles.</li>
+      <li><strong>Tema</strong>: Cambia el color del texto (blanco, amarillo, azul, rojo).</li>
+      <li><strong>Salir (🚪)</strong>: Regresa a la página principal.</li>
+    </ul>
+    <p>Atajos de teclado: Espacio (play/pausa) · ↑↓ (velocidad) · R (reset) · Esc (cerrar)</p>
+    <p>Podés editar el texto directamente haciendo clic en él.</p>
+    <button class="close-instructions" id="closeInstructions">Cerrar</button>
+  </div>
+</div>
+
+<script>
+  // ═══ TELEPROMPTER 2V — lógica original restaurada ═══
+  let isPlaying = false;
+  let scrollInterval = null;
+  let presentationInterval = null;
+  let scrollSpeed = 5;
+  let zoomLevel = 100;
+  let isPresentationMode = false;
+  let tpInitialized = false;
+
+  function openTeleprompter() {
+    document.getElementById('teleprompterPage').classList.add('active');
+    if (!tpInitialized) { initTeleprompter(); tpInitialized = true; }
+  }
+  function closeTeleprompter() {
+    pause();
+    document.getElementById('teleprompterPage').classList.remove('active');
+  }
+
+  function initTeleprompter() {
+    const promptText   = document.querySelector('#promptText');
+    const speedControl = document.querySelector('#speed');
+    const speedValue   = document.querySelector('#speedValue');
+    const zoomControl  = document.querySelector('#zoom');
+    const zoomValue    = document.querySelector('#zoomValue');
+    const fontFamilySelect = document.querySelector('#fontFamily');
+    const themeSelect  = document.querySelector('#theme');
+
+    scrollSpeed = parseFloat(speedControl.value);
+    speedValue.textContent = scrollSpeed;
+    zoomLevel = parseInt(zoomControl.value);
+    zoomValue.textContent = zoomLevel + '%';
+    promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+
+    speedControl.addEventListener('input', () => {
+      scrollSpeed = parseFloat(speedControl.value);
+      speedValue.textContent = scrollSpeed;
+    });
+    zoomControl.addEventListener('input', () => {
+      zoomLevel = parseInt(zoomControl.value);
+      zoomValue.textContent = zoomLevel + '%';
+      promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+    });
+    fontFamilySelect.addEventListener('change', () => {
+      promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif';
+      if (isPresentationMode) {
+        document.querySelector('#presentationContent').style.fontFamily = fontFamilySelect.value + ', sans-serif';
+      }
+    });
+    themeSelect.addEventListener('change', function() {
+      const theme = this.value;
+      const el = promptText;
+      switch(theme) {
+        case 'yellow': el.style.color='#ff0'; el.style.textShadow='0 0 30px rgba(255,255,0,0.9)'; break;
+        case 'blue':   el.style.color='#4d9fff'; el.style.textShadow='0 0 30px rgba(77,159,255,0.9)'; break;
+        case 'red':    el.style.color='#f00'; el.style.textShadow='0 0 30px rgba(255,0,0,0.9)'; break;
+        default:       el.style.color='#fff'; el.style.textShadow='0 0 30px rgba(255,255,255,0.9)';
+      }
+    });
+
+    document.querySelector('#playPause').addEventListener('click', togglePlay);
+    document.querySelector('#reset').addEventListener('click', resetScroll);
+    document.querySelector('#presentation').addEventListener('click', enterPresentationMode);
+    document.querySelector('#instructionsBtn').addEventListener('click', () => {
+      document.querySelector('#instructionsModal').style.display = 'flex';
+    });
+    document.querySelector('#closeInstructions').addEventListener('click', () => {
+      document.querySelector('#instructionsModal').style.display = 'none';
+    });
+    document.querySelector('#exitPresentation').addEventListener('click', exitPresentationMode);
+    document.querySelector('#playPausePresentation').addEventListener('click', () => {
+      isPlaying ? pausePresentation() : playPresentation();
+    });
+    document.querySelector('#resetPresentation').addEventListener('click', resetPresentationScroll);
+  }
+
+  function togglePlay() {
+    isPlaying ? pause() : startPlay();
+  }
+  function startPlay() {
+    const promptText = document.querySelector('#promptText');
+    isPlaying = true;
+    document.getElementById('playPause').innerHTML = "❚❚";
+    if (scrollInterval) clearInterval(scrollInterval);
+    scrollInterval = setInterval(() => {
+      const current = promptText.scrollTop;
+      const max = promptText.scrollHeight - promptText.clientHeight;
+      promptText.scrollTop = current + scrollSpeed * 2;
+      if (current >= max - 5) pause();
+    }, 100);
+    if (isPresentationMode) playPresentation();
+  }
+  function pause() {
+    isPlaying = false;
+    document.getElementById('playPause').innerHTML = "▶";
+    if (scrollInterval) clearInterval(scrollInterval);
+    if (isPresentationMode) pausePresentation();
+  }
+  function resetScroll() {
+    pause();
+    document.querySelector('#promptText').scrollTop = 0;
+    if (isPresentationMode) resetPresentationScroll();
+  }
+  function enterPresentationMode() {
+    const pc = document.querySelector('#presentationContent');
+    const pt = document.querySelector('#promptText');
+    pc.innerHTML = pt.innerHTML;
+    pc.style.fontFamily = pt.style.fontFamily;
+    pc.style.color = pt.style.color;
+    pc.style.textShadow = pt.style.textShadow;
+    document.querySelector('#presentationMode').style.display = 'flex';
+    isPresentationMode = true;
+    if (isPlaying) playPresentation();
+  }
+  function exitPresentationMode() {
+    pausePresentation();
+    document.querySelector('#presentationMode').style.display = 'none';
+    isPresentationMode = false;
+  }
+  function playPresentation() {
+    isPlaying = true;
+    document.getElementById('playPausePresentation').innerHTML = "❚❚";
+    if (presentationInterval) clearInterval(presentationInterval);
+    presentationInterval = setInterval(() => {
+      const el = document.querySelector('#presentationContent');
+      const current = el.scrollTop;
+      const max = el.scrollHeight - el.clientHeight;
+      el.scrollTop = current + scrollSpeed * 2;
+      if (current >= max - 5) pausePresentation();
+    }, 100);
+  }
+  function pausePresentation() {
+    isPlaying = false;
+    document.getElementById('playPausePresentation').innerHTML = "▶";
+    if (presentationInterval) clearInterval(presentationInterval);
+  }
+  function resetPresentationScroll() {
+    pausePresentation();
+    document.querySelector('#presentationContent').scrollTop = 0;
+  }
+
+  // Teclas
+  document.addEventListener('keydown', e => {
+    const tpActive = document.querySelector('#teleprompterPage').classList.contains('active');
+    if (!tpActive) return;
+    if (e.target.getAttribute('contenteditable') === 'true') return;
+    if (e.key === 'Escape') {
+      if (document.querySelector('#presentationMode').style.display === 'flex') exitPresentationMode();
+      else if (document.querySelector('#instructionsModal').style.display === 'flex') document.querySelector('#instructionsModal').style.display = 'none';
+      else closeTeleprompter();
+    }
+    if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+    if (e.key === 'ArrowUp') {
+      scrollSpeed = Math.min(10, scrollSpeed + 0.5);
+      document.getElementById('speed').value = scrollSpeed;
+      document.getElementById('speedValue').textContent = scrollSpeed;
+    }
+    if (e.key === 'ArrowDown') {
+      scrollSpeed = Math.max(1, scrollSpeed - 0.5);
+      document.getElementById('speed').value = scrollSpeed;
+      document.getElementById('speedValue').textContent = scrollSpeed;
+    }
+    if (e.key.toLowerCase() === 'r') resetScroll();
+  });
+</script>
 
 </body>
 </html>
