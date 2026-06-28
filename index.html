@@ -1,3 +1,6 @@
+Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,6 +19,9 @@
             --primary: #1e3a8a;
             --secondary: #dc2626;
             --accent: #3b82f6;
+            --gold: #f59e0b;
+            --green: #16a34a;
+            --violet: #7c3aed;
             --dark: #0f172a;
             --light: #f8fafc;
             --gray: #64748b;
@@ -28,7 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* Header mejorado */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
             color: white;
@@ -76,10 +81,9 @@
             color: var(--accent);
         }
 
-        /* Hero Section con imagen de fondo */
         .hero {
             margin-top: 70px;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%), 
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%),
                         url('https://images.unsplash.com/photo-1540910419868-474947cebacb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
@@ -93,10 +97,7 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
             opacity: 0.1;
         }
@@ -167,17 +168,21 @@
             letter-spacing: 1px;
         }
 
-        .cta-button {
+        .cta-button,
+        .cta-button-white {
             display: inline-block;
-            background: var(--secondary);
-            color: white;
-            padding: 1rem 2.5rem;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .cta-button {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 2.5rem;
             font-size: 1.1rem;
             margin-top: 2rem;
-            transition: all 0.3s;
             box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.3);
         }
 
@@ -186,7 +191,6 @@
             box-shadow: 0 20px 30px -5px rgba(220, 38, 38, 0.4);
         }
 
-        /* Servicios con imágenes */
         .services {
             padding: 6rem 2rem;
             background: var(--light);
@@ -229,53 +233,457 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
             gap: 2rem;
         }
 
         .service-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.7);
             transition: all 0.3s;
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 24px 50px -28px rgba(15, 23, 42, 0.9);
         }
 
-        .service-image {
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        .service-visual {
+            min-height: 218px;
+            padding: 1.4rem;
+            background:
+                linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 58, 138, 0.88)),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 34px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
             position: relative;
             overflow: hidden;
+            isolation: isolate;
         }
 
-        .service-image::before {
+        .service-visual::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
-            background-size: cover;
-            opacity: 0.2;
+            inset: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            z-index: -1;
         }
+
+        .service-positioning { --service-accent: var(--gold); }
+        .service-narrative { --service-accent: #38bdf8; }
+        .service-campaigns { --service-accent: var(--secondary); }
+        .service-digital { --service-accent: var(--green); }
+        .service-crisis { --service-accent: #fb7185; }
+        .service-media { --service-accent: var(--violet); }
+        .service-analysis { --service-accent: #14b8a6; }
+        .service-team { --service-accent: #f97316; }
+
+        .visual-frame {
+            width: min(100%, 280px);
+            aspect-ratio: 1.45;
+            position: relative;
+        }
+
+        .service-visual span,
+        .service-visual i {
+            display: block;
+            position: absolute;
+        }
+
+        .strategy-map,
+        .route-panel,
+        .ballot,
+        .phone,
+        .growth-bars,
+        .response-card,
+        .broadcast,
+        .matrix {
+            position: absolute;
+        }
+
+        .strategy-map {
+            inset: 0;
+            border-radius: 8px;
+            background:
+                linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 34px 34px;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .strategy-map .route {
+            width: 74%;
+            height: 54%;
+            left: 13%;
+            top: 22%;
+            border-top: 3px solid var(--service-accent);
+            border-right: 3px solid var(--service-accent);
+            transform: skewX(-18deg);
+            opacity: 0.95;
+        }
+
+        .strategy-map .node {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--service-accent);
+            box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.16);
+        }
+
+        .strategy-map .node-a { left: 11%; top: 63%; }
+        .strategy-map .node-b { left: 45%; top: 35%; }
+        .strategy-map .node-c { right: 12%; top: 19%; }
+
+        .route-panel {
+            width: 42%;
+            right: 7%;
+            bottom: 9%;
+            display: grid;
+            gap: 7px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .route-panel span {
+            position: static;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.22);
+        }
+
+        .route-panel span:first-child {
+            width: 80%;
+            background: var(--service-accent);
+        }
+
+        .message-stack .message {
+            left: 8%;
+            width: 68%;
+            min-height: 42px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 16px 30px -22px black;
+        }
+
+        .message-stack .message::before,
+        .message-stack .message::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.18);
+        }
+
+        .message-stack .message::before {
+            top: 13px;
+            width: 58%;
+        }
+
+        .message-stack .message::after {
+            top: 26px;
+            width: 78%;
+        }
+
+        .message-stack .message-a { top: 10%; }
+        .message-stack .message-b { top: 39%; left: 22%; }
+        .message-stack .message-c { top: 68%; width: 54%; }
+
+        .signal {
+            width: 72px;
+            height: 72px;
+            right: 5%;
+            top: 12%;
+            border-radius: 50%;
+            border: 3px solid var(--service-accent);
+        }
+
+        .signal::before,
+        .signal::after {
+            content: '';
+            position: absolute;
+            border-radius: inherit;
+            border: 2px solid rgba(56, 189, 248, 0.45);
+        }
+
+        .signal::before { inset: 10px; }
+        .signal::after { inset: 23px; background: var(--service-accent); border: 0; }
+
+        .ballot {
+            width: 54%;
+            height: 74%;
+            left: 8%;
+            top: 13%;
+            border-radius: 8px;
+            background: white;
+            padding: 16px;
+            box-shadow: 18px 18px 0 rgba(255,255,255,0.12);
+        }
+
+        .ballot span {
+            position: static;
+            height: 13px;
+            margin-bottom: 12px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.18);
+        }
+
+        .ballot span:nth-child(2) { width: 74%; }
+        .ballot span:nth-child(3) { width: 86%; background: var(--service-accent); }
+        .ballot span:nth-child(4) { width: 58%; }
+
+        .vote-mark {
+            right: 10%;
+            top: 24%;
+            width: 78px;
+            height: 78px;
+            border: 4px solid white;
+            border-radius: 8px;
+        }
+
+        .vote-mark::after {
+            content: '';
+            position: absolute;
+            width: 58px;
+            height: 28px;
+            left: 14px;
+            top: 17px;
+            border-left: 7px solid var(--service-accent);
+            border-bottom: 7px solid var(--service-accent);
+            transform: rotate(-45deg);
+        }
+
+        .phone {
+            width: 40%;
+            height: 88%;
+            left: 8%;
+            top: 6%;
+            border-radius: 18px;
+            background: #e2e8f0;
+            border: 8px solid white;
+            box-shadow: 18px 0 0 rgba(255,255,255,0.08);
+        }
+
+        .phone span {
+            left: 16%;
+            width: 68%;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.2);
+        }
+
+        .phone span:nth-child(1) { top: 18%; height: 10px; }
+        .phone span:nth-child(2) { top: 36%; height: 44px; border-radius: 8px; background: var(--service-accent); }
+        .phone span:nth-child(3) { top: 70%; height: 10px; width: 48%; }
+
+        .growth-bars {
+            width: 45%;
+            height: 62%;
+            right: 8%;
+            bottom: 10%;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .growth-bars span {
+            position: static;
+            flex: 1;
+            border-radius: 6px 6px 0 0;
+            background: rgba(255,255,255,0.35);
+        }
+
+        .growth-bars span:nth-child(1) { height: 34%; }
+        .growth-bars span:nth-child(2) { height: 58%; }
+        .growth-bars span:nth-child(3) { height: 82%; background: var(--service-accent); }
+
+        .radar {
+            width: 150px;
+            height: 150px;
+            left: 8%;
+            top: 11%;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.7);
+            background:
+                linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.2) 50%, transparent 51%),
+                linear-gradient(transparent 49%, rgba(255,255,255,0.2) 50%, transparent 51%);
+        }
+
+        .radar::before,
+        .radar::after {
+            content: '';
+            position: absolute;
+            border-radius: inherit;
+            border: 2px solid rgba(255,255,255,0.22);
+        }
+
+        .radar::before { inset: 28px; }
+        .radar::after { inset: 56px; background: var(--service-accent); border: 0; }
+
+        .radar-sweep {
+            width: 75px;
+            height: 3px;
+            left: 75px;
+            top: 75px;
+            transform-origin: left center;
+            transform: rotate(-24deg);
+            background: var(--service-accent);
+        }
+
+        .response-card {
+            right: 8%;
+            bottom: 13%;
+            width: 44%;
+            padding: 14px;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .response-card span {
+            position: static;
+            height: 8px;
+            margin-bottom: 9px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.18);
+        }
+
+        .response-card span:first-child {
+            width: 56%;
+            background: var(--service-accent);
+        }
+
+        .media-screen {
+            width: 70%;
+            height: 62%;
+            left: 9%;
+            top: 12%;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 18px 18px 0 rgba(255,255,255,0.12);
+        }
+
+        .media-screen::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-40%, -50%);
+            border-left: 34px solid var(--service-accent);
+            border-top: 22px solid transparent;
+            border-bottom: 22px solid transparent;
+        }
+
+        .broadcast {
+            right: 8%;
+            top: 18%;
+            width: 70px;
+            height: 105px;
+        }
+
+        .broadcast span {
+            right: 0;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-right-color: var(--service-accent);
+        }
+
+        .broadcast span:nth-child(2) {
+            top: 22px;
+            width: 38px;
+            height: 38px;
+        }
+
+        .broadcast span:nth-child(3) {
+            top: 42px;
+            width: 18px;
+            height: 18px;
+            background: var(--service-accent);
+            border: 0;
+        }
+
+        .matrix {
+            width: 58%;
+            height: 72%;
+            left: 8%;
+            top: 14%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .matrix span {
+            position: static;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.14);
+        }
+
+        .matrix span:nth-child(2),
+        .matrix span:nth-child(3) {
+            background: var(--service-accent);
+        }
+
+        .compass {
+            right: 9%;
+            top: 25%;
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            border: 4px solid white;
+        }
+
+        .compass::after {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 10px;
+            border-bottom: 48px solid var(--service-accent);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            transform: rotate(35deg);
+        }
+
+        .team-network .link {
+            height: 3px;
+            background: rgba(255,255,255,0.5);
+            transform-origin: left center;
+        }
+
+        .team-network .link-a { width: 120px; left: 28%; top: 35%; transform: rotate(26deg); }
+        .team-network .link-b { width: 118px; left: 28%; top: 61%; transform: rotate(-25deg); }
+        .team-network .link-c { width: 92px; left: 47%; top: 49%; }
+
+        .team-network .member {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            border: 7px solid var(--service-accent);
+            box-shadow: 0 0 0 9px rgba(255,255,255,0.12);
+        }
+
+        .team-network .member-a { left: 13%; top: 36%; }
+        .team-network .member-b { left: 43%; top: 16%; }
+        .team-network .member-c { right: 13%; top: 36%; }
+        .team-network .member-d { left: 43%; bottom: 12%; }
 
         .service-content {
             padding: 2rem;
+            flex: 1;
         }
 
         .service-number {
-            color: var(--accent);
+            color: var(--service-accent, var(--accent));
             font-weight: 800;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
@@ -293,59 +701,6 @@
             line-height: 1.6;
         }
 
-        /* Dashboard preview section */
-        .dashboard-preview {
-            padding: 6rem 2rem;
-            background: var(--dark);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-grid {
-            max-width: 1200px;
-            margin: 4rem auto 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .dashboard-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .dashboard-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .metric:last-child {
-            border-bottom: none;
-        }
-
-        .metric-label {
-            opacity: 0.8;
-        }
-
-        .metric-value {
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        /* Sobre nosotros con imagen */
         .about {
             padding: 6rem 2rem;
             background: white;
@@ -419,7 +774,6 @@
             font-weight: 700;
         }
 
-        /* Ubicaciones */
         .locations {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
@@ -465,7 +819,6 @@
             font-size: 0.9rem;
         }
 
-        /* CTA Final */
         .cta-section {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, var(--secondary) 0%, #991b1b 100%);
@@ -514,15 +867,10 @@
         }
 
         .cta-button-white {
-            display: inline-block;
             background: white;
             color: var(--secondary);
             padding: 1.2rem 3rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
             font-size: 1.2rem;
-            transition: all 0.3s;
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
@@ -533,7 +881,6 @@
             box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
         }
 
-        /* Footer */
         footer {
             background: var(--dark);
             color: white;
@@ -587,7 +934,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -610,17 +956,22 @@
                 gap: 2rem;
             }
 
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .service-visual {
+                min-height: 190px;
+                padding: 1rem;
+            }
+
+            .visual-frame {
+                width: min(100%, 245px);
             }
         }
 
-        /* Animaciones */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -638,7 +989,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
             <div class="logo">CAMBIO<span>PE</span></div>
@@ -652,7 +1002,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="hero-content">
             <span class="hero-badge">📍 Lima · Madrid · Buenos Aires</span>
@@ -664,7 +1013,7 @@
                 Comunicación política, estrategia digital y medios para quienes buscan impacto real en la conversación pública.
             </p>
             <a href="#contacto" class="cta-button">Contáctanos →</a>
-            
+
             <div class="hero-stats">
                 <div class="stat">
                     <span class="stat-number">50+</span>
@@ -682,7 +1031,6 @@
         </div>
     </section>
 
-    <!-- Servicios -->
     <section class="services" id="servicios">
         <div class="container">
             <div class="section-header">
@@ -690,10 +1038,24 @@
                 <h2 class="section-title">SERVICIOS ESTRATÉGICOS</h2>
                 <p class="section-subtitle">Una sola obsesión: posicionar a nuestros clientes en la conversación que importa.</p>
             </div>
-            
+
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-image">📈</div>
+                <div class="service-card service-positioning">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame">
+                            <div class="strategy-map">
+                                <span class="route"></span>
+                                <span class="node node-a"></span>
+                                <span class="node node-b"></span>
+                                <span class="node node-c"></span>
+                            </div>
+                            <div class="route-panel">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">01</div>
                         <h3 class="service-title">Estrategia de Posicionamiento</h3>
@@ -701,8 +1063,15 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">✍️</div>
+                <div class="service-card service-narrative">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame message-stack">
+                            <span class="message message-a"></span>
+                            <span class="message message-b"></span>
+                            <span class="message message-c"></span>
+                            <span class="signal"></span>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">02</div>
                         <h3 class="service-title">Narrativa Política</h3>
@@ -710,8 +1079,18 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">🗳️</div>
+                <div class="service-card service-campaigns">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame">
+                            <div class="ballot">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span class="vote-mark"></span>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">03</div>
                         <h3 class="service-title">Campañas Electorales</h3>
@@ -719,8 +1098,21 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">📱</div>
+                <div class="service-card service-digital">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame">
+                            <div class="phone">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="growth-bars">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">04</div>
                         <h3 class="service-title">Marketing Digital</h3>
@@ -728,8 +1120,18 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">🚨</div>
+                <div class="service-card service-crisis">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame">
+                            <span class="radar"></span>
+                            <span class="radar-sweep"></span>
+                            <div class="response-card">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">05</div>
                         <h3 class="service-title">Crisis Management</h3>
@@ -737,8 +1139,17 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">📺</div>
+                <div class="service-card service-media">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame">
+                            <span class="media-screen"></span>
+                            <div class="broadcast">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">06</div>
                         <h3 class="service-title">Medios Digitales</h3>
@@ -746,8 +1157,18 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">🔍</div>
+                <div class="service-card service-analysis">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame">
+                            <div class="matrix">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span class="compass"></span>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">07</div>
                         <h3 class="service-title">Análisis de Entorno</h3>
@@ -755,8 +1176,18 @@
                     </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-image">👥</div>
+                <div class="service-card service-team">
+                    <div class="service-visual" aria-hidden="true">
+                        <div class="visual-frame team-network">
+                            <span class="link link-a"></span>
+                            <span class="link link-b"></span>
+                            <span class="link link-c"></span>
+                            <span class="member member-a"></span>
+                            <span class="member member-b"></span>
+                            <span class="member member-c"></span>
+                            <span class="member member-d"></span>
+                        </div>
+                    </div>
                     <div class="service-content">
                         <div class="service-number">08</div>
                         <h3 class="service-title">Team Building</h3>
@@ -767,68 +1198,6 @@
         </div>
     </section>
 
-    <!-- Dashboard Preview -->
-    <section class="dashboard-preview">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag" style="color: var(--accent);">Tecnología</span>
-                <h2 class="section-title" style="color: white;">MONITOREO EN TIEMPO REAL</h2>
-                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Dashboard avanzado para seguimiento de campañas y análisis de datos.</p>
-            </div>
-            
-            <div class="dashboard-grid">
-                <div class="dashboard-card">
-                    <h3>📈 Métricas de Campaña</h3>
-                    <div class="metric">
-                        <span class="metric-label">Alcance Total</span>
-                        <span class="metric-value">2.4M</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Engagement</span>
-                        <span class="metric-value">8.7%</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Sentimiento Positivo</span>
-                        <span class="metric-value">73%</span>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3>🌍 Cobertura Geográfica</h3>
-                    <div class="metric">
-                        <span class="metric-label">Perú</span>
-                        <span class="metric-value">Activo</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Argentina</span>
-                        <span class="metric-value">Activo</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">España</span>
-                        <span class="metric-value">Activo</span>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3>📊 Redes Sociales</h3>
-                    <div class="metric">
-                        <span class="metric-label">Facebook</span>
-                        <span class="metric-value">+45%</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Twitter/X</span>
-                        <span class="metric-value">+32%</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Instagram</span>
-                        <span class="metric-value">+58%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sobre Nosotros -->
     <section class="about" id="nosotros">
         <div class="about-grid">
             <div class="about-image">
@@ -839,7 +1208,7 @@
                 <h2>COMUNICACIÓN CON CRITERIO</h2>
                 <p>Cambiope es una operación de comunicación y medios con sede en Lima y presencia regional. Combinamos rigor editorial con estrategia digital para construir narrativas que generan impacto político real.</p>
                 <p>No trabajamos con slogans vacíos. Trabajamos con datos, contexto y posicionamiento diferenciado. Cada cliente recibe una estrategia hecha a medida.</p>
-                
+
                 <ul class="features-list">
                     <li>Independencia editorial sin negociación</li>
                     <li>Análisis basado en evidencia, no en intuición</li>
@@ -850,14 +1219,13 @@
         </div>
     </section>
 
-    <!-- Ubicaciones -->
     <section class="locations" id="ubicaciones">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag" style="color: var(--accent);">Presencia</span>
                 <h2 class="section-title" style="color: white;">OPERAMOS DONDE IMPORTA</h2>
             </div>
-            
+
             <div class="locations-grid">
                 <div class="location-card">
                     <div class="location-icon">🇵🇪</div>
@@ -878,14 +1246,12 @@
         </div>
     </section>
 
-    <!-- CTA Final -->
     <section class="cta-section" id="contacto">
         <h2>LA CONVERSACIÓN EMPIEZA AQUÍ</h2>
         <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
         <a href="mailto:contacto@cambiope.com" class="cta-button-white">CONTÁCTANOS →</a>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">CAMBIO<span>PE</span></div>
@@ -905,3 +1271,4 @@
     </footer>
 </body>
 </html>
+```
