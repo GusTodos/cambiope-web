@@ -1,6 +1,4 @@
-Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
 
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,6 +32,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             overflow-x: hidden;
         }
 
+        /* Header mejorado */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
             color: white;
@@ -81,9 +80,10 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             color: var(--accent);
         }
 
+        /* Hero Section con imagen de fondo */
         .hero {
             margin-top: 70px;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%),
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%), 
                         url('https://images.unsplash.com/photo-1540910419868-474947cebacb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
@@ -97,7 +97,10 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
         .hero::before {
             content: '';
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
             opacity: 0.1;
         }
@@ -168,21 +171,17 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             letter-spacing: 1px;
         }
 
-        .cta-button,
-        .cta-button-white {
-            display: inline-block;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-        }
-
         .cta-button {
+            display: inline-block;
             background: var(--secondary);
             color: white;
             padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
             font-size: 1.1rem;
             margin-top: 2rem;
+            transition: all 0.3s;
             box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.3);
         }
 
@@ -191,6 +190,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             box-shadow: 0 20px 30px -5px rgba(220, 38, 38, 0.4);
         }
 
+        /* Servicios */
         .services {
             padding: 6rem 2rem;
             background: var(--light);
@@ -244,6 +244,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             border: 1px solid rgba(15, 23, 42, 0.08);
             box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.7);
             transition: all 0.3s;
+            position: relative;
             display: flex;
             flex-direction: column;
         }
@@ -701,6 +702,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             line-height: 1.6;
         }
 
+        /* Sobre nosotros con imagen */
         .about {
             padding: 6rem 2rem;
             background: white;
@@ -774,10 +776,216 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             font-weight: 700;
         }
 
-        .locations {
+        /* Teleprompter */
+        .teleprompter {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
             color: white;
+            overflow: hidden;
+        }
+
+        .teleprompter-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .teleprompter-stage {
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .teleprompter-stage::before {
+            content: '';
+            position: absolute;
+            width: 72%;
+            height: 72%;
+            border: 1px solid rgba(255,255,255,0.1);
+            transform: perspective(700px) rotateX(58deg);
+            bottom: -16%;
+        }
+
+        .prompter-shell {
+            width: min(100%, 640px);
+            border-radius: 8px;
+            background: linear-gradient(145deg, #020617, #111827);
+            border: 1px solid rgba(255,255,255,0.16);
+            box-shadow: 0 30px 80px -35px rgba(0,0,0,0.9);
+            padding: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .prompter-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 0 0.25rem 0.85rem;
+            color: rgba(255,255,255,0.72);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .prompter-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #86efac;
+        }
+
+        .prompter-status::before {
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+        }
+
+        .prompter-window {
+            height: 380px;
+            overflow: hidden;
+            border-radius: 8px;
+            background:
+                linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                #020617;
+            background-size: 100% 54px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .prompter-window::before,
+        .prompter-window::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .prompter-window::before {
+            top: 0;
+            background: linear-gradient(#020617, transparent);
+        }
+
+        .prompter-window::after {
+            bottom: 0;
+            background: linear-gradient(transparent, #020617);
+        }
+
+        .prompter-guide {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 2px;
+            background: rgba(220, 38, 38, 0.75);
+            z-index: 3;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.45);
+        }
+
+        .prompter-text {
+            padding: 42% 2rem 55%;
+            font-size: 2rem;
+            line-height: 1.45;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            transition: transform 0.2s;
+            white-space: pre-wrap;
+        }
+
+        .prompter-text.is-mirrored {
+            transform: scaleX(-1);
+        }
+
+        .teleprompter-panel {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 8px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .teleprompter-panel h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .teleprompter-panel p {
+            color: rgba(255,255,255,0.78);
+            margin-bottom: 1.25rem;
+        }
+
+        .teleprompter-input {
+            width: 100%;
+            min-height: 170px;
+            resize: vertical;
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 8px;
+            padding: 1rem;
+            background: rgba(2, 6, 23, 0.76);
+            color: white;
+            font: inherit;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .teleprompter-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .teleprompter-button {
+            border: 0;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            color: white;
+            background: var(--secondary);
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .teleprompter-button.secondary {
+            background: rgba(255,255,255,0.14);
+        }
+
+        .teleprompter-control {
+            display: grid;
+            gap: 0.45rem;
+            margin-top: 1rem;
+            color: rgba(255,255,255,0.88);
+            font-weight: 700;
+        }
+
+        .teleprompter-control input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+        }
+
+        .teleprompter-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-top: 1.2rem;
+            font-weight: 700;
+        }
+
+        .teleprompter-toggle input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
         }
 
         .locations-grid {
@@ -819,6 +1027,29 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             font-size: 0.9rem;
         }
 
+        .contact-presence {
+            max-width: 1000px;
+            margin: 4rem auto 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-presence-label {
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.82;
+            font-size: 0.85rem;
+        }
+
+        .contact-presence h3 {
+            font-size: clamp(1.7rem, 4vw, 2.6rem);
+            margin: 0.7rem 0 2rem;
+            letter-spacing: -1px;
+        }
+
+        /* CTA Final */
         .cta-section {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, var(--secondary) 0%, #991b1b 100%);
@@ -867,10 +1098,15 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
         }
 
         .cta-button-white {
+            display: inline-block;
             background: white;
             color: var(--secondary);
             padding: 1.2rem 3rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
             font-size: 1.2rem;
+            transition: all 0.3s;
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
@@ -881,6 +1117,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
         }
 
+        /* Footer */
         footer {
             background: var(--dark);
             color: white;
@@ -934,6 +1171,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             font-size: 0.9rem;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -966,12 +1204,12 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
             }
         }
 
+        /* Animaciones */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -989,6 +1227,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <nav>
             <div class="logo">CAMBIO<span>PE</span></div>
@@ -996,12 +1235,13 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#ubicaciones">Ubicaciones</a></li>
+                <li><a href="#teleprompter">Teleprompter</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="hero-content">
             <span class="hero-badge">📍 Lima · Madrid · Buenos Aires</span>
@@ -1013,7 +1253,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
                 Comunicación política, estrategia digital y medios para quienes buscan impacto real en la conversación pública.
             </p>
             <a href="#contacto" class="cta-button">Contáctanos →</a>
-
+            
             <div class="hero-stats">
                 <div class="stat">
                     <span class="stat-number">50+</span>
@@ -1031,6 +1271,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
         </div>
     </section>
 
+    <!-- Servicios -->
     <section class="services" id="servicios">
         <div class="container">
             <div class="section-header">
@@ -1038,7 +1279,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
                 <h2 class="section-title">SERVICIOS ESTRATÉGICOS</h2>
                 <p class="section-subtitle">Una sola obsesión: posicionar a nuestros clientes en la conversación que importa.</p>
             </div>
-
+            
             <div class="services-grid">
                 <div class="service-card service-positioning">
                     <div class="service-visual" aria-hidden="true">
@@ -1198,6 +1439,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
         </div>
     </section>
 
+    <!-- Sobre Nosotros -->
     <section class="about" id="nosotros">
         <div class="about-grid">
             <div class="about-image">
@@ -1208,7 +1450,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
                 <h2>COMUNICACIÓN CON CRITERIO</h2>
                 <p>Cambiope es una operación de comunicación y medios con sede en Lima y presencia regional. Combinamos rigor editorial con estrategia digital para construir narrativas que generan impacto político real.</p>
                 <p>No trabajamos con slogans vacíos. Trabajamos con datos, contexto y posicionamiento diferenciado. Cada cliente recibe una estrategia hecha a medida.</p>
-
+                
                 <ul class="features-list">
                     <li>Independencia editorial sin negociación</li>
                     <li>Análisis basado en evidencia, no en intuición</li>
@@ -1219,13 +1461,79 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
         </div>
     </section>
 
-    <section class="locations" id="ubicaciones">
+    <!-- Teleprompter -->
+    <section class="teleprompter" id="teleprompter">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag" style="color: var(--accent);">Presencia</span>
-                <h2 class="section-title" style="color: white;">OPERAMOS DONDE IMPORTA</h2>
+                <span class="section-tag" style="color: var(--accent);">Herramienta profesional</span>
+                <h2 class="section-title" style="color: white;">TELEPROMPTER 2V</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Un teleprompter limpio, editable y preparado para discursos, entrevistas, videos y transmisiones.</p>
             </div>
 
+            <div class="teleprompter-grid">
+                <div class="teleprompter-stage">
+                    <div class="prompter-shell">
+                        <div class="prompter-topbar">
+                            <span>Teleprompter 2V</span>
+                            <span class="prompter-status">Listo</span>
+                        </div>
+                        <div class="prompter-window" id="prompterWindow">
+                            <span class="prompter-guide"></span>
+                            <div class="prompter-text" id="prompterText">Buenas tardes.
+
+Hoy hablamos con claridad, sin ruido y con una idea central:
+
+la comunicación estratégica no improvisa.
+
+Ordena el mensaje, protege la reputación y construye confianza.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teleprompter-panel">
+                    <h3>Control de lectura</h3>
+                    <p>Escribe o pega tu discurso, ajusta el ritmo y úsalo como apoyo para grabaciones o presentaciones.</p>
+                    <textarea class="teleprompter-input" id="prompterInput">Buenas tardes.
+
+Hoy hablamos con claridad, sin ruido y con una idea central:
+
+la comunicación estratégica no improvisa.
+
+Ordena el mensaje, protege la reputación y construye confianza.</textarea>
+
+                    <div class="teleprompter-actions">
+                        <button class="teleprompter-button" id="prompterToggle" type="button">Iniciar</button>
+                        <button class="teleprompter-button secondary" id="prompterReset" type="button">Reiniciar</button>
+                    </div>
+
+                    <label class="teleprompter-control">
+                        Velocidad
+                        <input id="prompterSpeed" type="range" min="1" max="10" value="4">
+                    </label>
+
+                    <label class="teleprompter-control">
+                        Tamaño de texto
+                        <input id="prompterSize" type="range" min="24" max="58" value="32">
+                    </label>
+
+                    <label class="teleprompter-toggle">
+                        <input id="prompterMirror" type="checkbox">
+                        Modo espejo
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-section" id="contacto">
+        <h2>LA CONVERSACIÓN EMPIEZA AQUÍ</h2>
+        <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
+        <a href="mailto:contacto@cambiope.com" class="cta-button-white">CONTÁCTANOS →</a>
+
+        <div class="contact-presence">
+            <span class="contact-presence-label">Presencia</span>
+            <h3>OPERAMOS DONDE IMPORTA</h3>
             <div class="locations-grid">
                 <div class="location-card">
                     <div class="location-icon">🇵🇪</div>
@@ -1246,12 +1554,7 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
         </div>
     </section>
 
-    <section class="cta-section" id="contacto">
-        <h2>LA CONVERSACIÓN EMPIEZA AQUÍ</h2>
-        <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
-        <a href="mailto:contacto@cambiope.com" class="cta-button-white">CONTÁCTANOS →</a>
-    </section>
-
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">CAMBIO<span>PE</span></div>
@@ -1271,4 +1574,3 @@ Claro. Copia todo este bloque y pégalo como `index.html` en GitHub:
     </footer>
 </body>
 </html>
-```
