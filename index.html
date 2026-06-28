@@ -28,7 +28,6 @@
             overflow-x: hidden;
         }
 
-        /* Header mejorado */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
             color: white;
@@ -95,7 +94,6 @@
             transform: translateY(-2px);
         }
 
-        /* Hero Section con imagen de fondo */
         .hero {
             margin-top: 70px;
             background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%), 
@@ -205,7 +203,6 @@
             box-shadow: 0 20px 30px -5px rgba(220, 38, 38, 0.4);
         }
 
-        /* Servicios con imágenes */
         .services {
             padding: 6rem 2rem;
             background: var(--light);
@@ -312,7 +309,6 @@
             line-height: 1.6;
         }
 
-        /* Dashboard preview section */
         .dashboard-preview {
             padding: 6rem 2rem;
             background: var(--dark);
@@ -364,7 +360,6 @@
             color: var(--accent);
         }
 
-        /* Sobre nosotros con imagen */
         .about {
             padding: 6rem 2rem;
             background: white;
@@ -438,7 +433,6 @@
             font-weight: 700;
         }
 
-        /* Ubicaciones */
         .locations {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
@@ -484,7 +478,6 @@
             font-size: 0.9rem;
         }
 
-        /* CTA Final */
         .cta-section {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, var(--secondary) 0%, #991b1b 100%);
@@ -552,7 +545,6 @@
             box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
         }
 
-        /* Footer */
         footer {
             background: var(--dark);
             color: white;
@@ -790,7 +782,6 @@
             background: var(--accent);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -827,7 +818,6 @@
             }
         }
 
-        /* Animaciones */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -850,7 +840,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
             <div class="logo">CAMBIO<span>PE</span></div>
@@ -926,7 +915,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
         </div>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="hero-content">
             <span class="hero-badge">📍 Lima · Madrid · Buenos Aires</span>
@@ -956,7 +944,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
         </div>
     </section>
 
-    <!-- Servicios -->
     <section class="services" id="servicios">
         <div class="container">
             <div class="section-header">
@@ -1041,7 +1028,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
         </div>
     </section>
 
-    <!-- Dashboard Preview -->
     <section class="dashboard-preview">
         <div class="container">
             <div class="section-header">
@@ -1102,7 +1088,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
         </div>
     </section>
 
-    <!-- Sobre Nosotros -->
     <section class="about" id="nosotros">
         <div class="about-grid">
             <div class="about-image">
@@ -1124,7 +1109,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
         </div>
     </section>
 
-    <!-- Ubicaciones -->
     <section class="locations" id="ubicaciones">
         <div class="container">
             <div class="section-header">
@@ -1152,14 +1136,12 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
         </div>
     </section>
 
-    <!-- CTA Final -->
     <section class="cta-section" id="contacto">
         <h2>LA CONVERSACIÓN EMPIEZA AQUÍ</h2>
         <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
         <a href="mailto:contacto@cambiope.com" class="cta-button-white">CONTÁCTANOS →</a>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">CAMBIO<span>PE</span></div>
@@ -1250,12 +1232,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
             clearInterval(scrollInterval);
         }
 
-        function resetPrompter() {
-            stopPrompter();
-            const prompterText = document.getElementById('prompterText');
-            prompterText.scrollTop = 0;
-        }
-
         function updatePlayPauseButton() {
             const btn = document.getElementById('playPauseBtn');
             if (isPlaying) {
@@ -1265,6 +1241,12 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
                 btn.textContent = '▶️ Iniciar';
                 btn.classList.remove('secondary');
             }
+        }
+
+        function resetPrompter() {
+            stopPrompter();
+            const prompterText = document.getElementById('prompterText');
+            prompterText.scrollTop = 0;
         }
 
         function setMode(mode) {
@@ -1291,7 +1273,6 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
             }
         }
 
-        // Speed control
         document.getElementById('speedControl').addEventListener('input', function(e) {
             currentSpeed = parseInt(e.target.value);
             document.getElementById('speedValue').textContent = currentSpeed;
@@ -1302,14 +1283,12 @@ Juntos podemos construir un mañana mejor para todos.</textarea>
             }
         });
 
-        // Size control
         document.getElementById('sizeControl').addEventListener('input', function(e) {
             const size = e.target.value;
             document.getElementById('prompterText').style.fontSize = size + 'px';
             document.getElementById('sizeValue').textContent = size;
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             const overlay = document.getElementById('teleprompterOverlay');
             if (!overlay.classList.contains('active')) return;
