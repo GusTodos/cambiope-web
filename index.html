@@ -1,866 +1,907 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cambiope · Comunicación y Medios</title>
-  <meta name="description" content="Comunicación política, estrategia digital y medios. Lima · Madrid · Buenos Aires."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Montserrat:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&family=Oswald:wght@400;700&family=Lato:wght@400;700&family=Open+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiope - Comunicación Política Estratégica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    :root {
-      --blue: #1641CC;
-      --blue-dark: #0D2A8A;
-      --blue-mid: #1E4FE0;
-      --blue-light: #2D6AFF;
-      --blue-pale: #6B9FFF;
-      --white: #FFFFFF;
-      --black: #050810;
-      --dark: #0A0F1E;
-      --dark-card: #0F1528;
-      --border-blue: rgba(255,255,255,0.12);
-      --border-dark: rgba(99,148,255,0.15);
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-body: 'Inter', sans-serif;
-    }
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #dc2626;
+            --accent: #3b82f6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
 
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
 
-    /* ─── DIAGONAL PATTERN ─── */
-    .diag-pattern {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-    }
-    .diag-pattern::before {
-      content: '';
-      position: absolute; inset: -100%;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px,
-        transparent 1px, transparent 48px
-      );
-    }
+        /* Header mejorado */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
 
-    /* ─── BIG C ─── */
-    .big-c {
-      position: absolute;
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(16rem, 40vw, 32rem); line-height: 1;
-      letter-spacing: -0.06em; color: rgba(255,255,255,0.06);
-      pointer-events: none; user-select: none; z-index: 0;
-    }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px; height: 64px;
-      background: var(--blue);
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-    }
-    .nav-logo {
-      font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
-      letter-spacing: -0.01em; color: var(--white); text-decoration: none;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .nav-logo .cp-badge {
-      width: 28px; height: 28px; background: rgba(255,255,255,0.15);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 800; border-radius: 2px;
-    }
-    .nav-right { display: flex; align-items: center; gap: 24px; }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      color: rgba(255,255,255,0.7); text-decoration: none;
-      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
-      text-transform: uppercase; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--white); }
-    .nav-warroom {
-      background: rgba(255,255,255,0.12); color: var(--white);
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 7px 15px; font-size: 0.73rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; transition: background 0.2s;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .nav-warroom:hover { background: rgba(255,255,255,0.22); }
-    .nav-warroom .wr-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #fff; animation: blink 1.4s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-    .nav-cta {
-      background: var(--white); color: var(--blue);
-      padding: 8px 18px; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .nav-cta:hover { opacity: 0.88; }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
 
-    /* ─── TICKER ─── */
-    .ticker-wrap {
-      margin-top: 64px; background: var(--black);
-      border-bottom: 1px solid var(--border-dark);
-      padding: 11px 0; overflow: hidden; white-space: nowrap;
-    }
-    .ticker-content {
-      display: inline-block; animation: ticker 35s linear infinite;
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--blue-pale);
-    }
-    @keyframes ticker { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
+        .logo span {
+            color: var(--accent);
+        }
 
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh; background: var(--blue);
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 100px 48px 80px; position: relative; overflow: hidden;
-    }
-    #hero .big-c { right: -6rem; top: 50%; transform: translateY(-50%); }
-    .hero-eyebrow {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-      margin-bottom: 28px; position: relative; z-index: 1;
-      display: flex; align-items: center; gap: 14px;
-    }
-    .hero-eyebrow::before {
-      content:''; display:inline-block; width:28px; height:1px; background:rgba(255,255,255,0.4);
-    }
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      font-weight: 700; line-height: 0.92;
-      letter-spacing: -0.03em; color: var(--white);
-      position: relative; z-index: 1; max-width: 900px;
-    }
-    h1 em { font-style: normal; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.35); }
-    .hero-sub {
-      margin-top: 36px; font-size: 1.05rem; line-height: 1.65;
-      color: rgba(255,255,255,0.7); max-width: 460px; position: relative; z-index: 1;
-    }
-    .hero-actions {
-      margin-top: 48px; display: flex; align-items: center; gap: 20px; position: relative; z-index: 1;
-    }
-    .btn-white {
-      background: var(--white); color: var(--blue);
-      padding: 14px 32px; font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      text-decoration: none; transition: opacity 0.2s; display: inline-block;
-    }
-    .btn-white:hover { opacity: 0.88; }
-    .btn-ghost-white {
-      color: rgba(255,255,255,0.7); font-size: 0.8rem; font-weight: 500;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s;
-    }
-    .btn-ghost-white:hover { color: var(--white); }
-    .hero-stats {
-      position: relative; z-index: 1; display: flex; gap: 56px;
-      margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.15);
-    }
-    .stat-num { font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; color: var(--white); line-height: 1; }
-    .stat-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 6px; }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-    /* ─── SHARED ─── */
-    section { padding: 100px 48px; position: relative; }
-    .section-label { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
-    .on-blue .section-label { color: rgba(255,255,255,0.55); }
-    .on-dark .section-label { color: var(--blue-pale); }
-    h2 {
-      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.4rem);
-      font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; max-width: 640px;
-    }
-    .section-intro { font-size: 0.97rem; line-height: 1.7; max-width: 480px; margin-top: 18px; }
-    .on-blue .section-intro { color: rgba(255,255,255,0.65); }
-    .on-dark .section-intro { color: rgba(255,255,255,0.5); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-    /* ─── SERVICIOS ─── */
-    #servicios { background: var(--blue-dark); overflow: hidden; }
-    #servicios .big-c { left: -8rem; bottom: -4rem; top: auto; }
-    .services-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 64px; gap: 32px; position: relative; z-index: 1; }
-    .services-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.1); position: relative; z-index: 1; }
-    .service-card {
-      background: var(--blue-dark); padding: 36px 28px; transition: background 0.2s; position: relative; overflow: hidden;
-    }
-    .service-card::after {
-      content:''; position:absolute; top:0; left:0; right:0; height:2px;
-      background: var(--white); transform:scaleX(0); transform-origin:left; transition:transform 0.3s;
-    }
-    .service-card:hover { background: var(--blue-mid); }
-    .service-card:hover::after { transform:scaleX(1); }
-    .service-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
-    .service-card h3 { font-family: var(--font-display); font-size: 0.92rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 10px; color: var(--white); }
-    .service-card p { font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
 
-    /* ─── NOSOTROS ─── */
-    #nosotros { background: var(--blue); overflow: hidden; }
-    #nosotros .big-c { right: -6rem; top: 50%; transform: translateY(-50%); }
-    .nosotros-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
-    .nosotros-text p { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.75; margin-top: 22px; }
-    .nosotros-values { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.12); margin-top: 44px; }
-    .value-row { background: rgba(255,255,255,0.05); padding: 18px 22px; display: flex; align-items: center; gap: 14px; transition: background 0.2s; }
-    .value-row:hover { background: rgba(255,255,255,0.1); }
-    .value-dot { width:6px; height:6px; border-radius:50%; background:var(--white); flex-shrink:0; }
-    .value-row span { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.75); }
-    .monogram-card {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
-      height: 380px; display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .mono-diag {
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 32px);
-    }
-    .mono-inner { text-align: center; position: relative; z-index: 1; }
-    .mono-cp { font-family: var(--font-display); font-weight: 800; color: rgba(255,255,255,0.12); line-height: 1; letter-spacing: -0.06em; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 10rem; }
-    .mono-name { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--white); letter-spacing: -0.02em; position: relative; z-index: 2; }
-    .mono-name span { color: rgba(255,255,255,0.45); }
-    .mono-sub { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 10px; position: relative; z-index: 2; }
-    .mono-tag { position: absolute; bottom: -1px; right: -1px; background: var(--black); padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.12); border-left: 1px solid rgba(255,255,255,0.12); }
-    .mono-tag .mt-label { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 3px; }
-    .mono-tag .mt-value { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white); }
+        /* Hero Section con imagen de fondo */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1540910419868-474947cebacb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* ─── PRESENCIA ─── */
-    #clientes { background: var(--dark); }
-    .paises-strip { display: flex; gap: 0; margin-top: 48px; }
-    .pais-item { flex: 1; border: 1px solid var(--border-dark); padding: 44px 40px; text-align: center; position: relative; transition: background 0.2s; }
-    .pais-item + .pais-item { border-left: none; }
-    .pais-item:hover { background: var(--dark-card); }
-    .pais-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue-pale); margin-bottom: 16px; }
-    .pais-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-    .pais-desc { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; text-transform: uppercase; }
-    .pais-item::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--blue); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
-    .pais-item:hover::after { transform:scaleX(1); }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+            opacity: 0.1;
+        }
 
-    /* ─── CTA ─── */
-    #contacto { background: var(--blue); text-align: center; padding: 120px 48px; position: relative; overflow: hidden; }
-    #contacto .big-c { left: 50%; top: 50%; transform: translate(-50%,-50%); font-size: clamp(20rem,50vw,40rem); }
-    #contacto .section-label { color: rgba(255,255,255,0.5); display:inline-block; margin-bottom:24px; }
-    #contacto h2 { max-width: none; margin: 0 auto 16px; font-size: clamp(2.5rem,6vw,5rem); text-align:center; color:var(--white); }
-    #contacto h2 em { font-style:normal; -webkit-text-stroke:2px rgba(255,255,255,0.3); color:transparent; }
-    #contacto p { color:rgba(255,255,255,0.6); font-size:1rem; margin-bottom:44px; max-width:400px; margin-left:auto; margin-right:auto; }
-    .btn-black { background: var(--black); color: var(--white); padding: 16px 44px; font-size: 0.83rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: opacity 0.2s; position: relative; z-index: 1; }
-    .btn-black:hover { opacity: 0.8; }
-    .cta-email { margin-top:28px; font-size:0.78rem; color:rgba(255,255,255,0.45); position:relative; z-index:1; }
-    .cta-email a { color:rgba(255,255,255,0.7); text-decoration:none; }
-    .cta-email a:hover { text-decoration:underline; }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
 
-    /* ─── FOOTER ─── */
-    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; }
-    .footer-brand { font-family:var(--font-display); font-size:0.95rem; font-weight:700; color:var(--white); }
-    .footer-brand span { display:block; font-family:var(--font-body); font-size:0.68rem; font-weight:400; color:rgba(255,255,255,0.3); letter-spacing:0.08em; text-transform:uppercase; margin-top:3px; }
-    .footer-links { display:flex; gap:22px; list-style:none; }
-    .footer-links a { font-size:0.72rem; color:rgba(255,255,255,0.3); text-decoration:none; letter-spacing:0.07em; text-transform:uppercase; transition:color 0.2s; }
-    .footer-links a:hover { color:rgba(255,255,255,0.7); }
-    .footer-copy { font-size:0.7rem; color:rgba(255,255,255,0.2); }
-    .divider { border:none; border-top:1px solid var(--border-dark); margin:0; }
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    /* ═══════════════════════════════════════
-       TELEPROMPTER 2V — ESTILO ORIGINAL
-    ═══════════════════════════════════════ */
-    .teleprompter-page {
-      display: none; position: fixed;
-      top: 0; left: 0; width: 100%; height: 100vh;
-      background: #000; z-index: 1000;
-    }
-    .teleprompter-page.active { display: block; }
-    .teleprompter-page * { box-sizing: border-box; }
-    .tp-container { max-width: 100%; width: 100%; margin: 0 auto; display: flex; flex-direction: column; height: 100vh; }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
 
-    .teleprompter-page header {
-      background: linear-gradient(to bottom, #1a33a0, #0D2A8A);
-      padding: 15px 20px; text-align: center;
-      font-size: 22px; font-weight: bold; color: #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-      border-bottom: 2px solid rgba(255,255,255,0.2);
-      letter-spacing: 2px; position: relative; white-space: nowrap;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .valle-name {
-      position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
-      font-style: italic; font-weight: normal; font-size: 15px;
-      color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif;
-    }
-    .tp-exit-top {
-      position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-      color: #fff; padding: 5px 14px; font-size: 13px; font-weight: 600;
-      cursor: pointer; letter-spacing: 0.06em; font-family: 'Inter', sans-serif;
-      transition: background 0.2s; border-radius: 3px;
-    }
-    .tp-exit-top:hover { background: rgba(255,255,255,0.22); }
+        .hero h1 span {
+            color: var(--accent);
+            display: block;
+        }
 
-    .tp-controls {
-      padding: 12px 20px;
-      background: linear-gradient(to bottom, #1a2a6a, #111d55);
-      display: flex; flex-wrap: wrap; gap: 10px;
-      justify-content: center; align-items: center;
-      border-bottom: 2px solid #0a1235;
-    }
-    .control-group { display: flex; align-items: center; gap: 8px; }
-    .control-label {
-      color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5); min-width: 50px; white-space: nowrap;
-      font-family: 'Inter', sans-serif;
-    }
-    .tp-select {
-      background: rgba(0,0,0,0.4); color: #fff;
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 7px 10px; border-radius: 6px;
-      font-size: 13px; min-width: 120px; font-weight: 600;
-      height: 34px; font-family: 'Inter', sans-serif;
-    }
-    .slider-container {
-      display: flex; align-items: center; gap: 10px; padding: 5px 12px;
-      background: rgba(0,0,0,0.25); border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.15); min-width: 180px;
-    }
-    .tp-range {
-      -webkit-appearance: none; width: 100px; height: 12px;
-      border-radius: 8px; background: rgba(0,0,0,0.4);
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-    .tp-range::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
-      background: linear-gradient(to bottom, #4d7fff, #1641CC);
-      cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-    }
-    .tp-controls-bottom {
-      display: flex; justify-content: center; padding: 14px 20px;
-      background: linear-gradient(to bottom, #1a2a6a, #111d55);
-      gap: 14px; flex-wrap: wrap; border-top: 2px solid #0a1235;
-    }
-    .tp-btn {
-      cursor: pointer; border: none; border-radius: 10px;
-      width: 58px; height: 58px;
-      display: flex; justify-content: center; align-items: center;
-      font-size: 22px; font-weight: bold; transition: all 0.2s;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.5), inset 0 -5px 10px rgba(0,0,0,0.3);
-      background: linear-gradient(to bottom, #2a3f8a 0%, #1a2f7a 40%, #0f1f5a 100%);
-      color: #fff; border: 1px solid rgba(255,255,255,0.2);
-    }
-    .tp-btn:active { transform: translateY(2px); box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
-    .tp-btn.play-btn  { background: linear-gradient(to bottom, #1a6e1a 0%, #0f4510 100%); }
-    .tp-btn.stop-btn  { background: linear-gradient(to bottom, #8a1a1a 0%, #5a0a0a 100%); }
-    .tp-btn.presentation-btn { background: linear-gradient(to bottom, #1641CC 0%, #0D2A8A 100%); }
-    .tp-btn.info-btn  { background: linear-gradient(to bottom, #555 0%, #2b2b2b 100%); }
-    .tp-btn.exit-btn  { background: linear-gradient(to bottom, #8a1a1a 0%, #5a0a0a 100%); }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
 
-    .prompt-container {
-      flex: 1; overflow: hidden; padding: 20px;
-      background-color: #000;
-      display: flex; justify-content: center; align-items: center; position: relative;
-    }
-    .prompt-text {
-      max-width: 900px; font-size: 36px; line-height: 1.6; color: #fff;
-      text-align: center; opacity: 0.95;
-      text-shadow: 0 0 30px rgba(255,255,255,0.9);
-      padding: 20px; user-select: text;
-      font-family: 'Montserrat', sans-serif;
-      width: 100%; height: 100%; overflow-y: auto;
-      scroll-behavior: smooth;
-      border: 2px solid rgba(22,65,204,0.4);
-      border-radius: 12px;
-    }
-    .prompt-text p { margin-bottom: 1.2em; }
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
 
-    .tp-instructions {
-      text-align: center; font-size: 13px; color: rgba(255,255,255,0.35);
-      padding: 8px 10px; border-top: 1px solid #111d55;
-      background: #0a0f1e; font-family: 'Inter', sans-serif;
-    }
+        .stat {
+            text-align: center;
+        }
 
-    /* Presentation mode */
-    .presentation-mode {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: #000; z-index: 1001; display: none;
-      flex-direction: column; justify-content: center; align-items: center; padding: 20px;
-    }
-    .presentation-content {
-      max-width: 960px; width: 100%; height: 100%; overflow-y: auto; padding: 20px;
-      font-size: 52px; line-height: 1.5; color: #fff; text-align: center;
-      font-family: 'Montserrat', sans-serif;
-      text-shadow: 0 0 40px rgba(255,255,255,0.8);
-    }
-    .presentation-controls {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 14px; z-index: 1002;
-    }
-    .exit-presentation {
-      position: fixed; top: 20px; right: 20px;
-      background: rgba(22,65,204,0.8); color: white;
-      border: none; padding: 10px 20px; border-radius: 5px;
-      cursor: pointer; font-size: 15px; z-index: 1002;
-      font-family: 'Inter', sans-serif; font-weight: 600;
-    }
-    .exit-presentation:hover { background: var(--blue); }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
 
-    /* Instructions modal */
-    .instructions-modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.92); z-index: 1002;
-      display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
-    }
-    .instructions-content {
-      max-width: 760px; width: 100%; background: #0f1528;
-      border-radius: 12px; padding: 32px;
-      max-height: 80vh; overflow-y: auto;
-      font-family: 'Inter', sans-serif;
-      border: 1px solid rgba(22,65,204,0.4);
-    }
-    .instructions-content h2 { color: var(--blue-pale); margin-bottom: 20px; text-align: center; font-family: 'Space Grotesk', sans-serif; }
-    .instructions-content ul { margin-left: 20px; margin-bottom: 20px; }
-    .instructions-content li { margin-bottom: 10px; line-height: 1.6; color: rgba(255,255,255,0.8); }
-    .instructions-content p { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 16px; }
-    .close-instructions {
-      background: var(--blue); color: white; border: none;
-      padding: 10px 24px; border-radius: 6px; cursor: pointer;
-      font-size: 15px; margin-top: 20px; font-family: 'Inter', sans-serif; font-weight: 600;
-    }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    /* ─── MOBILE ─── */
-    @media (max-width:900px) {
-      nav { padding:0 20px; }
-      .nav-links { display:none; }
-      #hero, section { padding:80px 24px; }
-      h1 { font-size: clamp(2.8rem,11vw,5rem); }
-      .services-grid { grid-template-columns:1fr 1fr; }
-      .nosotros-inner { grid-template-columns:1fr; gap:44px; }
-      .paises-strip { flex-direction:column; }
-      .pais-item + .pais-item { border-left:1px solid var(--border-dark); border-top:none; }
-      footer { flex-direction:column; gap:20px; text-align:center; }
-      .footer-links { flex-wrap:wrap; justify-content:center; }
-      .hero-stats { gap:28px; }
-      .nav-right { gap:10px; }
-      .tp-controls { gap:8px; }
-      .prompt-text { font-size: 26px; }
-      .presentation-content { font-size: 36px; }
-    }
-    @media (max-width:600px) {
-      .services-grid { grid-template-columns:1fr; }
-      .services-header { flex-direction:column; align-items:flex-start; }
-      .nav-warroom { display:none; }
-    }
-  </style>
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px -5px rgba(220, 38, 38, 0.4);
+        }
+
+        /* Servicios con imágenes */
+        .services {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            opacity: 0.2;
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-number {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .service-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Dashboard preview section */
+        .dashboard-preview {
+            padding: 6rem 2rem;
+            background: var(--dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-grid {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            opacity: 0.8;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Sobre nosotros con imagen */
+        .about {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            letter-spacing: -1px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .features-list li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2rem;
+            height: 2rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Ubicaciones */
+        .locations {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .location-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .location-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .location-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .location-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-type {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Final */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, #991b1b 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button-white {
+            display: inline-block;
+            background: white;
+            color: var(--secondary);
+            padding: 1.2rem 3rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-text {
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .footer-contact {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-contact a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer-locations {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content > * {
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+    </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <span class="cp-badge">CP</span>
-    Cambiope
-  </a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#" onclick="openTeleprompter(); return false;">Teleprompter</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#clientes">Presencia</a></li>
-    </ul>
-    <a href="https://warroomdigital.com.ar" target="_blank" class="nav-warroom">
-      <span class="wr-dot"></span>WAR ROOM ↗
-    </a>
-    <a href="mailto:contacto@cambiope.com" class="nav-cta">Contacto →</a>
-  </div>
-</nav>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-content">
-    Comunicación política · Estrategia digital · Medios · Narrativa electoral · Posicionamiento · Análisis de entorno · Crisis management · Campañas · &nbsp;&nbsp;
-    Comunicación política · Estrategia digital · Medios · Narrativa electoral · Posicionamiento · Análisis de entorno · Crisis management · Campañas · &nbsp;&nbsp;
-  </div>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="diag-pattern"></div>
-  <div class="big-c">C</div>
-  <div class="hero-eyebrow">Comunicación y Medios · Lima · Madrid · Buenos Aires</div>
-  <h1>LIDERAMOS<br/><em>LA</em><br/>NARRATIVA.</h1>
-  <p class="hero-sub">Comunicación política, estrategia digital y medios para quienes buscan impacto real en la conversación pública.</p>
-  <div class="hero-actions">
-    <a href="#servicios" class="btn-white">Nuestros servicios</a>
-    <a href="#" onclick="openTeleprompter(); return false;" class="btn-ghost-white">Teleprompter 2V →</a>
-  </div>
-  <div class="hero-stats">
-    <div><div class="stat-num">+50</div><div class="stat-label">Clientes</div></div>
-    <div><div class="stat-num">3</div><div class="stat-label">Países</div></div>
-    <div><div class="stat-num">5+</div><div class="stat-label">Años</div></div>
-  </div>
-</section>
-
-<!-- SERVICIOS -->
-<section id="servicios" class="on-blue">
-  <div class="big-c">C</div>
-  <div class="services-header">
-    <div>
-      <div class="section-label">Qué hacemos</div>
-      <h2>SERVICIOS</h2>
-    </div>
-    <p class="section-intro">Una sola obsesión: posicionar a nuestros clientes en la conversación que importa.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card"><div class="service-num">01</div><h3>ESTRATEGIA DE POSICIONAMIENTO</h3><p>Diagnóstico, objetivos y hoja de ruta clara hacia la meta de cada cliente.</p></div>
-    <div class="service-card"><div class="service-num">02</div><h3>NARRATIVA POLÍTICA</h3><p>Encontramos la historia que debe contarse y la producimos para cada audiencia.</p></div>
-    <div class="service-card"><div class="service-num">03</div><h3>CAMPAÑAS ELECTORALES</h3><p>Plan estratégico basado en datos. De la fotografía del electorado al día D.</p></div>
-    <div class="service-card"><div class="service-num">04</div><h3>MARKETING DIGITAL</h3><p>Herramientas modernas y microsegmentación con monitoreo en tiempo real.</p></div>
-    <div class="service-card"><div class="service-num">05</div><h3>CRISIS MANAGEMENT</h3><p>Estrategia y respuesta para controlar situaciones potencialmente dañinas.</p></div>
-    <div class="service-card"><div class="service-num">06</div><h3>MEDIOS DIGITALES</h3><p>Producción editorial, cobertura en tiempo real y programación multiplataforma.</p></div>
-    <div class="service-card"><div class="service-num">07</div><h3>ANÁLISIS DE ENTORNO</h3><p>Lectura de contexto político y social para anticipar riesgos y detectar oportunidades.</p></div>
-    <div class="service-card"><div class="service-num">08</div><h3>TEAM BUILDING</h3><p>Armamos, capacitamos y entrenamos equipos de comunicación para gobiernos y organizaciones.</p></div>
-  </div>
-</section>
-
-<!-- NOSOTROS -->
-<section id="nosotros" class="on-blue">
-  <div class="big-c">C</div>
-  <div class="nosotros-inner">
-    <div class="nosotros-text">
-      <div class="section-label">Quiénes somos</div>
-      <h2>COMUNICACIÓN<br/>CON CRITERIO</h2>
-      <p>Cambiope es una operación de comunicación y medios con sede en Lima y presencia regional. Combinamos rigor editorial con estrategia digital para construir narrativas que generan impacto político real.</p>
-      <p>No trabajamos con slogans vacíos. Trabajamos con datos, contexto y posicionamiento diferenciado. Cada cliente recibe una estrategia hecha a medida.</p>
-      <div class="nosotros-values">
-        <div class="value-row"><div class="value-dot"></div><span>Independencia editorial sin negociación</span></div>
-        <div class="value-row"><div class="value-dot"></div><span>Análisis basado en evidencia, no en intuición</span></div>
-        <div class="value-row"><div class="value-dot"></div><span>Impacto real, no alcance cosmético</span></div>
-        <div class="value-row"><div class="value-dot"></div><span>Posicionamiento a largo plazo</span></div>
-      </div>
-    </div>
-    <div>
-      <div class="monogram-card">
-        <div class="mono-diag"></div>
-        <div class="mono-cp">CP</div>
-        <div class="mono-inner">
-          <div class="mono-name"><span>C</span>ambiope</div>
-          <div class="mono-sub">Comunicación y Medios</div>
-        </div>
-        <div class="mono-tag">
-          <div class="mt-label">Operamos en</div>
-          <div class="mt-value">Lima · Madrid · Buenos Aires</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRESENCIA -->
-<section id="clientes" class="on-dark">
-  <div class="section-label">Presencia regional</div>
-  <h2>OPERAMOS DONDE<br/>IMPORTA</h2>
-  <div class="paises-strip">
-    <div class="pais-item"><div class="pais-num">01</div><div class="pais-name">Perú</div><div class="pais-desc">Sede principal</div></div>
-    <div class="pais-item"><div class="pais-num">02</div><div class="pais-name">Argentina</div><div class="pais-desc">Operaciones regionales</div></div>
-    <div class="pais-item"><div class="pais-num">03</div><div class="pais-name">España</div><div class="pais-desc">Expansión europea</div></div>
-  </div>
-</section>
-
-<hr class="divider"/>
-
-<!-- CTA -->
-<section id="contacto">
-  <div class="big-c">C</div>
-  <div class="section-label">Listo para trabajar</div>
-  <h2>LA CONVERSACIÓN<br/>EMPIEZA <em>AQUÍ.</em></h2>
-  <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
-  <a href="mailto:contacto@cambiope.com" class="btn-black">CONTÁCTANOS →</a>
-  <div class="cta-email"><a href="mailto:contacto@cambiope.com">contacto@cambiope.com</a> · Lima, Perú</div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">Cambiope<span>Comunicación y Medios · cambiope.com</span></div>
-  <ul class="footer-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#" onclick="openTeleprompter(); return false;">Teleprompter 2V</a></li>
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><a href="https://warroomdigital.com.ar" target="_blank">War Room ↗</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Cambiope</div>
-</footer>
-
-<!-- ══════════════════════════════════════════
-     TELEPROMPTER 2V — código original
-══════════════════════════════════════════ -->
-<div class="teleprompter-page" id="teleprompterPage">
-  <div class="tp-container">
-
+    <!-- Header -->
     <header>
-      <button class="tp-exit-top" onclick="closeTeleprompter()">← Salir</button>
-      TELEPROMPTER 2V
-      <span class="valle-name">del Valle</span>
+        <nav>
+            <div class="logo">CAMBIO<span>PE</span></div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#ubicaciones">Ubicaciones</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <div class="tp-controls">
-      <div class="control-group">
-        <span class="control-label">Fuente:</span>
-        <select id="fontFamily" class="tp-select">
-          <option value="Montserrat" selected>Montserrat</option>
-          <option value="Roboto Mono">Roboto Mono</option>
-          <option value="Oswald">Oswald</option>
-          <option value="Lato">Lato</option>
-          <option value="Open Sans">Open Sans</option>
-          <option value="PT Sans">PT Sans</option>
-          <option value="Source Sans Pro">Source Sans Pro</option>
-          <option value="Work Sans">Work Sans</option>
-        </select>
-      </div>
-      <div class="slider-container">
-        <span class="control-label">Vel:</span>
-        <input type="range" id="speed" class="tp-range" min="1" max="10" value="5" step="0.5">
-        <span id="speedValue" style="color:#6B9FFF; min-width:30px; font-size:13px; font-family:'Inter',sans-serif;">5</span>
-      </div>
-      <div class="slider-container">
-        <span class="control-label">Zoom:</span>
-        <input type="range" id="zoom" class="tp-range" min="50" max="200" value="100" step="10">
-        <span id="zoomValue" style="color:#6B9FFF; min-width:44px; font-size:13px; font-family:'Inter',sans-serif;">100%</span>
-      </div>
-      <div class="control-group">
-        <span class="control-label">Tema:</span>
-        <select id="theme" class="tp-select">
-          <option value="white">Blanco</option>
-          <option value="yellow">Amarillo</option>
-          <option value="blue">Azul</option>
-          <option value="red">Rojo</option>
-        </select>
-      </div>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <span class="hero-badge">📍 Lima · Madrid · Buenos Aires</span>
+            <h1>
+                LIDERAMOS
+                <span>LA NARRATIVA</span>
+            </h1>
+            <p class="hero-subtitle">
+                Comunicación política, estrategia digital y medios para quienes buscan impacto real en la conversación pública.
+            </p>
+            <a href="#contacto" class="cta-button">Contáctanos →</a>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Clientes</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Países</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Años</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="prompt-container">
-      <div class="prompt-text" id="promptText" contenteditable="true">
-        <p>¡Bienvenido al Teleprompter 2V de Cambiope! Hacé clic en ▶ para comenzar. Podés editar este texto directamente.</p>
-        <p>Este es tu espacio para escribir tu guion político, discurso o mensaje.</p>
-        <p>El texto se desplazará automáticamente a la velocidad que elijas en los controles.</p>
-        <p>Podés cambiar la fuente, el tamaño y el color del texto para adaptarlo a tus necesidades.</p>
-        <p>El teleprompter es una herramienta esencial para presentaciones, entrevistas y grabaciones profesionales.</p>
-        <p>Con este sistema, podrás mantener tu mirada fija en la cámara mientras leés tu mensaje.</p>
-        <p>Recordá practicar antes de tu presentación para lograr una comunicación natural y efectiva.</p>
-        <p>¡Buena suerte con tu mensaje!</p>
-      </div>
-    </div>
+    <!-- Servicios -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Qué hacemos</span>
+                <h2 class="section-title">SERVICIOS ESTRATÉGICOS</h2>
+                <p class="section-subtitle">Una sola obsesión: posicionar a nuestros clientes en la conversación que importa.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">📊</div>
+                    <div class="service-content">
+                        <div class="service-number">01</div>
+                        <h3 class="service-title">Estrategia de Posicionamiento</h3>
+                        <p class="service-description">Diagnóstico, objetivos y hoja de ruta clara hacia la meta de cada cliente.</p>
+                    </div>
+                </div>
 
-    <div class="tp-controls-bottom">
-      <button id="playPause" class="tp-btn play-btn">▶</button>
-      <button id="reset" class="tp-btn stop-btn">■</button>
-      <button id="presentation" class="tp-btn presentation-btn">📺</button>
-      <button id="instructionsBtn" class="tp-btn info-btn">ℹ️</button>
-      <button onclick="closeTeleprompter()" class="tp-btn exit-btn">🚪</button>
-    </div>
+                <div class="service-card">
+                    <div class="service-image">📝</div>
+                    <div class="service-content">
+                        <div class="service-number">02</div>
+                        <h3 class="service-title">Narrativa Política</h3>
+                        <p class="service-description">Encontramos la historia que debe contarse y la producimos para cada audiencia.</p>
+                    </div>
+                </div>
 
-    <div class="tp-instructions">
-      Espacio: play/pausa · ↑↓: velocidad · R: reset · 📺 modo presentación · 🚪 volver al inicio
-    </div>
+                <div class="service-card">
+                    <div class="service-image">🗳️</div>
+                    <div class="service-content">
+                        <div class="service-number">03</div>
+                        <h3 class="service-title">Campañas Electorales</h3>
+                        <p class="service-description">Plan estratégico basado en datos. De la fotografía del electorado al día D.</p>
+                    </div>
+                </div>
 
-  </div>
-</div>
+                <div class="service-card">
+                    <div class="service-image">📱</div>
+                    <div class="service-content">
+                        <div class="service-number">04</div>
+                        <h3 class="service-title">Marketing Digital</h3>
+                        <p class="service-description">Herramientas modernas y microsegmentación con monitoreo en tiempo real.</p>
+                    </div>
+                </div>
 
-<!-- Modo Presentación -->
-<div class="presentation-mode" id="presentationMode">
-  <div class="presentation-content" id="presentationContent"></div>
-  <div class="presentation-controls">
-    <button id="playPausePresentation" class="tp-btn play-btn">▶</button>
-    <button id="resetPresentation" class="tp-btn stop-btn">■</button>
-  </div>
-  <button class="exit-presentation" id="exitPresentation">Salir de Presentación</button>
-</div>
+                <div class="service-card">
+                    <div class="service-image">🚨</div>
+                    <div class="service-content">
+                        <div class="service-number">05</div>
+                        <h3 class="service-title">Crisis Management</h3>
+                        <p class="service-description">Estrategia y respuesta para controlar situaciones potencialmente dañinas.</p>
+                    </div>
+                </div>
 
-<!-- Modal Instrucciones -->
-<div class="instructions-modal" id="instructionsModal">
-  <div class="instructions-content">
-    <h2>Instrucciones — Teleprompter 2V</h2>
-    <ul>
-      <li><strong>Play/Pause (▶/❚❚)</strong>: Inicia o pausa el desplazamiento del texto.</li>
-      <li><strong>Stop (■)</strong>: Detiene y reinicia la posición del texto.</li>
-      <li><strong>Modo Presentación (📺)</strong>: Vista de pantalla completa con texto grande.</li>
-      <li><strong>Velocidad</strong>: Ajusta la velocidad de desplazamiento.</li>
-      <li><strong>Zoom</strong>: Ajusta el tamaño del texto.</li>
-      <li><strong>Fuente</strong>: Cambia entre tipos de letra legibles.</li>
-      <li><strong>Tema</strong>: Cambia el color del texto (blanco, amarillo, azul, rojo).</li>
-      <li><strong>Salir (🚪)</strong>: Regresa a la página principal.</li>
-    </ul>
-    <p>Atajos de teclado: Espacio (play/pausa) · ↑↓ (velocidad) · R (reset) · Esc (cerrar)</p>
-    <p>Podés editar el texto directamente haciendo clic en él.</p>
-    <button class="close-instructions" id="closeInstructions">Cerrar</button>
-  </div>
-</div>
+                <div class="service-card">
+                    <div class="service-image">📺</div>
+                    <div class="service-content">
+                        <div class="service-number">06</div>
+                        <h3 class="service-title">Medios Digitales</h3>
+                        <p class="service-description">Producción editorial, cobertura en tiempo real y programación multiplataforma.</p>
+                    </div>
+                </div>
 
-<script>
-  // ═══ TELEPROMPTER 2V — lógica original restaurada ═══
-  let isPlaying = false;
-  let scrollInterval = null;
-  let presentationInterval = null;
-  let scrollSpeed = 5;
-  let zoomLevel = 100;
-  let isPresentationMode = false;
-  let tpInitialized = false;
+                <div class="service-card">
+                    <div class="service-image">🔍</div>
+                    <div class="service-content">
+                        <div class="service-number">07</div>
+                        <h3 class="service-title">Análisis de Entorno</h3>
+                        <p class="service-description">Lectura de contexto político y social para anticipar riesgos y detectar oportunidades.</p>
+                    </div>
+                </div>
 
-  function openTeleprompter() {
-    document.getElementById('teleprompterPage').classList.add('active');
-    if (!tpInitialized) { initTeleprompter(); tpInitialized = true; }
-  }
-  function closeTeleprompter() {
-    pause();
-    document.getElementById('teleprompterPage').classList.remove('active');
-  }
+                <div class="service-card">
+                    <div class="service-image">👥</div>
+                    <div class="service-content">
+                        <div class="service-number">08</div>
+                        <h3 class="service-title">Team Building</h3>
+                        <p class="service-description">Armamos, capacitamos y entrenamos equipos de comunicación para gobiernos y organizaciones.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  function initTeleprompter() {
-    const promptText   = document.querySelector('#promptText');
-    const speedControl = document.querySelector('#speed');
-    const speedValue   = document.querySelector('#speedValue');
-    const zoomControl  = document.querySelector('#zoom');
-    const zoomValue    = document.querySelector('#zoomValue');
-    const fontFamilySelect = document.querySelector('#fontFamily');
-    const themeSelect  = document.querySelector('#theme');
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent);">Tecnología</span>
+                <h2 class="section-title" style="color: white;">MONITOREO EN TIEMPO REAL</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Dashboard avanzado para seguimiento de campañas y análisis de datos.</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>📈 Métricas de Campaña</h3>
+                    <div class="metric">
+                        <span class="metric-label">Alcance Total</span>
+                        <span class="metric-value">2.4M</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Engagement</span>
+                        <span class="metric-value">8.7%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Sentimiento Positivo</span>
+                        <span class="metric-value">73%</span>
+                    </div>
+                </div>
 
-    scrollSpeed = parseFloat(speedControl.value);
-    speedValue.textContent = scrollSpeed;
-    zoomLevel = parseInt(zoomControl.value);
-    zoomValue.textContent = zoomLevel + '%';
-    promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
+                <div class="dashboard-card">
+                    <h3>🌍 Cobertura Geográfica</h3>
+                    <div class="metric">
+                        <span class="metric-label">Perú</span>
+                        <span class="metric-value">Activo</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Argentina</span>
+                        <span class="metric-value">Activo</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">España</span>
+                        <span class="metric-value">Activo</span>
+                    </div>
+                </div>
 
-    speedControl.addEventListener('input', () => {
-      scrollSpeed = parseFloat(speedControl.value);
-      speedValue.textContent = scrollSpeed;
-    });
-    zoomControl.addEventListener('input', () => {
-      zoomLevel = parseInt(zoomControl.value);
-      zoomValue.textContent = zoomLevel + '%';
-      promptText.style.fontSize = (36 * zoomLevel / 100) + 'px';
-    });
-    fontFamilySelect.addEventListener('change', () => {
-      promptText.style.fontFamily = fontFamilySelect.value + ', sans-serif';
-      if (isPresentationMode) {
-        document.querySelector('#presentationContent').style.fontFamily = fontFamilySelect.value + ', sans-serif';
-      }
-    });
-    themeSelect.addEventListener('change', function() {
-      const theme = this.value;
-      const el = promptText;
-      switch(theme) {
-        case 'yellow': el.style.color='#ff0'; el.style.textShadow='0 0 30px rgba(255,255,0,0.9)'; break;
-        case 'blue':   el.style.color='#4d9fff'; el.style.textShadow='0 0 30px rgba(77,159,255,0.9)'; break;
-        case 'red':    el.style.color='#f00'; el.style.textShadow='0 0 30px rgba(255,0,0,0.9)'; break;
-        default:       el.style.color='#fff'; el.style.textShadow='0 0 30px rgba(255,255,255,0.9)';
-      }
-    });
+                <div class="dashboard-card">
+                    <h3>📊 Redes Sociales</h3>
+                    <div class="metric">
+                        <span class="metric-label">Facebook</span>
+                        <span class="metric-value">+45%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Twitter/X</span>
+                        <span class="metric-value">+32%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Instagram</span>
+                        <span class="metric-value">+58%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    document.querySelector('#playPause').addEventListener('click', togglePlay);
-    document.querySelector('#reset').addEventListener('click', resetScroll);
-    document.querySelector('#presentation').addEventListener('click', enterPresentationMode);
-    document.querySelector('#instructionsBtn').addEventListener('click', () => {
-      document.querySelector('#instructionsModal').style.display = 'flex';
-    });
-    document.querySelector('#closeInstructions').addEventListener('click', () => {
-      document.querySelector('#instructionsModal').style.display = 'none';
-    });
-    document.querySelector('#exitPresentation').addEventListener('click', exitPresentationMode);
-    document.querySelector('#playPausePresentation').addEventListener('click', () => {
-      isPlaying ? pausePresentation() : playPresentation();
-    });
-    document.querySelector('#resetPresentation').addEventListener('click', resetPresentationScroll);
-  }
+    <!-- Sobre Nosotros -->
+    <section class="about" id="nosotros">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Equipo Cambiope en evento político">
+            </div>
+            <div class="about-content">
+                <span class="section-tag">Quiénes somos</span>
+                <h2>COMUNICACIÓN CON CRITERIO</h2>
+                <p>Cambiope es una operación de comunicación y medios con sede en Lima y presencia regional. Combinamos rigor editorial con estrategia digital para construir narrativas que generan impacto político real.</p>
+                <p>No trabajamos con slogans vacíos. Trabajamos con datos, contexto y posicionamiento diferenciado. Cada cliente recibe una estrategia hecha a medida.</p>
+                
+                <ul class="features-list">
+                    <li>Independencia editorial sin negociación</li>
+                    <li>Análisis basado en evidencia, no en intuición</li>
+                    <li>Impacto real, no alcance cosmético</li>
+                    <li>Posicionamiento a largo plazo</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-  function togglePlay() {
-    isPlaying ? pause() : startPlay();
-  }
-  function startPlay() {
-    const promptText = document.querySelector('#promptText');
-    isPlaying = true;
-    document.getElementById('playPause').innerHTML = "❚❚";
-    if (scrollInterval) clearInterval(scrollInterval);
-    scrollInterval = setInterval(() => {
-      const current = promptText.scrollTop;
-      const max = promptText.scrollHeight - promptText.clientHeight;
-      promptText.scrollTop = current + scrollSpeed * 2;
-      if (current >= max - 5) pause();
-    }, 100);
-    if (isPresentationMode) playPresentation();
-  }
-  function pause() {
-    isPlaying = false;
-    document.getElementById('playPause').innerHTML = "▶";
-    if (scrollInterval) clearInterval(scrollInterval);
-    if (isPresentationMode) pausePresentation();
-  }
-  function resetScroll() {
-    pause();
-    document.querySelector('#promptText').scrollTop = 0;
-    if (isPresentationMode) resetPresentationScroll();
-  }
-  function enterPresentationMode() {
-    const pc = document.querySelector('#presentationContent');
-    const pt = document.querySelector('#promptText');
-    pc.innerHTML = pt.innerHTML;
-    pc.style.fontFamily = pt.style.fontFamily;
-    pc.style.color = pt.style.color;
-    pc.style.textShadow = pt.style.textShadow;
-    document.querySelector('#presentationMode').style.display = 'flex';
-    isPresentationMode = true;
-    if (isPlaying) playPresentation();
-  }
-  function exitPresentationMode() {
-    pausePresentation();
-    document.querySelector('#presentationMode').style.display = 'none';
-    isPresentationMode = false;
-  }
-  function playPresentation() {
-    isPlaying = true;
-    document.getElementById('playPausePresentation').innerHTML = "❚❚";
-    if (presentationInterval) clearInterval(presentationInterval);
-    presentationInterval = setInterval(() => {
-      const el = document.querySelector('#presentationContent');
-      const current = el.scrollTop;
-      const max = el.scrollHeight - el.clientHeight;
-      el.scrollTop = current + scrollSpeed * 2;
-      if (current >= max - 5) pausePresentation();
-    }, 100);
-  }
-  function pausePresentation() {
-    isPlaying = false;
-    document.getElementById('playPausePresentation').innerHTML = "▶";
-    if (presentationInterval) clearInterval(presentationInterval);
-  }
-  function resetPresentationScroll() {
-    pausePresentation();
-    document.querySelector('#presentationContent').scrollTop = 0;
-  }
+    <!-- Ubicaciones -->
+    <section class="locations" id="ubicaciones">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent);">Presencia</span>
+                <h2 class="section-title" style="color: white;">OPERAMOS DONDE IMPORTA</h2>
+            </div>
+            
+            <div class="locations-grid">
+                <div class="location-card">
+                    <div class="location-icon">🇵🇪</div>
+                    <div class="location-name">Perú</div>
+                    <div class="location-type">Sede Principal</div>
+                </div>
+                <div class="location-card">
+                    <div class="location-icon">🇦🇷</div>
+                    <div class="location-name">Argentina</div>
+                    <div class="location-type">Operaciones Regionales</div>
+                </div>
+                <div class="location-card">
+                    <div class="location-icon">🇪</div>
+                    <div class="location-name">España</div>
+                    <div class="location-type">Expansión Europea</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  // Teclas
-  document.addEventListener('keydown', e => {
-    const tpActive = document.querySelector('#teleprompterPage').classList.contains('active');
-    if (!tpActive) return;
-    if (e.target.getAttribute('contenteditable') === 'true') return;
-    if (e.key === 'Escape') {
-      if (document.querySelector('#presentationMode').style.display === 'flex') exitPresentationMode();
-      else if (document.querySelector('#instructionsModal').style.display === 'flex') document.querySelector('#instructionsModal').style.display = 'none';
-      else closeTeleprompter();
-    }
-    if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
-    if (e.key === 'ArrowUp') {
-      scrollSpeed = Math.min(10, scrollSpeed + 0.5);
-      document.getElementById('speed').value = scrollSpeed;
-      document.getElementById('speedValue').textContent = scrollSpeed;
-    }
-    if (e.key === 'ArrowDown') {
-      scrollSpeed = Math.max(1, scrollSpeed - 0.5);
-      document.getElementById('speed').value = scrollSpeed;
-      document.getElementById('speedValue').textContent = scrollSpeed;
-    }
-    if (e.key.toLowerCase() === 'r') resetScroll();
-  });
-</script>
+    <!-- CTA Final -->
+    <section class="cta-section" id="contacto">
+        <h2>LA CONVERSACIÓN EMPIEZA AQUÍ</h2>
+        <p>Contáctanos y evaluamos cómo posicionarte donde necesitas estar.</p>
+        <a href="mailto:contacto@cambiope.com" class="cta-button-white">CONTÁCTANOS →</a>
+    </section>
 
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">CAMBIO<span>PE</span></div>
+            <p class="footer-text">Comunicación y Medios</p>
+            <div class="footer-locations">
+                <span>📍 Lima</span>
+                <span>📍 Madrid</span>
+                <span>📍 Buenos Aires</span>
+            </div>
+            <div class="footer-contact">
+                <a href="mailto:contacto@cambiope.com">contacto@cambiope.com</a>
+            </div>
+            <div class="copyright">
+                © 2026 Cambiope. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
