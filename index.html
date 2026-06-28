@@ -63,6 +63,7 @@
             display: flex;
             gap: 2rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -74,6 +75,24 @@
 
         .nav-links a:hover {
             color: var(--accent);
+        }
+
+        .teleprompter-btn {
+            background: var(--secondary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teleprompter-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
         }
 
         /* Hero Section con imagen de fondo */
@@ -587,6 +606,190 @@
             font-size: 0.9rem;
         }
 
+        /* TELEPROMPTER STYLES */
+        .teleprompter-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        .teleprompter-overlay.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .teleprompter-header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .teleprompter-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teleprompter-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .control-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: #2563eb;
+        }
+
+        .control-btn.secondary {
+            background: var(--gray);
+        }
+
+        .control-btn.secondary:hover {
+            background: #475569;
+        }
+
+        .control-btn.danger {
+            background: var(--secondary);
+        }
+
+        .control-btn.danger:hover {
+            background: #b91c1c;
+        }
+
+        .speed-control {
+            width: 100px;
+        }
+
+        .size-control {
+            width: 80px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .teleprompter-editor {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .editor-textarea {
+            width: 100%;
+            max-width: 800px;
+            min-height: 300px;
+            padding: 2rem;
+            font-size: 1.2rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            resize: vertical;
+            background: white;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .editor-textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .teleprompter-display {
+            flex: 1;
+            overflow: hidden;
+            display: none;
+            padding: 4rem 2rem;
+            background: black;
+        }
+
+        .teleprompter-display.active {
+            display: flex;
+            justify-content: center;
+        }
+
+        .prompter-text {
+            color: white;
+            font-size: 48px;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 90%;
+            overflow-y: auto;
+            height: 100%;
+            padding: 2rem;
+            scrollbar-width: none;
+        }
+
+        .prompter-text::-webkit-scrollbar {
+            display: none;
+        }
+
+        .prompter-text.mirrored {
+            transform: scaleX(-1);
+        }
+
+        .teleprompter-mode {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mode-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--accent);
+            background: transparent;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--accent);
+        }
+
+        .mode-btn:hover {
+            background: var(--accent);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -612,6 +815,15 @@
 
             .dashboard-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .teleprompter-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .prompter-text {
+                font-size: 32px;
             }
         }
 
@@ -648,9 +860,71 @@
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#ubicaciones">Ubicaciones</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <button class="teleprompter-btn" onclick="toggleTeleprompter()">
+                        📺 Teleprompter
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
+
+    <!-- TELEPROMPTER MODAL -->
+    <div class="teleprompter-overlay" id="teleprompterOverlay">
+        <div class="teleprompter-header">
+            <div class="teleprompter-title">
+                📺 TELEPROMPTER 2V PROFESIONAL
+            </div>
+            <div class="teleprompter-controls">
+                <div class="control-group">
+                    <button class="control-btn" onclick="togglePlayPause()" id="playPauseBtn">
+                        ▶️ Iniciar
+                    </button>
+                    <button class="control-btn secondary" onclick="resetPrompter()">
+                        ⏮ Reiniciar
+                    </button>
+                </div>
+                <div class="control-group">
+                    <span class="control-label">Velocidad:</span>
+                    <input type="range" class="speed-control" id="speedControl" min="1" max="10" value="3">
+                    <span id="speedValue">3</span>
+                </div>
+                <div class="control-group">
+                    <span class="control-label">Tamaño:</span>
+                    <input type="range" class="size-control" id="sizeControl" min="24" max="120" value="48">
+                    <span id="sizeValue">48</span>
+                </div>
+                <div class="teleprompter-mode">
+                    <button class="mode-btn active" onclick="setMode('normal')" id="normalMode">Normal</button>
+                    <button class="mode-btn" onclick="setMode('mirror')" id="mirrorMode">Espejo</button>
+                </div>
+                <button class="control-btn danger" onclick="closeTeleprompter()">
+                    ✕ Cerrar
+                </button>
+            </div>
+        </div>
+        
+        <div class="teleprompter-editor" id="teleprompterEditor">
+            <textarea class="editor-textarea" id="scriptText" placeholder="Pega o escribe aquí tu guion...
+
+Ejemplo:
+Buenos días a todos. Es un honor estar aquí hoy para hablar sobre el futuro de nuestra nación.
+
+Juntos podemos construir un mañana mejor para todos.</textarea>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <button class="control-btn" onclick="startPrompter()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                    ▶️ INICIAR TELEPROMPTER
+                </button>
+                <button class="control-btn secondary" onclick="clearText()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                    🗑️ Limpiar Texto
+                </button>
+            </div>
+        </div>
+
+        <div class="teleprompter-display" id="teleprompterDisplay">
+            <div class="prompter-text" id="prompterText"></div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="inicio">
@@ -860,7 +1134,7 @@
             
             <div class="locations-grid">
                 <div class="location-card">
-                    <div class="location-icon">🇵🇪</div>
+                    <div class="location-icon">🇵</div>
                     <div class="location-name">Perú</div>
                     <div class="location-type">Sede Principal</div>
                 </div>
@@ -903,5 +1177,169 @@
             </div>
         </div>
     </footer>
+
+    <!-- TELEPROMPTER JAVASCRIPT -->
+    <script>
+        let isPlaying = false;
+        let scrollInterval;
+        let currentSpeed = 3;
+        let isMirrored = false;
+
+        function toggleTeleprompter() {
+            const overlay = document.getElementById('teleprompterOverlay');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeTeleprompter() {
+            stopPrompter();
+            document.getElementById('teleprompterOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function startPrompter() {
+            const text = document.getElementById('scriptText').value;
+            if (!text.trim()) {
+                alert('Por favor, ingresa un texto primero');
+                return;
+            }
+
+            const display = document.getElementById('teleprompterDisplay');
+            const editor = document.getElementById('teleprompterEditor');
+            const prompterText = document.getElementById('prompterText');
+
+            prompterText.textContent = text;
+            prompterText.scrollTop = 0;
+            
+            editor.style.display = 'none';
+            display.classList.add('active');
+
+            isPlaying = true;
+            updatePlayPauseButton();
+            startScrolling();
+        }
+
+        function togglePlayPause() {
+            if (isPlaying) {
+                stopPrompter();
+            } else {
+                startScrolling();
+            }
+        }
+
+        function startScrolling() {
+            isPlaying = true;
+            updatePlayPauseButton();
+            
+            const prompterText = document.getElementById('prompterText');
+            const speeds = [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 10];
+            const speed = speeds[currentSpeed];
+
+            scrollInterval = setInterval(() => {
+                prompterText.scrollTop += speed;
+                
+                if (prompterText.scrollTop + prompterText.clientHeight >= prompterText.scrollHeight) {
+                    stopPrompter();
+                }
+            }, 50);
+        }
+
+        function stopPrompter() {
+            isPlaying = false;
+            updatePlayPauseButton();
+            clearInterval(scrollInterval);
+        }
+
+        function resetPrompter() {
+            stopPrompter();
+            const prompterText = document.getElementById('prompterText');
+            prompterText.scrollTop = 0;
+        }
+
+        function updatePlayPauseButton() {
+            const btn = document.getElementById('playPauseBtn');
+            if (isPlaying) {
+                btn.textContent = '⏸ Pausar';
+                btn.classList.add('secondary');
+            } else {
+                btn.textContent = '▶️ Iniciar';
+                btn.classList.remove('secondary');
+            }
+        }
+
+        function setMode(mode) {
+            const prompterText = document.getElementById('prompterText');
+            const normalBtn = document.getElementById('normalMode');
+            const mirrorBtn = document.getElementById('mirrorMode');
+
+            if (mode === 'mirror') {
+                prompterText.classList.add('mirrored');
+                mirrorBtn.classList.add('active');
+                normalBtn.classList.remove('active');
+                isMirrored = true;
+            } else {
+                prompterText.classList.remove('mirrored');
+                normalBtn.classList.add('active');
+                mirrorBtn.classList.remove('active');
+                isMirrored = false;
+            }
+        }
+
+        function clearText() {
+            if (confirm('¿Estás seguro de que quieres borrar todo el texto?')) {
+                document.getElementById('scriptText').value = '';
+            }
+        }
+
+        // Speed control
+        document.getElementById('speedControl').addEventListener('input', function(e) {
+            currentSpeed = parseInt(e.target.value);
+            document.getElementById('speedValue').textContent = currentSpeed;
+            
+            if (isPlaying) {
+                stopPrompter();
+                startScrolling();
+            }
+        });
+
+        // Size control
+        document.getElementById('sizeControl').addEventListener('input', function(e) {
+            const size = e.target.value;
+            document.getElementById('prompterText').style.fontSize = size + 'px';
+            document.getElementById('sizeValue').textContent = size;
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            const overlay = document.getElementById('teleprompterOverlay');
+            if (!overlay.classList.contains('active')) return;
+
+            const display = document.getElementById('teleprompterDisplay');
+            if (display.classList.contains('active')) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    togglePlayPause();
+                } else if (e.code === 'ArrowUp') {
+                    currentSpeed = Math.min(10, currentSpeed + 1);
+                    document.getElementById('speedControl').value = currentSpeed;
+                    document.getElementById('speedValue').textContent = currentSpeed;
+                    if (isPlaying) {
+                        stopPrompter();
+                        startScrolling();
+                    }
+                } else if (e.code === 'ArrowDown') {
+                    currentSpeed = Math.max(1, currentSpeed - 1);
+                    document.getElementById('speedControl').value = currentSpeed;
+                    document.getElementById('speedValue').textContent = currentSpeed;
+                    if (isPlaying) {
+                        stopPrompter();
+                        startScrolling();
+                    }
+                } else if (e.code === 'Escape') {
+                    closeTeleprompter();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
